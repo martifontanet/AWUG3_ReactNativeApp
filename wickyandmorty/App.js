@@ -18,7 +18,6 @@ export default function App() {
       <ShowComponent name="Componente 1">
         <Avatar name="Paula Rodriguez" />
         <Avatar name="Joan Roca" color="#B255DE" />
-        <Avatar image={require("./assets/user.jpg")} />
       </ShowComponent>
       <ShowComponent name="Componente 2">
         <Mark unread={true} />
