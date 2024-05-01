@@ -8,6 +8,7 @@ import ProfilePicture from "./components/Basic/FotoPerfil";
 import LikeButton from "./components/Basic/LikeButton";
 import FavoriteButton from "./components/Basic/LikeFavIcon";
 import Button from "./components/Basic/Boton";
+import DropdownButton from "./components/Basic/BotonDesplegable";
 
 
 function ShowComponent({ name, children }) {
@@ -71,10 +72,13 @@ export default function App() {
       </ShowComponent>
 
       <ShowComponent name="Componente boton desplegable predeterminado">
-        <Button title ="Select season" 
-        options= 
-        {[
-            {title:"season 1"},{title:"season 2"},{title:"season 3"}
+        <DropdownButton
+        data = {[
+          { label: 'Season 1', value: '1' },
+          { label: 'Season 2', value: '2' },
+          { label: 'Season 3', value: '3' },
+          { label: 'Season 4', value: '4' },
+          { label: 'Season 5', value: '5' },
         ]}
         />
       </ShowComponent>
