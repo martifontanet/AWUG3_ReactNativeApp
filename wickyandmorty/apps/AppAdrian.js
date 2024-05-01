@@ -4,11 +4,11 @@ import Constants from "expo-constants";
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-import Header from "./components/Barras/Header";
-import FormLogin from "./components/Barras/FormularioLogin";
-import BarraLista from "./components/Barras/BarraLista";
-import PostDefault from "./components/Posts/PostDefault";
-import Comentario from "./components/Posts/Comentario";
+import Header from "../components/Barras/Header";
+import FormLogin from "../components/Barras/FormularioLogin";
+import BarraLista from "../components/Barras/BarraLista";
+import PostDefault from "../components/Posts/PostDefault";
+import Comentario from "../components/Posts/Comentario";
 
 export default function App() {
   return (
