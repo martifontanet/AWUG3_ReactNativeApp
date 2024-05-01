@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 import { StyleSheet, View, Text } from "react-native";
-import Avatar from "./components/Avatar";
-import Mark from "./components/Mark";
+import Header from "./components/Barras/Header";
+import FormLogin from "./components/Barras/FormularioLogin";
 
 function ShowComponent({ name, children }) {
   return (
@@ -15,18 +15,24 @@ function ShowComponent({ name, children }) {
 export default function App() {
   return (
     <View style={styles.container}>
-      <ShowComponent name="Componente 1">
-        <Avatar name="Paula Rodriguez" />
-        <Avatar name="Joan Roca" color="#B255DE" />
+      <ShowComponent name="Componente Header Página">
+        <Header showLeftIcon={true}
+                verTitulo={true}
+                showRightIcon={true}
+                tituloPGina="Headeeerrr"
+                 />
       </ShowComponent>
-      <ShowComponent name="Componente 2">
+      <ShowComponent name="Formulario Ejemplo">
+        <FormLogin placehold="email" />
+      </ShowComponent>
+      {/* <ShowComponent name="Componente 2">
         <Mark unread={true} />
         <Mark unread={false} />
         <Mark double={true} />
         <Mark unread={true} size={32} />
         <Mark unread={false} size={32} />
         <Mark double={true} size={32} />
-      </ShowComponent>
+      </ShowComponent> */}
     </View>
   );
 }
