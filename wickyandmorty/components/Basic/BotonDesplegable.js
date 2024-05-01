@@ -17,23 +17,27 @@ export default function DropdownButton({ title, options }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>{title}</Text>
-      </TouchableOpacity>
-      {isOpen && (
-        <View style={styles.dropdown}>
-          {options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.option}
-              onPress={() => {
-                setIsOpen(false);
-              }}>
-              <Text>{option.title}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
+        <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            data={data}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder="Select item"
+            searchPlaceholder="Search..."
+            value={value}
+            onChange={item => {
+            setValue(item.value);
+            }}
+            renderLeftIcon={() => (
+            <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+            )}
+        />
     </View>
   );
 };
