@@ -6,6 +6,8 @@ import CharacterDetail from "./components/Card/CharacterDetails";
 import perfil from "./assets/FotoPerfil.jpg";
 import ProfilePicture from "./components/Basic/FotoPerfil";
 import LikeButton from "./components/Basic/LikeButton";
+import FavoriteButton from "./components/Basic/LikeFavIcon";
+import Button from "./components/Basic/Boton";
 
 
 function ShowComponent({ name, children }) {
@@ -58,6 +60,14 @@ export default function App() {
 
       <ShowComponent name="Componente boton like">
         <LikeButton />
+
+      </ShowComponent>
+      <ShowComponent name="Componente boton favorito">
+        <FavoriteButton />
+      </ShowComponent>
+
+      <ShowComponent name="Componente boton predeterminado">
+        <Button title ="publish" />
       </ShowComponent>
     </View>
   );
