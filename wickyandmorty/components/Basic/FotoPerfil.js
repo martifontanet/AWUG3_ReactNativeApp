@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         width: size,
         height: size,
         resizeMode: "contain",
-        borderRadius:"50%",
+        borderRadius:100,
     },
     text: {
         fontSize: 25,
