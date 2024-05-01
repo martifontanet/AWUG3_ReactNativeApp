@@ -1,17 +1,21 @@
 import React from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 
-export default function Form({ placehold }) {
+export default function Form({ placehold, keyType, autoCom, password }) {
       
   return (
     <View style={[ styles.container ]}>
-      <TextInput  style={[ styles.searchInput ]} placeholder={placehold} />
+        <TextInput  placeholder={placehold}
+                    inputMode={keyType}
+                    secureTextEntry={password}
+                    style={[ styles.searchInput ]} 
+                    autoComplete={autoCom}
+                    />
     </View>
         
   );
 };
 
-const size= 30;
 const styles = StyleSheet.create({
     container: {
         flex: 1,

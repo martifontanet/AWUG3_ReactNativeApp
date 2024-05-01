@@ -22,8 +22,17 @@ export default function App() {
                 tituloPGina="Headeeerrr"
                  />
       </ShowComponent>
-      <ShowComponent name="Formulario Ejemplo">
-        <FormLogin placehold="email" />
+      <ShowComponent name="Input Form">
+        <FormLogin  style={styles.form}
+                    placehold="Email"
+                    keyType="email"
+                    autoCom="email" />
+        
+        <FormLogin  style={styles.form}
+                    placehold="Constraseña"
+                    password={true}
+                    keyType="text"
+                    autoCom="current-password" />
       </ShowComponent>
       {/* <ShowComponent name="Componente 2">
         <Mark unread={true} />
@@ -43,6 +52,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f1f1f1",
     gap: 10,
+  },
+  form: {
+    flex: 1
   },
   showContainer: {},
   showTitle: {},
