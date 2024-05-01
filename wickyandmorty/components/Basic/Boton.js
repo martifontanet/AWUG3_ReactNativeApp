@@ -4,7 +4,8 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 export default function Button ({ title }) {
     const handlePress = () => {
 
-       console.log("button pressed !");
+        alert("Button pressed !");
+
       };
 
   return (

@@ -1,8 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
-//import { favorites } from "../../favorites";
-//import { observer } from "mobx-react-lite";
+import Icon from "./Icons";
 
 export default function LikeButton() {
   const [pressed, setPressed] = useState(false);
@@ -11,11 +10,11 @@ export default function LikeButton() {
 
     if (pressed) {
         setPressed(false);
+        alert("Not Liked anymore !");
     }else{
         setPressed(true)
+        alert("Liked !");
     }
-    //setPressed(false);
-    //favorites.toggle(gifId);
   };
 
   const handlePressIn = () => {
@@ -28,11 +27,7 @@ export default function LikeButton() {
       //onPressIn={handlePressIn}
       style={pressed && styles.whenPressing}
     >
-      <Ionicons
-        name={ pressed ? "heart" : "heart-outline"}
-        size={50}
-        color="green"
-      />
+      <Icon name="heart" focused={pressed} />
     </Pressable>
   );
 };

@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
+import Icon from "./Icons";
 //import { favorites } from "../../favorites";
 //import { observer } from "mobx-react-lite";
 
@@ -11,8 +12,10 @@ export default function FavoriteButton() {
 
     if (pressed) {
         setPressed(false);
+        alert("Not favorite anymore !");
     }else{
         setPressed(true)
+        alert("Added to favorite !");
     }
     //setPressed(false);
     //favorites.toggle(gifId);
@@ -28,11 +31,7 @@ export default function FavoriteButton() {
       //onPressIn={handlePressIn}
       style={pressed && styles.whenPressing}
     >
-      <Ionicons
-        name={ pressed ? "star" : "star-outline"}
-        size={50}
-        color="green"
-      />
+      <Icon name="star" focused={pressed} />
     </Pressable>
   );
 };

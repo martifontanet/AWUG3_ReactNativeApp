@@ -69,6 +69,15 @@ export default function App() {
       <ShowComponent name="Componente boton predeterminado">
         <Button title ="publish" />
       </ShowComponent>
+
+      <ShowComponent name="Componente boton desplegable predeterminado">
+        <Button title ="Select season" 
+        options= 
+        {[
+            {title:"season 1"},{title:"season 2"},{title:"season 3"}
+        ]}
+        />
+      </ShowComponent>
     </View>
   );
 }
