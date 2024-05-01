@@ -5,6 +5,7 @@ import FormLogin from "./components/Barras/FormularioLogin";
 import CharacterDetail from "./components/Card/CharacterDetails";
 import perfil from "./assets/FotoPerfil.jpg";
 import ProfilePicture from "./components/Basic/FotoPerfil";
+import LikeButton from "./components/Basic/LikeButton";
 
 
 function ShowComponent({ name, children }) {
@@ -53,6 +54,10 @@ export default function App() {
 
       <ShowComponent name="Componente Foto perfil">
         <ProfilePicture image = {perfil} user = "Zuko" />
+      </ShowComponent>
+
+      <ShowComponent name="Componente boton like">
+        <LikeButton />
       </ShowComponent>
     </View>
   );
