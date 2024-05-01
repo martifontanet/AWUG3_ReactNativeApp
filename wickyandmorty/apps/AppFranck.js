@@ -18,7 +18,7 @@ function ShowComponent({ name, children }) {
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <View>
        <ShowComponent name="Componente Detalle personaje">
         <CharacterDetail id = "1"/>
       </ShowComponent>

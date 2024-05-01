@@ -12,31 +12,7 @@ import Comentario from "../components/Posts/Comentario";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ShowComponent name="Componente Header Página">
-        <Header
-          showLeftIcon={true}
-          verTitulo={true}
-          showRightIcon={true}
-          tituloPGina="Headeeerrr"
-        />
-      </ShowComponent>
-      <ShowComponent name="Input Form">
-        <FormLogin
-          style={styles.form}
-          placehold="Email"
-          keyType="email"
-          autoCom="email"
-        />
-
-        <FormLogin
-          style={styles.form}
-          placehold="Constraseña"
-          password={true}
-          keyType="text"
-          autoCom="current-password"
-        />
-      </ShowComponent>
+    <View>
 
       <ShowComponent name="Barra Lista">
         <BarraLista 

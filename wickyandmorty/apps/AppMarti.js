@@ -14,7 +14,7 @@ function ShowComponent({ name, children }) {
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <View>
       <ShowComponent name="Componente Header Página">
         <Header showLeftIcon={true}
                 verTitulo={true}
