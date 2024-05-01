@@ -2,6 +2,10 @@ import Constants from "expo-constants";
 import { StyleSheet, View, Text } from "react-native";
 import Header from "./components/Barras/Header";
 import FormLogin from "./components/Barras/FormularioLogin";
+import CharacterDetail from "./components/Card/CharacterDetails";
+import perfil from "./assets/FotoPerfil.jpg";
+import ProfilePicture from "./components/Basic/FotoPerfil";
+
 
 function ShowComponent({ name, children }) {
   return (
@@ -19,7 +23,7 @@ export default function App() {
         <Header showLeftIcon={true}
                 verTitulo={true}
                 showRightIcon={true}
-                tituloPGina="Headeeerrr"
+                tituloPGina="Headeeerrr y mas header"
                  />
       </ShowComponent>
       <ShowComponent name="Input Form">
@@ -42,6 +46,14 @@ export default function App() {
         <Mark unread={false} size={32} />
         <Mark double={true} size={32} />
       </ShowComponent> */}
+
+      <ShowComponent name="Componente Detalle personaje">
+        <CharacterDetail id = "1"/>
+      </ShowComponent>
+
+      <ShowComponent name="Componente Foto perfil">
+        <ProfilePicture image = {perfil} user = "Zuko" />
+      </ShowComponent>
     </View>
   );
 }
