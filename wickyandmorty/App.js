@@ -1,125 +1,104 @@
-// App.js
-
 import Constants from "expo-constants";
-import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-
 import Header from "./components/Barras/Header";
 import FormLogin from "./components/Barras/FormularioLogin";
-import BarraLista from "./components/Barras/BarraLista";
-import PostDefault from "./components/Posts/PostDefault";
-import Comentario from "./components/Posts/Comentario";
+import CharacterDetail from "./components/Card/CharacterDetails";
+import perfil from "./assets/FotoPerfil.jpg";
+import ProfilePicture from "./components/Basic/FotoPerfil";
+import LikeButton from "./components/Basic/LikeButton";
+import FavoriteButton from "./components/Basic/LikeFavIcon";
+import Button from "./components/Basic/Boton";
+
+
+function ShowComponent({ name, children }) {
+  return (
+    <View style={styles.showContainer}>
+      <Text style={styles.showTitle}>{name}</Text>
+      <View style={styles.showRow}>{children}</View>
+    </View>
+  );
+}
 
 export default function App() {
   return (
     <View style={styles.container}>
       <ShowComponent name="Componente Header Página">
-        <Header
-          showLeftIcon={true}
-          verTitulo={true}
-          showRightIcon={true}
-          tituloPGina="Headeeerrr"
-        />
+        <Header showLeftIcon={true}
+                verTitulo={true}
+                showRightIcon={true}
+                tituloPGina="Headeeerrr y mas header"
+                 />
       </ShowComponent>
       <ShowComponent name="Input Form">
-        <FormLogin
-          style={styles.form}
-          placehold="Email"
-          keyType="email"
-          autoCom="email"
-        />
+        <FormLogin  style={styles.form}
+                    placehold="Email"
+                    keyType="email"
+                    autoCom="email" />
+        
+        <FormLogin  style={styles.form}
+                    placehold="Constraseña"
+                    password={true}
+                    keyType="text"
+                    autoCom="current-password" />
+      </ShowComponent>
+      {/* <ShowComponent name="Componente 2">
+        <Mark unread={true} />
+        <Mark unread={false} />
+        <Mark double={true} />
+        <Mark unread={true} size={32} />
+        <Mark unread={false} size={32} />
+        <Mark double={true} size={32} />
+      </ShowComponent> */}
 
-        <FormLogin
-          style={styles.form}
-          placehold="Constraseña"
-          password={true}
-          keyType="text"
-          autoCom="current-password"
-        />
+      <ShowComponent name="Componente Detalle personaje">
+        <CharacterDetail id = "1"/>
       </ShowComponent>
 
-      <ShowComponent name="Barra Lista">
-        <BarraLista 
-          palabras={["Personajes", "Episodios","Lugares"]}
-          maxPalabrasSeleccionadas={3}
-        />
+      <ShowComponent name="Componente Foto perfil">
+        <ProfilePicture image = {perfil} user = "Zuko" />
       </ShowComponent>
 
-      <ShowComponent>
-        <BarraLista 
-          palabras={["Registrar", "Entrar"]}
-          maxPalabrasSeleccionadas={2}
-        />
+      <ShowComponent name="Componente boton like">
+        <LikeButton />
+
+      </ShowComponent>
+      <ShowComponent name="Componente boton favorito">
+        <FavoriteButton />
       </ShowComponent>
 
-      <ShowComponent>
-        <BarraLista 
-          palabras={["For you", "Popular","Recent"]}
-          maxPalabrasSeleccionadas={3}
-        />
+      <ShowComponent name="Componente boton predeterminado">
+        <Button title ="publish" />
       </ShowComponent>
 
-      <ShowComponent>
-        <BarraLista 
-          palabras={["Posts", "Guardados"]}
-          maxPalabrasSeleccionadas={2}
+      <ShowComponent name="Componente boton desplegable predeterminado">
+        <Button title ="Select season" 
+        options= 
+        {[
+            {title:"season 1"},{title:"season 2"},{title:"season 3"}
+        ]}
         />
       </ShowComponent>
-      
-      <ShowComponent name="PostDefault">
-        <PostDefault
-          title="Título"
-          text="Lorem Ipsum Dolor"
-          showPhoto = {false}
-        />
-      </ShowComponent>
-
-      <ShowComponent name="Comentario">
-        <Comentario
-          nombreUsuario="Usuario"
-          texto="Lorem Ipsum Dolor"
-          numLikes={10}
-        />
-      </ShowComponent>
-
     </View>
-
-    
   );
 }
-
-const ShowComponent = ({ name, children }) => (
-  <View style={styles.showContainer}>
-    <Text style={styles.showTitle}>{name}</Text>
-    <View style={styles.showRow}>{children}</View>
-  </View>
-);
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
     flex: 1,
     backgroundColor: "#f1f1f1",
-    padding: 10,
+    gap: 10,
   },
   form: {
-    flex: 1,
-    marginBottom: 10,
+    flex: 1
   },
-  showContainer: {
-    marginBottom: 10,
-  },
-  showTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
+  showContainer: {},
+  showTitle: {},
   showRow: {
     flexDirection: "row",
     backgroundColor: "white",
     borderWidth: 1,
     borderColor: "lightgrey",
     padding: 8,
-    borderRadius: 5,
   },
 });

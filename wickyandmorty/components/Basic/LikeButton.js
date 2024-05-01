@@ -2,23 +2,19 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import Icon from "./Icons";
-//import { favorites } from "../../favorites";
-//import { observer } from "mobx-react-lite";
 
-export default function FavoriteButton() {
+export default function LikeButton() {
   const [pressed, setPressed] = useState(false);
 
   const handlePress = () => {
 
     if (pressed) {
         setPressed(false);
-        alert("Not favorite anymore !");
+        alert("Not Liked anymore !");
     }else{
         setPressed(true)
-        alert("Added to favorite !");
+        alert("Liked !");
     }
-    //setPressed(false);
-    //favorites.toggle(gifId);
   };
 
   const handlePressIn = () => {
@@ -31,7 +27,7 @@ export default function FavoriteButton() {
       //onPressIn={handlePressIn}
       style={pressed && styles.whenPressing}
     >
-      <Icon name="star" focused={pressed} />
+      <Icon name="heart" focused={pressed} />
     </Pressable>
   );
 };
