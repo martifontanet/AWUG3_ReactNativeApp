@@ -1,69 +1,85 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
+  import { StyleSheet, Text, View } from 'react-native';
+  import { Dropdown } from 'react-native-element-dropdown';
 
-export default function DropdownButton({ data }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState(null);
+export default function DropdownButton ({data}) {
+    const [value, setValue] = useState(null);
+    const [isFocus, setIsFocus] = useState(false);
 
-  const placeholder ={
-    label: "Select a season...",
-    value: null,
-  };
+    const renderLabel = () => {
+      if (value || isFocus) {
+        return (
+          <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+            Dropdown label
+          </Text>
+        );
+      }
+      return null;
+    };
 
-  const handlePress = () => {
-    setIsOpen(true);
-  };
-
-  return (
-    <View style={styles.container}>
+    return (
+      <View style={styles.container}>
+        {renderLabel()}
         <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={data}
-            search
-            maxHeight={300}
-            labelField="label"
-            valueField="value"
-            placeholder="Select item"
-            searchPlaceholder="Select a season..."
-            value={value}
-            onChange={item => {
+          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={data}
+          search
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          placeholder={!isFocus ? 'Select item' : '...'}
+          searchPlaceholder="Search..."
+          value={value}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
             setValue(item.value);
-            }}
+            setIsFocus(false);
+          }}
         />
-    </View>
-  );
-};
+      </View>
+    );
+  };
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-  },
-  dropdown: {
-    margin: 16,
-    height: 50,
-    borderBottomColor: 'gray',
-    borderBottomWidth: 0.5,
-  },
-  icon: {
-    marginRight: 5,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-});
+  const styles = StyleSheet.create({
+    container: {
+      padding: 16,
+    },
+    dropdown: {
+      height: 50,
+      borderColor: '#97CE4C',
+      borderWidth: 0.5,
+      borderRadius: 8,
+      paddingHorizontal: 8,
+    },
+    icon: {
+      marginRight: 5,
+    },
+    label: {
+      position: 'absolute',
+      backgroundColor: '#97CE4C',
+      left: 22,
+      top: 8,
+      zIndex: 999,
+      paddingHorizontal: 8,
+      fontSize: 14,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+    },
+    iconStyle: {
+      width: 20,
+      height: 20,
+    },
+    inputSearchStyle: {
+      height: 40,
+      fontSize: 16,
+    },
+  });
