@@ -1,25 +1,16 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import Publish from "../screens/Publish";
 
 const Stack = createNativeStackNavigator();
 
-export default function PublishTab() {
+export default function HomeTab() {
   return (
     <Stack.Navigator >
-      {/* <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{ title: "Buscador de Gifs" }}
+        <Stack.Screen
+        name="Publish"
+        component={Publish}
+        options={{ title: "Publicar nuevo Post" }}
       />
-      <Stack.Screen
-        name="Detail"
-        component={Detail}
-        options={({route}) => ({
-          title: "Detall de Gif",
-          headerLeft: () => <BackButton />,
-          headerRight: () => <LikeButton route={route} />,
-        })}
-      /> */}
     </Stack.Navigator>
   );
 }

@@ -1,20 +1,23 @@
 import {
-    Dimensions,
-    StyleSheet,
-    View
-  } from "react-native";
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+
+export default function Home() {
   
-import { View } from "react-native-web";
-  
-  export default function Home() {
-      
-    return (
-      <View></View>
-    );
+  return (
+      <View style={styles.container}>
+        <Text>HOME</Text>
+      </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 10,
+    paddingHorizontal: 10,
+    gap: 10,
   }
-  
-  const styles = StyleSheet.create({
-    
-    
-  });
-  
+});

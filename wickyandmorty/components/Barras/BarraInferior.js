@@ -1,8 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import React from "react";
+import { StyleSheet } from "react-native";
 import TabIcon from "../Basic/TabIcons";
 import HomeTab from "../../tabs/HomeTab";
 import WikiTab from "../../tabs/WikiTab";
@@ -14,12 +13,12 @@ export default function MenuInferior({  }) {
 
   return (
     <NavigationContainer>
-        <Tab.Navigator
+        <Tab.Navigator 
           screenOptions={{
             tabBarStyle: styles.tabBar,
-            tabBarLabelStyle: { fontSize: 14 },
-            tabBarInactiveTintColor: "grey",
-            tabBarActiveTintColor: "blue",
+            tabBarLabelStyle: { fontSize: 34, },
+            tabBarInactiveTintColor: "white",
+            tabBarActiveTintColor: "#97CE4C",
           }}
         >
           <Tab.Screen
@@ -28,9 +27,9 @@ export default function MenuInferior({  }) {
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
-                <TabIcon name="home" focused={focused} />
+                <TabIcon  name="home" focused={focused} />
               ),
-              title: 'Home'
+              title: ''
             }}
           />
           <Tab.Screen
@@ -41,7 +40,7 @@ export default function MenuInferior({  }) {
               tabBarIcon: ({ focused }) => (
                 <TabIcon name="add-circle" focused={focused} />
               ),
-              title: `Create Post ()`
+              title: ``
             }}
           />
           <Tab.Screen
@@ -52,7 +51,7 @@ export default function MenuInferior({  }) {
               tabBarIcon: ({ focused }) => (
                 <TabIcon name="planet" focused={focused} />
               ),
-              title: 'Wiki'
+              title: ''
             }}
           />
         </Tab.Navigator>
@@ -61,5 +60,9 @@ export default function MenuInferior({  }) {
 }
 
 const styles = StyleSheet.create({
-  
+  tabBar: {
+    flex: 1,
+    backgroundColor: "black",
+    justifyContent: "flex-end"
+  },
 });
