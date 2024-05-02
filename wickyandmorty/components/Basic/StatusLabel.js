@@ -1,11 +1,13 @@
 import React from 'react';
 import {Text, StyleSheet, View } from 'react-native';
 
-export default function StatusLabel ({ title, status }) {
+export default function StatusLabel ({ title, showCircle }) {
 
   return (
     <View style={styles.button}>
-      <View style={styles.alive} />
+      {showCircle && (
+        <View style={styles.alive} />
+      )}
       <Text style={styles.buttonText}>{title}</Text>
     </View>
   );
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 12,
     fontWeight: 'bold',
-  },
+  },   
   alive:{
     borderRadius: 100,
     backgroundColor: "#97CE4C",

@@ -1,9 +1,6 @@
 import { View, StyleSheet, Image } from "react-native";
 
 export default function CharacterPhoto({character}) {
-
-    console.log(character);
-  
     return (
         <View style={[ styles.container ]}>
 

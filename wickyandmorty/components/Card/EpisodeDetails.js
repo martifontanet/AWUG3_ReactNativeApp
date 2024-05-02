@@ -1,15 +1,46 @@
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
+import CharacterPhoto from "./CharacterPhoto";
+import {
+    beth,
+    jerry,
+    morty,
+    rick,
+    summer,
+    random1,
+    random2,
+  } from "../../assets/characterIMG/index"
 
 export default function EpisodeDetail({title, release, season, characters}) {
   
+    const char = [beth,jerry,morty,rick,summer,random1,random2,beth,jerry,rick,morty,summer];
+
     return (
         <View style={[ styles.container ]}>
 
         <Text style={styles.title} >{title}</Text>
         <Text style={styles.text} >Release date : {release}</Text>
         <Text style={styles.text} >Season : {season}</Text>
-        <Text style={styles.text} >Characters: {characters}</Text>
- 
+
+        <Text style={styles.text} >Appearing characters: </Text>
+
+        <ScrollView horizontal={true} contentContainerStyle={styles.scroll} >
+            {/* {char.map((personaje) => {
+                <CharacterPhoto character={personaje} />
+                console.log(personaje);
+
+            } )} */}
+                    
+            <CharacterPhoto character={jerry} />
+            <CharacterPhoto character={rick} />
+            <CharacterPhoto character={morty} />
+            <CharacterPhoto character={summer} />
+            <CharacterPhoto character={beth} />
+            <CharacterPhoto character={random1} />
+            <CharacterPhoto character={random2} />
+            <CharacterPhoto character={morty} />
+            <CharacterPhoto character={rick} />
+
+        </ScrollView>
 
         </View>
     );
@@ -23,7 +54,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical:20,
         flexDirection:"column",
-        alignItems:"center",
         gap:20,
     },
     title: {
@@ -39,5 +69,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight:"normal",
         color:"white",
-    }
+    },
+    scroll:{
+        gap:10,
+    },
   });

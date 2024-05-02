@@ -6,20 +6,20 @@ export default function DropdownButton ({data}) {
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
-    const renderLabel = () => {
-      if (value || isFocus) {
-        return (
-          <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-            Dropdown label
-          </Text>
-        );
-      }
-      return null;
-    };
+    // const renderLabel = () => {
+    //   if (value || isFocus) {
+    //     return (
+    //       <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+    //         Dropdown label
+    //       </Text>
+    //     );
+    //   }
+    //   return null;
+    // };
 
     return (
       <View style={styles.container}>
-        {renderLabel()}
+        {/* {renderLabel()} */}
         <Dropdown
           style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
           placeholderStyle={styles.placeholderStyle}
@@ -28,11 +28,11 @@ export default function DropdownButton ({data}) {
           iconStyle={styles.iconStyle}
           data={data}
           search
-          maxHeight={300}
+          maxHeight={200}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select item' : '...'}
-          searchPlaceholder="Search..."
+          placeholder={!isFocus ? 'Select a season' : 'Selecting season'}
+          searchPlaceholder="Search a season..."
           value={value}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
@@ -50,11 +50,10 @@ export default function DropdownButton ({data}) {
       padding: 16,
     },
     dropdown: {
-      height: 50,
-      borderColor: '#97CE4C',
-      borderWidth: 0.5,
-      borderRadius: 8,
+      height: 30,
+      borderRadius: 50,
       paddingHorizontal: 8,
+      backgroundColor:"#97CE4C"
     },
     icon: {
       marginRight: 5,
@@ -66,13 +65,16 @@ export default function DropdownButton ({data}) {
       top: 8,
       zIndex: 999,
       paddingHorizontal: 8,
-      fontSize: 14,
+      fontSize: 12,
     },
     placeholderStyle: {
-      fontSize: 16,
+      fontSize: 12,
+      fontWeight: 'bold',
+
     },
     selectedTextStyle: {
-      fontSize: 16,
+      fontSize: 12,
+      fontWeight: 'bold',
     },
     iconStyle: {
       width: 20,
@@ -80,6 +82,6 @@ export default function DropdownButton ({data}) {
     },
     inputSearchStyle: {
       height: 40,
-      fontSize: 16,
+      fontSize: 12,
     },
   });

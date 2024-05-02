@@ -8,7 +8,6 @@ export default function CharacterDetail({ character, name, species,gender, statu
 
 
   const {char, loading, error, searchCharacter} = useCharacter();
-  console.log(char);
   
   // useEffect(() => {
   //   searchCharacter(id);

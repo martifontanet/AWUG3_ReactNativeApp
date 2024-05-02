@@ -2,14 +2,13 @@ import { View, StyleSheet, Text, Image } from "react-native";
 import StatusLabel from "../Basic/StatusLabel";
 import CharacterPhoto from "./CharacterPhoto";
 
-export default function CharacterCard({image, character, status}) {
+export default function EpiLocCard({name, labelName}) {
   
     return (
-        <View style={[ styles.charContainer ]}>
+        <View style={[ styles.epilocContainer ]}>
 
-        <CharacterPhoto character={image} />
-        <Text style={styles.character} >{character}</Text>
-        <StatusLabel title={status} showCircle={true} /> 
+        <Text style={styles.character} >{name}</Text>
+        <StatusLabel title={labelName} showCircle={false} /> 
 
         </View>
     );
@@ -17,7 +16,7 @@ export default function CharacterCard({image, character, status}) {
 
   const size= 70;
 const styles = StyleSheet.create({ 
-    charContainer: {
+    epilocContainer: {
         display:"flex",
         flexDirection: "column",
         justifyContent:"space-between",
@@ -25,7 +24,6 @@ const styles = StyleSheet.create({
         padding:10,
         backgroundColor: "#4E4E4E",
         width:150,
-        height: 150,
         borderRadius:10,
         gap:10,
     },

@@ -19,6 +19,7 @@ import {
 } from "../assets/characterIMG/index"
 import CharacterPhoto from "../components/Card/CharacterPhoto";
 import CheckBox from "../components/Basic/Checkbox";
+import EpiLocCard from "../components/Card/EpiLocCard";
 
 function ShowComponent({ name, children }) {
   return (
@@ -32,16 +33,6 @@ function ShowComponent({ name, children }) {
 export default function App() {
   return (
     <View>
-       <ShowComponent name="Componente Detalle personaje">
-        <CharacterDetail 
-        character={rick}
-        name="Rick Sanchez"
-        species="Human"
-        gender="Male"
-        status="Alive"
-        location="Citadel of Ricks"
-        />
-      </ShowComponent>
 
       <ShowComponent name="Componente Foto perfil">
         <ProfilePicture image = {perfil} user = "Zuko" />
@@ -76,7 +67,7 @@ export default function App() {
       </ShowComponent>
 
       <ShowComponent name="Componente etiqueta de estado">
-        <StatusLabel title = "alive" status="alive" />
+        <StatusLabel title = "alive" showCircle={true} />
       </ShowComponent>
 
       <ShowComponent name="Componente foto de personaje">
@@ -87,7 +78,20 @@ export default function App() {
       <CharacterCard image={morty} character="Morty" status="Alive" />
 
       <Text style={styles.showTitle}>Componente tarjeta de episodios y localidad</Text>
-      <CharacterCard character="Lawnmower Dog"/>
+      <EpiLocCard name="Lawnmower Dog" labelName="S01E02" />.
+
+      <EpiLocCard name="Earth (C-137)" labelName="Planet" />
+
+      <ShowComponent name="Componente Detalle personaje">
+        <CharacterDetail 
+        character={rick}
+        name="Rick Sanchez"
+        species="Human"
+        gender="Male"
+        status="Alive"
+        location="Citadel of Ricks"
+        />
+      </ShowComponent>
 
       <ShowComponent name="Componente detalle de episodio">
         <EpisodeDetail  
