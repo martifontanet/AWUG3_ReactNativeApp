@@ -77,8 +77,10 @@ export default function App() {
         />
       </ShowComponent>
 
-      <ShowComponent name="Componente etiqueta de estado">
-        <StatusLabel title = "alive" showCircle={true} />
+      <ShowComponent name="Componente etiqueta de estado" >
+        <StatusLabel showCircle={true} status="alive" />
+        <StatusLabel showCircle={true} status="dead" />
+        <StatusLabel showCircle={true} status="unknown" />
       </ShowComponent>
 
       <ShowComponent name="Componente foto de personaje">
@@ -86,7 +88,7 @@ export default function App() {
       </ShowComponent>
 
       <Text style={styles.showTitle}>Componente tarjeta de personaje</Text>
-      <CharacterCard image={morty} character="Morty" status="Alive" />
+      <CharacterCard image={morty} character="Morty" status="alive" />
 
       <Text style={styles.showTitle}>Componente tarjeta de episodios y localidad</Text>
       <EpiLocCard name="Lawnmower Dog" labelName="S01E02" />.

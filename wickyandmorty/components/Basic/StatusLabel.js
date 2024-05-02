@@ -1,14 +1,14 @@
 import React from 'react';
 import {Text, StyleSheet, View } from 'react-native';
 
-export default function StatusLabel ({ title, showCircle }) {
+export default function StatusLabel ({showCircle, status }) {
 
   return (
     <View style={styles.button}>
       {showCircle && (
-        <View style={styles.alive} />
+        status === "alive" ? <View style={styles.alive} /> : (status==="dead" ? <View style={styles.dead}/> : <View style={styles.unknown} /> )
       )}
-      <Text style={styles.buttonText}>{title}</Text>
+      <Text style={styles.buttonText}>{status}</Text>
     </View>
   );
 };
@@ -33,6 +33,18 @@ const styles = StyleSheet.create({
   alive:{
     borderRadius: 100,
     backgroundColor: "#97CE4C",
+    width:10,
+    height:10,
+  },
+  dead:{
+    borderRadius: 100,
+    backgroundColor: "#FF4B4B",
+    width:10,
+    height:10,
+  },
+  unknown:{
+    borderRadius: 100,
+    backgroundColor: "#FFD74B",
     width:10,
     height:10,
   }

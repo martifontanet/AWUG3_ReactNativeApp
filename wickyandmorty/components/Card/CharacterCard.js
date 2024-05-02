@@ -9,7 +9,7 @@ export default function CharacterCard({image, character, status}) {
 
         <CharacterPhoto character={image} />
         <Text style={styles.character} >{character}</Text>
-        <StatusLabel title={status} showCircle={true} /> 
+        <StatusLabel showCircle={true} status={status} /> 
 
         </View>
     );
