@@ -1,13 +1,13 @@
 import { View, StyleSheet, Text, Image } from "react-native";
 
-export default function EpisodeDetail({title, release, season, characters}) {
+export default function LocationDetail({name, type, dimension, characters}) {
   
     return (
         <View style={[ styles.container ]}>
 
-        <Text style={styles.title} >{title}</Text>
-        <Text style={styles.text} >Release date :{release}</Text>
-        <Text style={styles.text} >Season :{season}</Text>
+        <Text style={styles.title} >{name}</Text>
+        <Text style={styles.text} >Type : {type}</Text>
+        <Text style={styles.text} >Dimension : {dimension}</Text>
         <Text style={styles.text} >Characters: {characters}</Text>
  
 

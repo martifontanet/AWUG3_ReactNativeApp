@@ -1,13 +1,13 @@
 import { View, StyleSheet, Text, Image } from "react-native";
 import StatusLabel from "../Basic/StatusLabel";
-
+import CharacterPhoto from "./CharacterPhoto";
 
 export default function CharacterCard({image, character, status}) {
   
     return (
         <View style={[ styles.container ]}>
 
-        <Image source={image} style={styles.img} />
+        <CharacterPhoto character={image} />
         <Text style={styles.character} >{character}</Text>
         <StatusLabel title={status} /> 
 
@@ -16,7 +16,7 @@ export default function CharacterCard({image, character, status}) {
   };
 
   const size= 70;
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
     container: {
         flex: 1,
         flexDirection: "column",

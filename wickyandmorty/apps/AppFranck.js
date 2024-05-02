@@ -1,7 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import CharacterDetail from "../components/Card/CharacterDetails";
 import perfil from "../assets/FotoPerfil.jpg";
-import CharIMG from "../assets/morty.jpg";
 import ProfilePicture from "../components/Basic/FotoPerfil";
 import LikeButton from "../components/Basic/LikeButton";
 import FavoriteButton from "../components/Basic/LikeFavIcon";
@@ -9,8 +8,17 @@ import Button from "../components/Basic/Boton";
 import Dropdown from "../components/Basic/BotonDesplegable";
 import StatusLabel from "../components/Basic/StatusLabel";
 import CharacterCard from "../components/Card/CharacterCard";
-import EpisodeDetail from "../components/Card/EpiLocDetails";
-
+import EpisodeDetail from "../components/Card/EpisodeDetails";
+import LocationDetail from "../components/Card/LocationDetails";
+import {
+  beth,
+  jerry,
+  morty,
+  rick,
+  summer,
+} from "../assets/characterIMG/index"
+import CharacterPhoto from "../components/Card/CharacterPhoto";
+import CheckBox from "../components/Basic/Checkbox";
 
 function ShowComponent({ name, children }) {
   return (
@@ -25,7 +33,14 @@ export default function App() {
   return (
     <View>
        <ShowComponent name="Componente Detalle personaje">
-        <CharacterDetail id = "1"/>
+        <CharacterDetail 
+        character={rick}
+        name="Rick Sanchez"
+        species="Human"
+        gender="Male"
+        status="Alive"
+        location="Citadel of Ricks"
+        />
       </ShowComponent>
 
       <ShowComponent name="Componente Foto perfil">
@@ -38,6 +53,10 @@ export default function App() {
       </ShowComponent>
       <ShowComponent name="Componente boton favorito">
         <FavoriteButton />
+      </ShowComponent>
+
+      <ShowComponent name="Componente checkbox">
+        <CheckBox />
       </ShowComponent>
 
       <ShowComponent name="Componente boton predeterminado">
@@ -60,8 +79,12 @@ export default function App() {
         <StatusLabel title = "alive" status="alive" />
       </ShowComponent>
 
+      <ShowComponent name="Componente foto de personaje">
+        <CharacterPhoto character={morty} />
+      </ShowComponent>
+
       <Text style={styles.showTitle}>Componente tarjeta de personaje</Text>
-      <CharacterCard image={CharIMG} character="Morty" status="Alive" />
+      <CharacterCard image={morty} character="Morty" status="Alive" />
 
       <Text style={styles.showTitle}>Componente tarjeta de episodios y localidad</Text>
       <CharacterCard character="Lawnmower Dog"/>
@@ -71,6 +94,15 @@ export default function App() {
           title="Lawnmower Dog"
           release="December 12, 2013"
           season="S01E02"
+          characters="aqui poner la lista de personajes"
+        />
+      </ShowComponent>
+
+      <ShowComponent name="Componente detalle de localidad">
+        <LocationDetail 
+          name="Earth (C-137)"
+          type="Planet"
+          dimension="Dimension C-137"
           characters="aqui poner la lista de personajes"
         />
       </ShowComponent>

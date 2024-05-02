@@ -42,13 +42,21 @@ export default function App() {
         />
       </ShowComponent>
       
-      <ShowComponent name="PostDefault">
+      <ShowComponent name="PostDefault sin foto">
         <PostDefault
-          title="Título"
-          text="Lorem Ipsum Dolor"
+          title="Rick es el mejor"
+          text="rick es el puto amo, es un genio que te puede crear cualquier cosa. es god cabron"
           showPhoto = {false}
         />
       </ShowComponent>
+      <ShowComponent name="PostDefault con foto">
+        <PostDefault
+          title="Morty es un friki"
+          text="son of a bitch im in"
+          showPhoto = {true}
+        />
+      </ShowComponent>
+      
 
       <ShowComponent name="Comentario">
         <Comentario
