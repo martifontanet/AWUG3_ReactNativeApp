@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
 import CharacterDetail from "../components/Card/CharacterDetails";
 import perfil from "../assets/FotoPerfil.jpg";
+import postFoto from "../assets/foto.jpg"
 import ProfilePicture from "../components/Basic/FotoPerfil";
 import LikeButton from "../components/Basic/LikeButton";
 import FavoriteButton from "../components/Basic/LikeFavIcon";
@@ -20,6 +21,7 @@ import {
 import CharacterPhoto from "../components/Card/CharacterPhoto";
 import CheckBox from "../components/Basic/Checkbox";
 import EpiLocCard from "../components/Card/EpiLocCard";
+import Publicacion from "../components/Posts/Publicación";
 
 function ShowComponent({ name, children }) {
   return (
@@ -33,6 +35,15 @@ function ShowComponent({ name, children }) {
 export default function App() {
   return (
     <View>
+
+      <ShowComponent name="Componente publicacion">
+        <Publicacion 
+          tituloPost="Explore Rick and Morty"
+          image={postFoto}
+          user="Zuko"
+          description="Rick and Morty is an animated science fiction sitcom created by Justin Roiland and Dan Harmon. It follows the adventures of an eccentric and alcoholic scientist, Rick Sanchez, and his good-hearted but easily influenced grandson, Morty Smith"
+        />
+      </ShowComponent>
 
       <ShowComponent name="Componente Foto perfil">
         <ProfilePicture image = {perfil} user = "Zuko" />

@@ -1,8 +1,6 @@
 import { View, StyleSheet, Text, Image, Pressable } from "react-native";
-import { useEffect } from "react";
 import useCharacter from "../../Hooks/useCharacter";
-import CharacterPhoto from "./CharacterPhoto";
-import { rick } from "../../assets/characterIMG";
+
 
 export default function CharacterDetail({ character, name, species,gender, status, location }) {
 

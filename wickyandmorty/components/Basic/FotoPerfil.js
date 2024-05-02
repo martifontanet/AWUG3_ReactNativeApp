@@ -13,13 +13,11 @@ export default function ProfilePicture({image, user}) {
   const size= 100;
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         padding: 15,
         gap:15,
-        backgroundColor: "#97CE4C",
     },
     icon: {
         width: size,
