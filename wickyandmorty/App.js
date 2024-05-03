@@ -4,9 +4,16 @@ import AppMarti from "./apps/AppMarti"
 import AppFranck from "./apps/AppFranck"
 import AppAdrian from "./apps/AppAdrian"
 import AppAlberto from "./apps/AppAlberto"
+import { useFonts } from "expo-font";
 
 
 export default function App() {
+
+  const [fontLoaded] = useFonts({
+    'Inter': require('./assets/fonts/Inter-VariableFont.ttf')
+  });
+
+  if (fontLoaded) {
   return (
     <ScrollView style={styles.container}>
       <AppFranck></AppFranck>
@@ -15,6 +22,7 @@ export default function App() {
       <AppAlberto></AppAlberto>
     </ScrollView>
   );
+ }
 }
 
 const styles = StyleSheet.create({
