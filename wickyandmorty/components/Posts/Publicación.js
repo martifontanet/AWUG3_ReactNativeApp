@@ -47,10 +47,8 @@ const styles = StyleSheet.create({
         gap:20,
     },
     iconContainer:{
-        display:"flex",
         flexDirection:"row",
         width:60,
-        height:18,
         alignItems:"center",
         gap:20,
 
