@@ -35,7 +35,6 @@ function ShowComponent({ name, children }) {
 export default function App() {
   return (
     <View>
-
       <ShowComponent name="Componente publicacion">
         <Publicacion 
           tituloPost="Explore Rick and Morty"
@@ -91,9 +90,9 @@ export default function App() {
       <CharacterCard image={morty} character="Morty" status="alive" />
 
       <Text style={styles.showTitle}>Componente tarjeta de episodios y localidad</Text>
-      <EpiLocCard name="Lawnmower Dog" labelName="S01E02" />.
+      <EpiLocCard name="Lawnmower Dog" labelName="S01E02" style={styles.card} />
 
-      <EpiLocCard name="Earth (C-137)" labelName="Planet" />
+      <EpiLocCard name="Earth (C-137)" labelName="Planet" style={styles.card} />
 
       <ShowComponent name="Componente Detalle personaje">
         <CharacterDetail 
@@ -114,7 +113,6 @@ export default function App() {
           characters="aqui poner la lista de personajes"
         />
       </ShowComponent>
-
       <ShowComponent name="Componente detalle de localidad">
         <LocationDetail 
           name="Earth (C-137)"
@@ -123,7 +121,6 @@ export default function App() {
           characters="aqui poner la lista de personajes"
         />
       </ShowComponent>
-
     </View>
   );
 }
@@ -146,4 +143,7 @@ const styles = StyleSheet.create({
     borderColor: "lightgrey",
     padding: 8,
   },
+  card: {
+    marginBottom: 10
+  }
 });

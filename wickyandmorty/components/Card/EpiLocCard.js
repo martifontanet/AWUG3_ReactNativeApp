@@ -1,6 +1,5 @@
 import { View, StyleSheet, Text, Image } from "react-native";
 import StatusLabel from "../Basic/StatusLabel";
-import CharacterPhoto from "./CharacterPhoto";
 
 export default function EpiLocCard({name, labelName}) {
   
@@ -8,7 +7,7 @@ export default function EpiLocCard({name, labelName}) {
         <View style={[ styles.epilocContainer ]}>
 
         <Text style={styles.character} >{name}</Text>
-        <StatusLabel title={labelName} showCircle={false} /> 
+        <StatusLabel showCircle={false} status={labelName}  /> 
 
         </View>
     );
@@ -26,6 +25,7 @@ const styles = StyleSheet.create({
         width:150,
         borderRadius:10,
         gap:10,
+        margin: 5
     },
     img: {
         width: size,

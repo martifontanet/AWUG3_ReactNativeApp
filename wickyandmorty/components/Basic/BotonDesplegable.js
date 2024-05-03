@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
-  import { StyleSheet, Text, View } from 'react-native';
+  import { StyleSheet, View } from 'react-native';
   import { Dropdown } from 'react-native-element-dropdown';
 
 export default function DropdownButton ({data}) {
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
-
-    // const renderLabel = () => {
-    //   if (value || isFocus) {
-    //     return (
-    //       <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-    //         Dropdown label
-    //       </Text>
-    //     );
-    //   }
-    //   return null;
-    // };
 
     return (
       <View style={styles.container}>
@@ -31,7 +20,7 @@ export default function DropdownButton ({data}) {
           maxHeight={200}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select a season' : 'Selecting season'}
+          placeholder="Select a season"
           searchPlaceholder="Search a season..."
           value={value}
           onFocus={() => setIsFocus(true)}
@@ -47,10 +36,12 @@ export default function DropdownButton ({data}) {
 
   const styles = StyleSheet.create({
     container: {
+      width: 200,
       padding: 16,
     },
     dropdown: {
       height: 30,
+      flex:1,
       borderRadius: 50,
       paddingHorizontal: 8,
       backgroundColor:"#97CE4C"
@@ -68,6 +59,7 @@ export default function DropdownButton ({data}) {
       fontSize: 12,
     },
     placeholderStyle: {
+      marginLeft: 5,
       fontSize: 12,
       fontWeight: 'bold',
 
