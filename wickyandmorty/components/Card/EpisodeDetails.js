@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
 import CharacterPhoto from "./CharacterPhoto";
 import {
     beth,
@@ -24,12 +24,7 @@ export default function EpisodeDetail({title, release, season, characters}) {
         <Text style={styles.text} >Appearing characters: </Text>
 
         <ScrollView horizontal={true} contentContainerStyle={styles.scroll} >
-            {/* {char.map((personaje) => {
-                <CharacterPhoto character={personaje} />
-                console.log(personaje);
-
-            } )} */}
-                    
+                                
             <CharacterPhoto character={jerry} />
             <CharacterPhoto character={rick} />
             <CharacterPhoto character={morty} />

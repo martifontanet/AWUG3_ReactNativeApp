@@ -14,18 +14,7 @@ export default function CharacterDetail({ character, name, species,gender, statu
 
   return (
     <View style={[ styles.container ]}>
-        {/* {loading && <Text>Card loading.....</Text>  }
-        {error && <Text>{error}</Text>  }
-        {char && (
-            <>
-                <Image source = {char.image} resizeMode="contain" />
-                <Text>{char.name}</Text>
-                <Text>Species : {char.species}</Text>
-                <Text>Status : {char.status}</Text>
-                <Text>Gender : {char.gender}</Text>
-                <Text>Location : {char.location.name}</Text>
-            </>
-        ) } */}
+        
         <Image source={character} style={styles.img} />
         <Text style={styles.title} >{name}</Text>
         <Text style={styles.text} >Species : {species}</Text>

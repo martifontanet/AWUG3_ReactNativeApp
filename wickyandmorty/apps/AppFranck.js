@@ -17,7 +17,7 @@ import {
   morty,
   rick,
   summer,
-} from "../assets/characterIMG/index"
+} from "../assets/characterIMG/index";
 import CharacterPhoto from "../components/Card/CharacterPhoto";
 import CheckBox from "../components/Basic/Checkbox";
 import EpiLocCard from "../components/Card/EpiLocCard";
