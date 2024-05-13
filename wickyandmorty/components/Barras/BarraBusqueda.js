@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: "#CBE7A5",
     borderRadius: 50,
+    maxHeight: 43,
   },
   searchInput: {
     fontSize: 20,

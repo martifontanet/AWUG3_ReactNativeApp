@@ -4,7 +4,7 @@ export default function TabIcon({ name, focused }) {
   return (
     <Ionicons
       name={`${name}-outline`}
-      size={24}
+      size={35}
       color={focused ? "#97CE4C" : "white"}
     />
   );

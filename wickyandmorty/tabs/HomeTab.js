@@ -7,9 +7,9 @@ export default function HomeTab() {
   return (
     <Stack.Navigator >
         <Stack.Screen
-        name="Home"
+        name="MainPage"
         component={Home}
-        options={{ title: "Feed Posts" }}
+        options={{ title: "Welcome to Wiky And Morty!" }}
       />
     </Stack.Navigator>
   );

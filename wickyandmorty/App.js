@@ -18,6 +18,7 @@ export default function App() {
               tabBarLabelStyle: { fontSize: 14, },
               tabBarInactiveTintColor: "white",
               tabBarActiveTintColor: "#97CE4C",
+              headerShown: false,
             }}
           >
             <Tab.Screen
@@ -25,6 +26,7 @@ export default function App() {
               component={HomeTab}
               options={{
                 headerShown: false,
+                headerTitle: false,
                 tabBarIcon: ({ focused }) => (
                   <TabIcon  name="home" focused={focused} />
                 ),
@@ -61,6 +63,6 @@ export default function App() {
 const styles = StyleSheet.create({
   tabBar: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "black"
   },
 });
