@@ -19,5 +19,11 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingHorizontal: 10,
     gap: 10,
-  }
+  },
+  background: {
+    
+  },
+  imageBackground: {
+    opacity: 0.2,
+  },
 });
