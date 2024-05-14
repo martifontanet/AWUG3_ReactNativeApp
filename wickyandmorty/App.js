@@ -1,39 +1,68 @@
-import Constants from "expo-constants";
-import { StyleSheet, ScrollView } from "react-native";
-import AppMarti from "./apps/AppMarti"
-import AppFranck from "./apps/AppFranck"
-import AppAdrian from "./apps/AppAdrian"
-import AppAlberto from "./apps/AppAlberto"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import TabIcon from "./components/Basic/TabIcons";
+import HomeTab from "./tabs/HomeTab";
+import WikiTab from "./tabs/WikiTab";
+import PublishTab from "./tabs/PublishTab";
+
+const Tab = createBottomTabNavigator();
 
 
 export default function App() {
   return (
-    <ScrollView style={styles.container}>
-      <AppFranck></AppFranck>
-      <AppMarti></AppMarti>
-      <AppAdrian></AppAdrian>
-      <AppAlberto></AppAlberto>
-    </ScrollView>
+        <NavigationContainer>
+          <Tab.Navigator 
+            screenOptions={{
+              tabBarStyle: styles.tabBar,
+              tabBarLabelStyle: { fontSize: 14, },
+              tabBarInactiveTintColor: "white",
+              tabBarActiveTintColor: "#97CE4C",
+              headerShown: false,
+            }}
+          >
+            <Tab.Screen
+              name="HomeTab"
+              component={HomeTab}
+              options={{
+                headerShown: false,
+                headerTitle: false,
+                tabBarIcon: ({ focused }) => (
+                  <TabIcon  name="home" focused={focused} />
+                ),
+                title: ''
+              }}
+            />
+            <Tab.Screen
+              name="PublishTab"
+              component={PublishTab}
+              options={{
+                headerShown: false,
+                tabBarIcon: ({ focused }) => (
+                  <TabIcon name="add-circle" focused={focused} />
+                ),
+                title: ``
+              }}
+            />
+            <Tab.Screen
+              name="WikiTab"
+              component={WikiTab}
+              options={{
+                
+                tabBarIcon: ({ focused }) => (
+                  <TabIcon name="planet" focused={focused} />
+                ),
+                title: ''
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: Constants.statusBarHeight,
+  tabBar: {
     flex: 1,
-    backgroundColor: "#f1f1f1",
-    gap: 10,
-  },
-  form: {
-    flex: 1
-  },
-  showContainer: {},
-  showTitle: {},
-  showRow: {
-    flexDirection: "row",
-    backgroundColor: "white",
-    borderWidth: 1,
-    borderColor: "lightgrey",
-    padding: 8,
+    backgroundColor: "black"
   },
 });

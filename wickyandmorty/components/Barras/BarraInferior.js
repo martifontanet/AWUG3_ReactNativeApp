@@ -1,48 +1,68 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-export default function Avatar({ name, image, color }) {
-  //const props = {name: 'Paula Rodriguez', size: 32}
-  //console.log("props:", props);
-  //const { name } = props;
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
+import { StyleSheet } from "react-native";
+import TabIcon from "../Basic/TabIcons";
+import HomeTab from "../../tabs/HomeTab";
+import WikiTab from "../../tabs/WikiTab";
+import PublishTab from "../../tabs/PublishTab";
 
-  if (image) {
-    return <Image source={image} style={styles.container} />;
-  } else {
-    const initials = name
-      .split(" ")
-      .map((word) => word[0])
-      .join("");
-    //console.log("initials", initials);
+const Tab = createBottomTabNavigator();
 
-    return (
-      <View
-        style={[
-          styles.container,
-          styles.initials,
-          color && { backgroundColor: color },
-        ]}
-      >
-        <Text style={styles.text}>{initials}</Text>
-      </View>
-    );
-  }
+export default function MenuInferior({  }) {
+
+  return (
+    <NavigationContainer>
+        <Tab.Navigator 
+          screenOptions={{
+            tabBarStyle: styles.tabBar,
+            tabBarLabelStyle: { fontSize: 34, },
+            tabBarInactiveTintColor: "white",
+            tabBarActiveTintColor: "#97CE4C",
+          }}
+        >
+          <Tab.Screen
+            name="HomeTab"
+            component={HomeTab}
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ focused }) => (
+                <TabIcon  name="home" focused={focused} />
+              ),
+              title: ''
+            }}
+          />
+          <Tab.Screen
+            name="PublishTab"
+            component={PublishTab}
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ focused }) => (
+                <TabIcon name="add-circle" focused={focused} />
+              ),
+              title: ``
+            }}
+          />
+          <Tab.Screen
+            name="WikiYab"
+            component={WikiTab}
+            options={{
+              
+              tabBarIcon: ({ focused }) => (
+                <TabIcon name="planet" focused={focused} />
+              ),
+              title: ''
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+  );
 }
 
-const size = 50;
 const styles = StyleSheet.create({
-  container: {
-    width: size,
-    height: size,
-    borderRadius: size / 2,
-  },
-  initials: {
-    backgroundColor: "#559CDE",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "white",
-    fontSize: 17,
-    textTransform: "uppercase",
-    fontWeight: "bold",
+  tabBar: {
+    flex: 1,
+    backgroundColor: "black",
+    justifyContent: "flex-end"
   },
 });

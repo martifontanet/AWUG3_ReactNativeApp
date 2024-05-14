@@ -1,6 +1,9 @@
 import { StyleSheet, View, Text } from "react-native";
 import Header from "../components/Barras/Header";
 import FormLogin from "../components/Barras/FormularioLogin";
+import BarraLogin from "../components/Barras/BarraLogin";
+import Busqueda from "../components/Barras/BarraBusqueda";
+import MenuInferior from "../components/Barras/BarraInferior"
 
 
 function ShowComponent({ name, children }) {
@@ -23,6 +26,7 @@ export default function App() {
                  />
       </ShowComponent>
       <ShowComponent name="Input Form">
+        
         <FormLogin  style={styles.form}
                     placehold="Email"
                     keyType="email"
@@ -33,6 +37,29 @@ export default function App() {
                     password={true}
                     keyType="text"
                     autoCom="current-password" />
+      </ShowComponent>
+      <ShowComponent name="Identification Buttons">
+        <View style={styles.buttonContainer}>
+          <BarraLogin 
+                      text="google"
+                      icon="logo-google"/>
+        </View>
+        <View style={styles.buttonContainer}>
+          <BarraLogin 
+                      text="email"
+                      icon="mail"/>
+        </View>
+      </ShowComponent>
+      <ShowComponent name="Barra de Busqueda">
+        
+        <Busqueda  style={styles.form}
+                    placehold="Buscar..."
+                    keyType="search"
+                    autoCom="off"
+                    icon="search" />
+      </ShowComponent>
+      <ShowComponent name="Barra Menu Inferior">
+        <MenuInferior></MenuInferior>
       </ShowComponent>
     </View>
   );
@@ -47,13 +74,14 @@ const styles = StyleSheet.create({
   form: {
     flex: 1
   },
-  showContainer: {},
-  showTitle: {},
   showRow: {
-    flexDirection: "row",
     backgroundColor: "white",
     borderWidth: 1,
     borderColor: "lightgrey",
     padding: 8,
+  },
+  buttonContainer: {
+    alignItems: "center",
+    marginTop: 10, // Intentemos quitar esto
   },
 });
