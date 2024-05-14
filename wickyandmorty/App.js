@@ -63,6 +63,7 @@ export default function App() {
 const styles = StyleSheet.create({
   tabBar: {
     flex: 1,
-    backgroundColor: "black"
+    backgroundColor: "black",
+    maxHeight: 110,
   },
 });

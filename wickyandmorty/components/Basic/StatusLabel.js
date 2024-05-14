@@ -6,7 +6,7 @@ export default function StatusLabel ({showCircle, status }) {
   return (
     <View style={styles.button}>
       {showCircle && (
-        status === "alive" ? <View style={styles.alive} /> : (status==="dead" ? <View style={styles.dead}/> : <View style={styles.unknown} /> )
+        status === "Alive" ? <View style={styles.alive} /> : (status==="Dead" ? <View style={styles.dead}/> : <View style={styles.unknown} /> )
       )}
       <Text style={styles.buttonText}>{status}</Text>
     </View>

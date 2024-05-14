@@ -1,42 +1,68 @@
 import { View, StyleSheet, Text, Image, Pressable } from "react-native";
 import useCharacter from "../../Hooks/useCharacter";
+import { useEffect, useState } from "react";
 
 
-export default function CharacterDetail({ character, name, species,gender, status, location }) {
+export default function CharacterDetail({ route }) {
+  const { id } = route.params;
+  const [char, setChar] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  // character, name, species,gender, status, location
 
-
-  const {char, loading, error, searchCharacter} = useCharacter();
+  //const {char, loading, error, searchCharacter} = useCharacter();
   
-  // useEffect(() => {
-  //   searchCharacter(id);
-  // }, [])
+  const charDetail = async () => {
+    console.log(id);
+    setError(null);
+    setLoading(true);
+    try {
+      const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const dataList = await response.json();
+      setChar(dataList);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    //searchCharacter(id);
+    charDetail();
+  }, [])
   
 
   return (
     <View style={[ styles.container ]}>
-        {/* {loading && <Text>Card loading.....</Text>  }
+        {loading && <Text>Card loading.....</Text>  }
         {error && <Text>{error}</Text>  }
         {char && (
             <>
-                <Image source = {char.image} resizeMode="contain" />
+                <Image source={{uri:char.image}} style={styles.img} />
                 <Text>{char.name}</Text>
                 <Text>Species : {char.species}</Text>
                 <Text>Status : {char.status}</Text>
                 <Text>Gender : {char.gender}</Text>
-                <Text>Location : {char.location.name}</Text>
+                
+                <Pressable onPress={() => {
+                  alert(`Redirecting to ${char.location.name}`);
+                }} >
+                  <Text style={styles.link} >Location : {char.location.name}</Text>
+                </Pressable>
             </>
-        ) } */}
-        <Image source={character} style={styles.img} />
+        ) }
+        {/* <Image source={{uri:character}} style={styles.img} />
         <Text style={styles.title} >{name}</Text>
         <Text style={styles.text} >Species : {species}</Text>
         <Text style={styles.text} >Gender : {gender}</Text>
-        <Text style={styles.text} >Status: {status}</Text>
+        <Text style={styles.text} >Status: {status}</Text> */}
+        
 
-        <Pressable onPress={() => {
-          alert(`Redirecting to ${location}`);
-        }} >
-          <Text style={styles.link} >Location : {location}</Text>
-        </Pressable>
+        
 
     </View>
         
