@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function Busqueda({ placehold, keyType, autoCom, password, icon }) {
+export default function Busqueda({ placehold, keyType, autoCom, password, icon, updateSearch, searchTerm }) {
   const [text, setText] = useState(""); 
   const [showClearIcon, setShowClearIcon] = useState(false); 
 
@@ -23,6 +23,7 @@ export default function Busqueda({ placehold, keyType, autoCom, password, icon }
         value={text}
         onChangeText={(inputText) => {
           setText(inputText); // Actualitza el text del input
+          updateSearch(inputText);
           setShowClearIcon(!!inputText); // Mostra o oculta l'icona de cancel·lar segons si hi ha input o no
         }}
       />

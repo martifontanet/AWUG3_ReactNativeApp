@@ -1,4 +1,6 @@
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import CharacterPhoto from "./CharacterPhoto";
 import {
     beth,
     jerry,
@@ -8,17 +10,49 @@ import {
     random1,
     random2,
   } from "../../assets/characterIMG/index"
-import CharacterPhoto from "./CharacterPhoto";
 
-export default function LocationDetail({name, type, dimension, characters}) {
-  
+export default function EpisodeDetail({ route }) {
+    const { id } = route.params;
+    const [loc, setLoc] = useState(null)
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const char = [beth,jerry,morty,rick,summer,random1,random2,beth,jerry,rick,morty,summer];
+
+    const epDetail = async () => {
+        console.log(id);
+        setError(null);
+        setLoading(true);
+        try {
+          const response = await fetch(`https://rickandmortyapi.com/api/location/${id}`);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const dataList = await response.json();
+          setLoc(dataList);
+          console.log("data : ",dataList);
+          console.log("ep data : ", loc);
+        } catch (error) {
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      useEffect(() => {
+        //searchCharacter(id);
+        epDetail();
+
+      }, [])
+
     return (
         <View style={[ styles.container ]}>
 
-        <Text style={styles.title} >{name}</Text>
-        <Text style={styles.text} >Type : {type}</Text>
-        <Text style={styles.text} >Dimension : {dimension}</Text>
-        <Text style={styles.text} >Residents:</Text>
+        <Text style={styles.title} >{loc.name}</Text>
+        <Text style={styles.text} >Location type : {loc.type}</Text>
+        <Text style={styles.text} >Dimension : {loc.dimension}</Text>
+
+        <Text style={styles.text} >Appearing characters: </Text>
+
         <ScrollView horizontal={true} contentContainerStyle={styles.scroll} >
             {/* {char.map((personaje) => {
                 <CharacterPhoto character={personaje} />
@@ -26,7 +60,7 @@ export default function LocationDetail({name, type, dimension, characters}) {
 
             } )} */}
                     
-            <CharacterPhoto character={jerry} />
+            {/* <CharacterPhoto character={jerry} />
             <CharacterPhoto character={rick} />
             <CharacterPhoto character={morty} />
             <CharacterPhoto character={summer} />
@@ -34,10 +68,9 @@ export default function LocationDetail({name, type, dimension, characters}) {
             <CharacterPhoto character={random1} />
             <CharacterPhoto character={random2} />
             <CharacterPhoto character={morty} />
-            <CharacterPhoto character={rick} />
+            <CharacterPhoto character={rick} /> */}
 
         </ScrollView>
- 
 
         </View>
     );

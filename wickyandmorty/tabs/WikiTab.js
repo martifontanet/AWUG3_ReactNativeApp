@@ -12,11 +12,11 @@ export default function HomeTab() {
         component={Wiki}
         options={{ title: "Wiki Explorer" }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
         name="Detail"
         component={CharacterDetail}
         options={{ title: "Details" }}
-        />
+        /> */}
     </Stack.Navigator>
   );
 }

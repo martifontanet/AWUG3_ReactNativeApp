@@ -38,7 +38,7 @@ export default function CharacterDetail({ route }) {
 
   return (
     <View style={[ styles.container ]}>
-        {loading && <Text>Card loading.....</Text>  }
+        {loading && <Text>Card loading....</Text>  }
         {error && <Text>{error}</Text>  }
         {char && (
             <>
@@ -73,7 +73,6 @@ const size= 268;
 const styles = StyleSheet.create({
     container: {
         display:"flex",
-        width:"360",
         padding:10,
         flexDirection:"column",
         alignItems:"center",
