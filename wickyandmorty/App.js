@@ -1,3 +1,4 @@
+import "react-native-url-polyfill/auto";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -5,12 +6,17 @@ import TabIcon from "./components/Basic/TabIcons";
 import HomeTab from "./tabs/HomeTab";
 import WikiTab from "./tabs/WikiTab";
 import PublishTab from "./tabs/PublishTab";
+import { AuthProvider } from "./utils/userContext";
+import UserAuth from "./screens/UserAuth";
 
 const Tab = createBottomTabNavigator();
 
 
 export default function App() {
+  
+
   return (
+    <AuthProvider>
         <NavigationContainer>
           <Tab.Navigator 
             screenOptions={{
@@ -57,12 +63,14 @@ export default function App() {
             />
           </Tab.Navigator>
         </NavigationContainer>
+      </AuthProvider>
   );
 }
 
 const styles = StyleSheet.create({
   tabBar: {
     flex: 1,
-    backgroundColor: "black"
+    backgroundColor: "black",
+    maxHeight: 110,
   },
 });
