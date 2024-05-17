@@ -7,14 +7,11 @@ import HomeTab from "./tabs/HomeTab";
 import WikiTab from "./tabs/WikiTab";
 import PublishTab from "./tabs/PublishTab";
 import { AuthProvider } from "./utils/userContext";
-import UserAuth from "./screens/UserAuth";
 
 const Tab = createBottomTabNavigator();
 
 
 export default function App() {
-  
-
   return (
     <AuthProvider>
         <NavigationContainer>
@@ -63,7 +60,7 @@ export default function App() {
             />
           </Tab.Navigator>
         </NavigationContainer>
-      </AuthProvider>
+        </AuthProvider>
   );
 }
 

@@ -1,19 +1,20 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Publish from "../screens/Publish";
 import UserAuth from "../screens/UserAuth";
+import { useUserInfo } from "../utils/userContext";
 
 const Stack = createNativeStackNavigator();
 
-const isAuth = false;
 
 export default function HomeTab() {
+  const { session } = useUserInfo();
   return (
-    <Stack.Navigator >
+      <Stack.Navigator >
         <Stack.Screen
         name="Publish"
-        component={isAuth ? Publish : UserAuth}
+        component={ session ? Publish : UserAuth}
         options={{ title: "Publicar nuevo Post" }}
       />
-    </Stack.Navigator>
+      </Stack.Navigator>
   );
 }

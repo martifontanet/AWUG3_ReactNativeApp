@@ -1,11 +1,13 @@
-import { FlatList, StyleSheet, Text, View, } from "react-native";
+import { Button, FlatList, StyleSheet, Text, View, } from "react-native";
 import PostInput from "../components/Barras/PostInput";
 import { supabase } from "../utils/clientSupabase";
 import { useEffect, useState } from "react";
+import { useUserInfo } from "../utils/userContext";
 
 
 export default function Publish() {
   const [posts, setPosts] = useState([]);
+  const { profile } = useUserInfo();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -37,13 +39,17 @@ export default function Publish() {
     
   return (
       <View style={styles.container}>
-        <Text>Publish new Post</Text>
+      <Text>Recent posts: </Text>
         <FlatList 
           data={posts} 
           keyExtractor={item => item.id} 
           renderItem={({ item }) => <Text>{item.content}</Text>} 
-          />
+          ><Button title="Borrar"></Button></FlatList>
+          <Text>________________________________</Text>
+          <Text>Hey {profile?.username}, publish a new Post now!</Text>
+          
         <PostInput onSubmit={handleSubmit} />
+        <Button title="Cerrar sesión" onPress={() => supabase.auth.signOut()}></Button>
       </View>
   );
 }
