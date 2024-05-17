@@ -7,14 +7,16 @@ export default function LocationTab() {
     return (
       <Stack.Navigator >
         <Stack.Screen
-        name="CharacterScreen"
+        name="LocationScreen"
         component={LocationScreen}
         options={{headerShown: false}}
         />
         <Stack.Screen
         name="LocationDetail"
         component={LocationDetail}
-        options={{headerShown: false}}
+        options={{
+          title : "Location Details",
+        }}
         />
     </Stack.Navigator>
     );

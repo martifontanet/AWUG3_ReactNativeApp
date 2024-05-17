@@ -1,6 +1,5 @@
 import { View, StyleSheet, Text, Image, Pressable } from "react-native";
 import StatusLabel from "../Basic/StatusLabel";
-import CharacterPhoto from "./CharacterPhoto";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 

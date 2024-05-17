@@ -1,24 +1,15 @@
 import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-import CharacterPhoto from "./CharacterPhoto";
-import {
-    beth,
-    jerry,
-    morty,
-    rick,
-    summer,
-    random1,
-    random2,
-  } from "../../assets/characterIMG/index"
+import EpilocPhoto from "./EpilocPhoto";
 
 export default function EpisodeDetail({ route }) {
     const { id } = route.params;
     const [loc, setLoc] = useState(null)
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const char = [beth,jerry,morty,rick,summer,random1,random2,beth,jerry,rick,morty,summer];
 
-    const epDetail = async () => {
+
+    const locDetail = async () => {
         console.log(id);
         setError(null);
         setLoading(true);
@@ -29,8 +20,7 @@ export default function EpisodeDetail({ route }) {
           }
           const dataList = await response.json();
           setLoc(dataList);
-          console.log("data : ",dataList);
-          console.log("ep data : ", loc);
+
         } catch (error) {
           setError(error.message);
         } finally {
@@ -39,38 +29,31 @@ export default function EpisodeDetail({ route }) {
       };
     
       useEffect(() => {
-        //searchCharacter(id);
-        epDetail();
+        locDetail();
 
-      }, [])
+      }, [id])
 
     return (
         <View style={[ styles.container ]}>
+        {loading && <Text>Location loading....</Text>  }
+        {error && <Text>{error}</Text>  }
+        {loc && (
+          <>
+            <Text style={styles.title} >{loc.name}</Text>
+            <Text style={styles.text} >Location type : {loc.type}</Text>
+            <Text style={styles.text} >Dimension : {loc.dimension}</Text>
 
-        <Text style={styles.title} >{loc.name}</Text>
-        <Text style={styles.text} >Location type : {loc.type}</Text>
-        <Text style={styles.text} >Dimension : {loc.dimension}</Text>
+            <Text style={styles.text} >Residents: </Text>
 
-        <Text style={styles.text} >Appearing characters: </Text>
+            <ScrollView contentContainerStyle={styles.scroll} >
+              {loc.residents.map((character, index) =>( 
+              <EpilocPhoto  key={index} link={character} /> ) )}
 
-        <ScrollView horizontal={true} contentContainerStyle={styles.scroll} >
-            {/* {char.map((personaje) => {
-                <CharacterPhoto character={personaje} />
-                console.log(personaje);
+            </ScrollView>
+          </>
+        )}
 
-            } )} */}
-                    
-            {/* <CharacterPhoto character={jerry} />
-            <CharacterPhoto character={rick} />
-            <CharacterPhoto character={morty} />
-            <CharacterPhoto character={summer} />
-            <CharacterPhoto character={beth} />
-            <CharacterPhoto character={random1} />
-            <CharacterPhoto character={random2} />
-            <CharacterPhoto character={morty} />
-            <CharacterPhoto character={rick} /> */}
-
-        </ScrollView>
+        
 
         </View>
     );
@@ -79,8 +62,8 @@ export default function EpisodeDetail({ route }) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor:"#4E4E4E",
-        width:360,
         display:"flex",
+        flex:1,
         paddingHorizontal: 20,
         paddingVertical:20,
         flexDirection:"column",
@@ -101,6 +84,10 @@ const styles = StyleSheet.create({
         color:"white",
     },
     scroll:{
-        gap:10,
+      gap:10,
+      display:'flex',
+      flexDirection:'row',
+      flexWrap:'wrap',
+      justifyContent:'center',
     },
   });

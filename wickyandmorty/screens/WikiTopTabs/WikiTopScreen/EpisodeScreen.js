@@ -5,7 +5,6 @@ import {
       View,
     } from "react-native";
 import { useState, useEffect } from "react";
-import CharacterCard from "../../../components/Card/CharacterCard";
 import EpiLocCard from "../../../components/Card/EpisodeCard";
 import Button from "../../../components/Basic/Button";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
