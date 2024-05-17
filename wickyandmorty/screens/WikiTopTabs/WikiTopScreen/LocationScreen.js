@@ -55,50 +55,49 @@ import Button from "../../../components/Basic/Button";
       
   
       return (
-          <View style={styles.container}>
+        <View style={styles.container}>
+        <FlatList 
+          data={data}
+          renderItem={({item}) => (
+            <View style={styles.cardWrapper}>
+              <LocationCard name={item.name} labelName={item.type} locID={item.id} />
+            </View>
+          )}
+          numColumns={2}
+          columnWrapperStyle={styles.charList}
+        />
   
-              <FlatList 
-              data={data}
-              renderItem={({item}) => <LocationCard  name={item.name} labelName={item.type} locID={item.id} />}
-  
-              numColumns={2}
-              columnWrapperStyle={styles.charList}
-              />
-
-              <View style={styles.buttonContainer} >
-                
-              {prev && <Button title="Previous" variable={prev} statechange={setFilter} /> }
-              
-              {next && <Button title="Next" variable={next} statechange={setFilter} />
-              }
-
-            </View>   
-            
-          </View>
+        <View style={styles.buttonContainer}>
+          {prev && <Button title="Previous" variable={prev} statechange={setFilter} /> }
+          {next && <Button title="Next" variable={next} statechange={setFilter} />}
+        </View>  
+      </View>
       );
     }
     
     const styles = StyleSheet.create({
       container: {
         flex: 1,
+        flexDirection: 'column',
         paddingTop: 10,
         paddingHorizontal: 10,
         gap: 10,
-        backgroundColor: "#333333"
+        backgroundColor: "#333333",
       },
-      charList:{
-        display: 'flex',
-        alignItems:'flex-start',
-        alignContent:'flex-start',
-        gap:10,
-        flexWrap:'wrap',
-        margin:5,
+      charList: {
+        justifyContent: 'space-around',
+        marginHorizontal: 15,
+        alignItems:'center',
       },
-      buttonContainer:{
-        display: 'flex',
-        flexDirection:'row',
-        gap:10,
-        alignContent:'center',
+      cardWrapper: {
+        flex: 1,
+        alignItems: 'center',
+        margin: 5,
+      },
+      buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 10,
       }
     });
     

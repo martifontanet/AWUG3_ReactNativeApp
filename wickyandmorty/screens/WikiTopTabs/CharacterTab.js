@@ -2,11 +2,19 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CharacterScreen from "./WikiTopScreen/CharacterScreen";
 import CharacterDetail from "../../components/Card/CharacterDetails";
 import BackButton from "../../components/Basic/BackButton";
+import {StyleSheet} from "react-native";
 const Stack = createNativeStackNavigator();
 export default function CharacterTab() {
     
     return (
-      <Stack.Navigator >
+      <Stack.Navigator 
+        screenOptions={{
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTintColor: '#97CE4C',
+          headerTitleAlign:'center',
+        }}
+      >
         <Stack.Screen
         name="CharacterScreen"
         component={CharacterScreen}
@@ -22,4 +30,13 @@ export default function CharacterTab() {
       </Stack.Navigator>
     );
 }
-    
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: '#333333',
+  },
+  headerTitleStyle: {
+    fontWeight: 'bold',
+    color: '#97CE4C',
+  },
+});

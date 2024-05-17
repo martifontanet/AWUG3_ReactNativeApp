@@ -23,6 +23,7 @@ export default function Wiki() {
             tabBarLabelStyle: { fontSize: 12,},
             tabBarInactiveTintColor : "white",
             tabBarActiveTintColor: "#97CE4C",
+            tabBarIndicatorStyle: styles.tabBarIndicator
           }}
         >
           <Tab.Screen name="Characters" component={CharacterTab} />
@@ -39,6 +40,10 @@ export default function Wiki() {
       flex: 1,
       backgroundColor: "#333333",
       maxHeight: 50,
-    }
+    },
+    tabBarIndicator: {
+      backgroundColor: "#97CE4C",
+      height: 3, 
+    },
   });
   

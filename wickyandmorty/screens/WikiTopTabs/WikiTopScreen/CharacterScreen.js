@@ -61,7 +61,15 @@ export default function CharacterScreen() {
               <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
               <FlatList 
               data={data}
-              renderItem={({item}) => <CharacterCard  image={item.image} character={item.name} status={item.status} charID={item.id} />}
+              renderItem={({item}) =>
+                <View style={styles.cardWrapper}>
+                  <CharacterCard 
+                    image={item.image} 
+                    character={item.name} 
+                    status={item.status} 
+                    charID={item.id} 
+                  />
+                </View>}
   
               numColumns={2}
               columnWrapperStyle={styles.charList}
@@ -84,27 +92,25 @@ export default function CharacterScreen() {
     const styles = StyleSheet.create({
       container: {
         flex: 1,
-        flexDirection:'column',
+        flexDirection: 'column',
         paddingTop: 10,
         paddingHorizontal: 10,
         gap: 10,
         backgroundColor: "#333333",
-        
-
       },
-      charList:{
-        display: 'flex',
-        alignItems:'flex-start',
-        alignContent:'flex-start',
-        gap:10,
-        flexWrap:'wrap',
-        margin:5,
+      charList: {
+        justifyContent: 'space-around',
+        marginHorizontal: 15,
       },
-      buttonContainer:{
-        display: 'flex',
-        flexDirection:'row',
-        gap:10,
-        alignContent:'center',
+      cardWrapper: {
+        flex: 1,
+        alignItems: 'center',
+        margin: 5,
+      },
+      buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 10,
       }
     });
     
