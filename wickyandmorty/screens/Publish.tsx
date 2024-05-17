@@ -1,4 +1,4 @@
-import { Button, FlatList, StyleSheet, Text, View, } from "react-native";
+import { Alert, Button, FlatList, StyleSheet, Text, View, } from "react-native";
 import PostInput from "../components/Barras/PostInput";
 import { supabase } from "../utils/clientSupabase";
 import { useEffect, useState } from "react";
@@ -25,18 +25,43 @@ export default function Publish() {
   
   console.log(posts);
 
-  const handleSubmit = async (content: string) => {
-    const { data, error } = await supabase
-    .from('posts')
-    .insert({ content })
-    .select();
-    if (error) {
-      console.log(error);
-    } else {
-      setPosts([data[0], ...posts]);
-    }
+  const handleSubmit = async (content: string, image: string) => {
+    try{
+      let publicUrl = '';
+      if (image) {
+        const fileExt = image.split(".").pop();
+        const fileName = image.replace(/^.*[\\\/]/, "");
+        const filePath = `${Date.now()}.${fileExt}`;
+
+        const formData = new FormData();
+        const photo = {
+          uri: image,
+          name: fileName,
+          type: `image/${fileExt}`,
+        } as unknown as Blob;
+        formData.append("file", photo);
+
+        const { error } = await supabase.storage
+        .from("posts")
+        .upload(filePath, formData);
+        if (error) throw error;
+
+        const { data } = supabase.storage.from('posts').getPublicUrl(filePath);
+        publicUrl = data.publicUrl;
+      }
+      const { data, error } = await supabase
+      .from('posts')
+      .insert({ content, image: publicUrl })
+      .select();
+      if (error) {
+        throw error;
+      } else {
+        setPosts([data[0], ...posts]);
+      }
+    } catch (error: any) {
+    Alert.alert("Server error", error.message)
   }
-    
+};
   return (
       <View style={styles.container}>
       <Text>Recent posts: </Text>

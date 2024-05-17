@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Image } fr
 import * as ImagePicker from "expo-image-picker";
 
 interface Props {
-    onSubmit: (content: string) => void;
+    onSubmit: (content: string, image: string) => void;
 }
 
 export default function PostInput({ onSubmit }: Props)  {
