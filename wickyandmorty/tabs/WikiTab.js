@@ -1,15 +1,17 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Wiki from "../screens/Wiki";
-import CharacterDetail from "../components/Card/CharacterDetails";
+import UserAuth from "../screens/UserAuth";
+import { useUserInfo } from "../utils/userContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function HomeTab() {
+  const { session } = useUserInfo();
   return (
     <Stack.Navigator>
         <Stack.Screen
         name="Wiki"
-        component={Wiki}
+        component={session ? Wiki : UserAuth}
         options={{ title: "Wiki Explorer" }}
         />
         {/* <Stack.Screen

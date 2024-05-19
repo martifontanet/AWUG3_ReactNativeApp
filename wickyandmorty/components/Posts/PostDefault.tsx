@@ -6,17 +6,15 @@ interface Props {
   post: Post;
 }
 
-export default function PostDefault( {post}: Props) {
+export default function PostDefault({ post }: Props) {
   return (
-    <View style={styles.container} >
-      
-      <Text
-        style={ styles.title } >{post.content}</Text>
-      
+    <View style={styles.container}>
+      <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">{post.content}</Text>
       {post.image && (
         <Image
-          source={{uri: post.image}}
+          source={{ uri: post.image }}
           style={styles.photo}
+          resizeMode="cover"
         />
       )}
     </View>
@@ -27,8 +25,10 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     borderRadius: 5,
-    marginBottom: 10,
+    margin: 10,
     backgroundColor: "#4E4E4E",
+    width: "45%",
+    alignItems: "flex-start",
   },
   title: {
     fontSize: 18,
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: "100%",
     height: 200,
-    resizeMode: "cover",
     borderRadius: 5,
   },
 });

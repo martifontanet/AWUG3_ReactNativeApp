@@ -6,6 +6,7 @@ import TabIcon from "../components/Basic/TabIcons";
 import HomeTab from "../tabs/HomeTab";
 import WikiTab from "../tabs/WikiTab";
 import PublishTab from "../tabs/PublishTab";
+import { PostsProvider } from './postContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,50 +14,52 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
         <NavigationContainer>
-          <Tab.Navigator 
-            screenOptions={{
-              tabBarStyle: styles.tabBar,
-              tabBarLabelStyle: { fontSize: 14, },
-              tabBarInactiveTintColor: "white",
-              tabBarActiveTintColor: "#97CE4C",
-              headerShown: false,
-            }}
-          >
-            <Tab.Screen
-              name="HomeTab"
-              component={HomeTab }
-              options={{
+          <PostsProvider>
+            <Tab.Navigator 
+              screenOptions={{
+                tabBarStyle: styles.tabBar,
+                tabBarLabelStyle: { fontSize: 14, },
+                tabBarInactiveTintColor: "white",
+                tabBarActiveTintColor: "#97CE4C",
                 headerShown: false,
-                headerTitle: false,
-                tabBarIcon: ({ focused }) => (
-                  <TabIcon  name="home" focused={focused} />
-                ),
-                title: ''
               }}
-            />
-            <Tab.Screen
-              name="PublishTab"
-              component={PublishTab}
-              options={{
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                  <TabIcon name="add-circle" focused={focused} />
-                ),
-                title: ``
-              }}
-            />
-            <Tab.Screen
-              name="WikiTab"
-              component={WikiTab}
-              options={{
-                
-                tabBarIcon: ({ focused }) => (
-                  <TabIcon name="planet" focused={focused} />
-                ),
-                title: ''
-              }}
-            />
-          </Tab.Navigator>
+            >
+              <Tab.Screen
+                name="HomeTab"
+                component={HomeTab }
+                options={{
+                  headerShown: false,
+                  headerTitle: false,
+                  tabBarIcon: ({ focused }) => (
+                    <TabIcon  name="home" focused={focused} tab={true} />
+                  ),
+                  title: ''
+                }}
+              />
+              <Tab.Screen
+                name="PublishTab"
+                component={PublishTab}
+                options={{
+                  headerShown: false,
+                  tabBarIcon: ({ focused }) => (
+                    <TabIcon name="add-circle" focused={focused} tab={true} />
+                  ),
+                  title: ``
+                }}
+              />
+              <Tab.Screen
+                name="WikiTab"
+                component={WikiTab}
+                options={{
+                  
+                  tabBarIcon: ({ focused }) => (
+                    <TabIcon name="planet" focused={focused} tab={true} />
+                  ),
+                  title: ''
+                }}
+              />
+            </Tab.Navigator>
+          </PostsProvider>
         </NavigationContainer>
   );
 }
