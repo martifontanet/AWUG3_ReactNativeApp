@@ -3,11 +3,16 @@ import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-nativ
 import { supabase } from '../utils/clientSupabase';
 import { Post } from '../utils/SupabaseApi';
 import PostDefault from '../components/Posts/PostDefault';
-import Busqueda from '../components/Barras/BarraBusqueda';
+import { useLinkTo  } from '@react-navigation/native';
 
 export default function SearchScreen() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Post[]>([]);
+  const linkTo = useLinkTo();
+
+  const goToWikiTab = () => {
+    linkTo('/WikiTab');
+  };
 
   const handleSearch = async () => {
     const { data, error } = await supabase
@@ -24,13 +29,13 @@ export default function SearchScreen() {
 
   return (
     <View style={styles.container}>
-      {/* <Busqueda /> */}
       <TextInput
         style={styles.input}
         placeholder="Search posts"
         value={query}
         onChangeText={setQuery}
       />
+      <Button title="Go to Wiki" onPress={goToWikiTab} />
       <Button title="Search" onPress={handleSearch} />
       <FlatList
         data={results}

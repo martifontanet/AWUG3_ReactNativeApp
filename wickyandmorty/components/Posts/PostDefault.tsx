@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, Image, FlatList } from "react-native";
+import React from "react";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Post } from "../../utils/SupabaseApi";
 
 interface Props {
@@ -7,9 +8,17 @@ interface Props {
 }
 
 export default function PostDefault({ post }: Props) {
+  const navigation = useNavigation();
+
+  const handlePostPress = () => {
+    navigation.navigate("PostDetailScreen", { post });
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">{post.content}</Text>
+    <TouchableOpacity onPress={handlePostPress} style={styles.container}>
+      <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+        {post.content}
+      </Text>
       {post.image && (
         <Image
           source={{ uri: post.image }}
@@ -17,7 +26,7 @@ export default function PostDefault({ post }: Props) {
           resizeMode="cover"
         />
       )}
-    </View>
+    </TouchableOpacity>
   );
 }
 

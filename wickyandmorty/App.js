@@ -1,6 +1,5 @@
 import "react-native-url-polyfill/auto";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet } from "react-native";
 import { AuthProvider, useUserInfo } from "./utils/userContext";
 import UserAuth from "./screens/UserAuth";
 import Navigation from "./utils/Navigation";
@@ -27,10 +26,4 @@ function Main() {
   return isSessionActive ? <Navigation /> : <UserAuth />;
 }
 
-const styles = StyleSheet.create({
-  tabBar: {
-    flex: 1,
-    backgroundColor: "black",
-    maxHeight: 110,
-  },
-});
+
