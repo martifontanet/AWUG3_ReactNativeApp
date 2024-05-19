@@ -3,6 +3,7 @@ import PostInput from "../components/Barras/PostInput";
 import { supabase } from "../utils/clientSupabase";
 import { useEffect, useState } from "react";
 import { useUserInfo } from "../utils/userContext";
+import PostCard from "../components/Posts/PostDefault";
 
 
 export default function Publish() {
@@ -65,6 +66,12 @@ export default function Publish() {
   return (
       <View style={styles.container}>
       <Text>Recent posts: </Text>
+      <FlatList
+      data={posts}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <PostCard post={item} />}
+      />
+      
         <FlatList 
           data={posts} 
           keyExtractor={item => item.id} 
