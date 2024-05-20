@@ -80,6 +80,7 @@ export default function AuthForm({
 const styles = StyleSheet.create({
   container: {
     margin: 8,
+    justifyContent: "center"
   },
   title: {
     fontSize: 32,

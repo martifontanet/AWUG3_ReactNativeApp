@@ -1,4 +1,4 @@
-import { Text, View, Alert } from 'react-native';
+import { Text, View, Alert, StyleSheet } from 'react-native';
 import { useState } from "react";
 import AuthForm from '../components/Barras/AuthForm';
 import { SignInWithPasswordCredentials, SignUpWithPasswordCredentials } from '@supabase/supabase-js';
@@ -32,9 +32,15 @@ export default function UserAuth() {
       setLoading(false);
     }
   return (
-    <View>
-      <Text>UserAuth</Text>
+    <View style={styles.container}>
       <AuthForm loading={loading} onLogin={handleLogin} onSignUp={handleSignup} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  }
+});
