@@ -23,7 +23,7 @@ export default function PostDefault({ post }: Props) {
         <Image
           source={{ uri: post.image }}
           style={styles.photo}
-          resizeMode="cover"
+          resizeMode="contain"
         />
       )}
     </TouchableOpacity>
@@ -32,12 +32,14 @@ export default function PostDefault({ post }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
     padding: 10,
     borderRadius: 5,
     margin: 10,
     backgroundColor: "#4E4E4E",
-    width: "45%",
+    width: "90%",
     alignItems: "flex-start",
+    height: 'auto'
   },
   title: {
     fontSize: 18,
@@ -50,8 +52,8 @@ const styles = StyleSheet.create({
   },
   photo: {
     marginTop: 10,
-    width: "100%",
-    height: 200,
     borderRadius: 5,
+    width: "100%",
+    aspectRatio: 1,
   },
 });

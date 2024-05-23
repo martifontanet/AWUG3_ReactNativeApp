@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { StyleSheet, FlatList, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import PostCard from '../components/Posts/PostDefault';
 import { PostsContext } from '../utils/postContext';
 import { useNavigation } from '@react-navigation/native';
 import TabIcon from "../components/Basic/TabIcons";
+import MasonryList from '@react-native-seoul/masonry-list';
 
 export default function Home() {
   const { posts } = useContext(PostsContext);
@@ -22,7 +23,7 @@ export default function Home() {
           </TouchableOpacity>
         </View>
       </View>
-      <FlatList
+      <MasonryList
         data={posts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <PostCard style={styles.card} post={item} />}
@@ -61,6 +62,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   card: {
-    alignItems: "flex-start"
+    alignItems: "flex-start",
+  },
+  list: {
+    flex: 1,
   }
 });

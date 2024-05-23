@@ -49,7 +49,7 @@ export default function PostDetailScreen({ route }) {
         <View style={styles.post}>
             <Text style={styles.text}>Posted by: {username}</Text>
             {post.image && (
-                <Image source={{ uri: post.image }} style={styles.image} resizeMode="cover" />
+                <Image source={{ uri: post.image }} style={styles.image} resizeMode="contain" />
             )}
             <Text style={styles.text}>{post.content}</Text>
             <View style={styles.icons}>
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   image: {
-    width: '100%',
-    height: 200, // Ajusta la altura de la imagen según sea necesario
+    aspectRatio: 1,
+    width: "100%",
     borderRadius: 10,
     marginBottom: 20,
   },
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     marginRight: 100,
   },
   post: {
+    flex: 1,
     marginTop: 20,
   }
 });
