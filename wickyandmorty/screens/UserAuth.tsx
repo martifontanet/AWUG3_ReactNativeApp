@@ -3,7 +3,6 @@ import { useState } from "react";
 import AuthForm from '../components/Barras/AuthForm';
 import { SignInWithPasswordCredentials, SignUpWithPasswordCredentials } from '@supabase/supabase-js';
 import { supabase } from '../utils/clientSupabase';
-import logo from '../assets/logo.png';
 import useThemeColors from "../Hooks/useThemeColor";
 
 export default function UserAuth() {
@@ -37,7 +36,7 @@ export default function UserAuth() {
     }
   return (
     <View style={styles.container}>
-      <Image source={logo} style={styles.logos} />
+      <Image source={require('../assets/logo.png')} style={styles.logos} />
       <Text style={styles.title}>All your RICK & MORTY stuff in one place</Text>
       <AuthForm loading={loading} onLogin={handleLogin} onSignUp={handleSignup} />
     </View>
