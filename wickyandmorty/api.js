@@ -59,5 +59,5 @@ async function fetchData(fetchURL) {
     throw new Error(`${res.status}: La resposta del servidor no és correcta`);
   }
   const data = await res.json();
-  return data.data;
+  return data;
 }

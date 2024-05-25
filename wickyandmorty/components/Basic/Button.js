@@ -1,10 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export default function Button ({ title }) {
+export default function Button ({ title, variable, statechange }) {
     const handlePress = () => {
 
-        alert("Button pressed !");
+        console.log("Button pressed !");
+        console.log(variable);
+        statechange(variable);
 
       };
 

@@ -4,7 +4,7 @@ export default function CharacterPhoto({character}) {
     return (
         <View style={[ styles.container ]}>
 
-            <Image source={character} style={styles.img}/>
+            <Image source={{uri:character}} style={styles.img}/>
 
         </View>
     );

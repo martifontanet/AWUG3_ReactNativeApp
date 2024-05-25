@@ -1,43 +1,59 @@
-import { View, StyleSheet, Text, ScrollView } from "react-native";
-import {
-    beth,
-    jerry,
-    morty,
-    rick,
-    summer,
-    random1,
-    random2,
-  } from "../../assets/characterIMG/index"
-import CharacterPhoto from "./CharacterPhoto";
+import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import EpilocPhoto from "./EpilocPhoto";
 
-export default function LocationDetail({name, type, dimension, characters}) {
-  
+export default function EpisodeDetail({ route }) {
+    const { id } = route.params;
+    const [loc, setLoc] = useState(null)
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+
+    const locDetail = async () => {
+        console.log(id);
+        setError(null);
+        setLoading(true);
+        try {
+          const response = await fetch(`https://rickandmortyapi.com/api/location/${id}`);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const dataList = await response.json();
+          setLoc(dataList);
+
+        } catch (error) {
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      useEffect(() => {
+        locDetail();
+
+      }, [id])
+
     return (
         <View style={[ styles.container ]}>
+        {loading && <Text>Location loading....</Text>  }
+        {error && <Text>{error}</Text>  }
+        {loc && (
+          <>
+            <Text style={styles.title} >{loc.name}</Text>
+            <Text style={styles.text} >Location type : {loc.type}</Text>
+            <Text style={styles.text} >Dimension : {loc.dimension}</Text>
 
-        <Text style={styles.title} >{name}</Text>
-        <Text style={styles.text} >Type : {type}</Text>
-        <Text style={styles.text} >Dimension : {dimension}</Text>
-        <Text style={styles.text} >Residents:</Text>
-        <ScrollView horizontal={true} contentContainerStyle={styles.scroll} >
-            {/* {char.map((personaje) => {
-                <CharacterPhoto character={personaje} />
-                console.log(personaje);
+            <Text style={styles.text} >Residents: </Text>
 
-            } )} */}
-                    
-            <CharacterPhoto character={jerry} />
-            <CharacterPhoto character={rick} />
-            <CharacterPhoto character={morty} />
-            <CharacterPhoto character={summer} />
-            <CharacterPhoto character={beth} />
-            <CharacterPhoto character={random1} />
-            <CharacterPhoto character={random2} />
-            <CharacterPhoto character={morty} />
-            <CharacterPhoto character={rick} />
+            <ScrollView contentContainerStyle={styles.scroll} >
+              {loc.residents.map((character, index) =>( 
+              <EpilocPhoto  key={index} link={character} /> ) )}
 
-        </ScrollView>
- 
+            </ScrollView>
+          </>
+        )}
+
+        
 
         </View>
     );
@@ -46,8 +62,8 @@ export default function LocationDetail({name, type, dimension, characters}) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor:"#4E4E4E",
-        width:360,
         display:"flex",
+        flex:1,
         paddingHorizontal: 20,
         paddingVertical:20,
         flexDirection:"column",
@@ -68,6 +84,10 @@ const styles = StyleSheet.create({
         color:"white",
     },
     scroll:{
-        gap:10,
+      gap:10,
+      display:'flex',
+      flexDirection:'row',
+      flexWrap:'wrap',
+      justifyContent:'center',
     },
   });

@@ -1,39 +1,42 @@
-import Constants from "expo-constants";
-import { StyleSheet, ScrollView } from "react-native";
-import AppMarti from "./apps/AppMarti"
-import AppFranck from "./apps/AppFranck"
-import AppAdrian from "./apps/AppAdrian"
-import AppAlberto from "./apps/AppAlberto"
+import "react-native-url-polyfill/auto";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { AuthProvider, useUserInfo } from "./utils/userContext";
+import UserAuth from "./screens/UserAuth";
+import Navigation from "./utils/Navigation";
+import { useEffect, useState } from "react";
+import useThemeColors from "./Hooks/useThemeColor";
+import { StyleSheet } from "react-native";
 
+const Tab = createBottomTabNavigator();
 
 export default function App() {
+  
+const themeColors = useThemeColors();
+const styles = getThemedStylesheet(themeColors)
+
   return (
-    <ScrollView style={styles.container}>
-      <AppFranck></AppFranck>
-      <AppMarti></AppMarti>
-      <AppAdrian></AppAdrian>
-      <AppAlberto></AppAlberto>
-    </ScrollView>
+    <AuthProvider>
+      <Main />
+    </AuthProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Constants.statusBarHeight,
-    flex: 1,
-    backgroundColor: "#f1f1f1",
-    gap: 10,
-  },
-  form: {
-    flex: 1
-  },
-  showContainer: {},
-  showTitle: {},
-  showRow: {
-    flexDirection: "row",
-    backgroundColor: "white",
-    borderWidth: 1,
-    borderColor: "lightgrey",
-    padding: 8,
-  },
-});
+function Main() {
+  const { session } = useUserInfo();
+  const [isSessionActive, setIsSessionActive] = useState(session);
+
+  useEffect(() => {
+    setIsSessionActive(session);
+  }, [session]);
+
+  return isSessionActive ? <Navigation /> : <UserAuth />;
+}
+
+function getThemedStylesheet(colors) {
+  return StyleSheet.create({
+    tabBar: {
+      backgroundColor: colors.surface
+    }
+  });
+}
+
