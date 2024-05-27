@@ -30,7 +30,7 @@ export default function FavoriteButton() {
       //onPressIn={handlePressIn}
       style={pressed && styles.whenPressing}
     >
-      <Icon name="star" focused={pressed} />
+      <Icon name="star" size={40} focused={pressed} />
     </Pressable>
   );
 };

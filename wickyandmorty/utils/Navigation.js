@@ -11,7 +11,7 @@ import { PostsProvider } from './postContext';
 const Tab = createBottomTabNavigator();
 
 
-export default function App() {
+export default function Navigation() {
   return (
         <NavigationContainer>
           <PostsProvider>

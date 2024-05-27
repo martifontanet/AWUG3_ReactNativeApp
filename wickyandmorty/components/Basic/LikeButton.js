@@ -69,7 +69,7 @@ export default function LikeButton({ route }) {
         //onPressIn={handlePressIn}
         style={pressed && styles.whenPressing}
       >
-        <Icon name="heart" focused={pressed} />
+        <Icon name="heart" size={40} focused={pressed} />
         <Text style={styles.text}>{likes.length}</Text>
       </Pressable>
     </View>
