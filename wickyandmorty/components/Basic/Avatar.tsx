@@ -12,7 +12,6 @@ export default function Avatar({uri, size=32}: AvatarProps) {
   return (
     <View
       style={styles}
-      
     />
   )
 }
