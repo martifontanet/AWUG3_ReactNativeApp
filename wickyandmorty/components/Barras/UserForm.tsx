@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Pressable,  Keyboard, KeyboardAvoidingView, Platform, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import Avatar from '../Basic/Avatar';
-import Icon from '../Basic/Icons';
-import { Profile, downloadAvatar } from '../../utils/SupabaseApi';
-import { useUserInfo } from '../../utils/userContext';
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Pressable,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import Avatar from "../Basic/Avatar";
+import Icon from "../Basic/Icons";
+import { Profile, downloadAvatar } from "../../utils/SupabaseApi";
+import { useUserInfo } from "../../utils/userContext";
 
 interface ProfileFormProps {
-    profile: Profile | null;
-    onSave: (updatedProfile: Profile) => void;
-    onLogout: () => void;
-    loading: boolean;
+  profile: Profile | null;
+  onSave: (updatedProfile: Profile) => void;
+  onLogout: () => void;
+  loading: boolean;
 }
 
 export default function ProfileForm({
@@ -73,7 +85,7 @@ export default function ProfileForm({
                 <View style={styles.inline}>
                   <Text style={styles.text}>{profile.username}</Text>
                   <Pressable onPress={() => setIsEditing(true)}>
-                    <Icon focused={false} size={27} name={'create'} />
+                    <Icon focused={false} size={27} name={"create"} />
                   </Pressable>
                 </View>
               ) : (
@@ -103,8 +115,7 @@ export default function ProfileForm({
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
   inputDiv: {
     paddingVertical: 8,
   },
@@ -115,40 +126,40 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 22,
     marginBottom: 10,
-    color: 'white',
+    color: "white",
     marginRight: 10,
   },
   white: {
-    color: 'white',
+    color: "white",
   },
   avatar: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 16,
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
   },
   inline: {
-    flexDirection: 'row',
-    alignSelf: 'center',
+    flexDirection: "row",
+    alignSelf: "center",
   },
   button: {
     margin: 30,
   },
   logOut: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     padding: 10,
     paddingHorizontal: 50,
     marginTop: 30,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   save: {
-    backgroundColor: 'green',
+    backgroundColor: "green",
     padding: 10,
     paddingHorizontal: 50,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 });

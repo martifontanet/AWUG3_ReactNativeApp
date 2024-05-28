@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function Busqueda({ placehold, keyType, autoCom, password, icon, updateSearch, searchTerm }) {
-  const [text, setText] = useState(""); 
-  const [showClearIcon, setShowClearIcon] = useState(false); 
+export default function Busqueda({
+  placehold,
+  keyType,
+  autoCom,
+  password,
+  icon,
+  updateSearch,
+  searchTerm,
+}) {
+  const [text, setText] = useState("");
+  const [showClearIcon, setShowClearIcon] = useState(false);
 
   const handleClearText = () => {
     setText(""); // Esborra el text del input

@@ -1,5 +1,11 @@
 import { Session } from "@supabase/supabase-js";
-import { ReactNode, createContext, useContext, useState, useEffect } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import { supabase } from "./clientSupabase";
 import { Profile } from "./SupabaseApi";
 import { Alert } from "react-native";
@@ -30,10 +36,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUserInfo(prevState => ({ ...prevState, session }));
+      setUserInfo((prevState) => ({ ...prevState, session }));
     });
     supabase.auth.onAuthStateChange((_event, session) => {
-      setUserInfo(prevState => ({ ...prevState, session, profile: null }));
+      setUserInfo((prevState) => ({ ...prevState, session, profile: null }));
     });
   }, []);
 
@@ -46,7 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) {
       console.log(error);
     } else {
-      setUserInfo(prevState => ({ ...prevState, profile: data[0] }));
+      setUserInfo((prevState) => ({ ...prevState, profile: data[0] }));
     }
   };
 
@@ -95,8 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await getProfile();
 
       // Reset avatarUpdated to false
-      setUserInfo(prevState => ({ ...prevState, avatarUpdated: false }));
-
+      setUserInfo((prevState) => ({ ...prevState, avatarUpdated: false }));
     } catch (error: any) {
       Alert.alert("Server Error", error.message);
     } finally {
@@ -114,13 +119,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <UserContext.Provider value={{
-      ...userInfo,
-      loading,
-      saveProfile,
-      setAvatarUpdated: (updated: boolean) => setUserInfo(prevState => ({ ...prevState, avatarUpdated: updated })),
-      signOut,
-    }}>
+    <UserContext.Provider
+      value={{
+        ...userInfo,
+        loading,
+        saveProfile,
+        setAvatarUpdated: (updated: boolean) =>
+          setUserInfo((prevState) => ({
+            ...prevState,
+            avatarUpdated: updated,
+          })),
+        signOut,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

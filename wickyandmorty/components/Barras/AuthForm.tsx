@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { StyleSheet, Button, Text, TextInput, View, Alert } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, Button, Text, TextInput, View, Alert } from "react-native";
 import useThemeColors from "../../Hooks/useThemeColor";
 
 import type {
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
-} from '@supabase/supabase-js';
+} from "@supabase/supabase-js";
 
 interface AuthFormProps {
   onSignUp: (credentials: SignUpWithPasswordCredentials) => void;
@@ -18,33 +18,36 @@ export default function AuthForm({
   onLogin,
   loading,
 }: AuthFormProps) {
-  const [mode, setMode] = useState<'login' | 'signUp'>('login');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [mode, setMode] = useState<"login" | "signUp">("login");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const themeColors = useThemeColors();
   const styles = getThemedStylesheet(themeColors);
 
   const handleSubmit = () => {
-    if (mode === 'login') {
+    if (mode === "login") {
       onLogin({ email, password });
     } else {
       onSignUp({ email, password, options: { data: { username } } });
-      Alert.alert('Verificación', 'Por favor, revise su correo electrónico para verificar su cuenta.');
-      setMode('login');
+      Alert.alert(
+        "Verificación",
+        "Por favor, revise su correo electrónico para verificar su cuenta."
+      );
+      setMode("login");
       resetFields();
     }
   };
 
   const resetFields = () => {
-    setUsername('');
-    setEmail('');
-    setPassword('');
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   const handleModeChange = () => {
     setMode((prevMode) => {
-      const newMode = prevMode === 'login' ? 'signUp' : 'login';
+      const newMode = prevMode === "login" ? "signUp" : "login";
       resetFields();
       return newMode;
     });
@@ -52,7 +55,7 @@ export default function AuthForm({
 
   return (
     <View style={styles.container}>
-      {mode === 'signUp' && (
+      {mode === "signUp" && (
         <TextInput
           style={styles.inputBox}
           placeholder="Nombre de usuario"
@@ -82,18 +85,20 @@ export default function AuthForm({
       <View style={styles.button}>
         <Button
           color="green"
-          title={mode === 'login' ? 'Iniciar sesión' : 'Registrarse'}
+          title={mode === "login" ? "Iniciar sesión" : "Registrarse"}
           onPress={handleSubmit}
           disabled={loading || !email || !password}
         />
       </View>
       <View style={styles.footer}>
         <Text style={styles.text}>
-          {mode === 'login' ? '¿No tienes una cuenta?' : '¿Ya tienes una cuenta?'}
+          {mode === "login"
+            ? "¿No tienes una cuenta?"
+            : "¿Ya tienes una cuenta?"}
         </Text>
         <Button
           color="darkgreen"
-          title={mode === 'login' ? 'Regístrate' : 'Inicia sesión'}
+          title={mode === "login" ? "Regístrate" : "Inicia sesión"}
           onPress={handleModeChange}
         />
       </View>
@@ -105,12 +110,12 @@ function getThemedStylesheet(colors) {
   return StyleSheet.create({
     container: {
       margin: 8,
-      width: '75%'
+      width: "75%",
     },
     title: {
       fontSize: 32,
-      fontWeight: 'bold',
-      textAlign: 'center',
+      fontWeight: "bold",
+      textAlign: "center",
       marginBottom: 24,
       marginTop: 16,
     },
@@ -119,22 +124,22 @@ function getThemedStylesheet(colors) {
       padding: 10,
       paddingLeft: 30,
       margin: 8,
-      backgroundColor: '#CBE7A5',
+      backgroundColor: "#CBE7A5",
       borderRadius: 25,
     },
     footer: {
       paddingTop: 16,
-      justifyContent: 'center',
-      alignItems: 'center',
+      justifyContent: "center",
+      alignItems: "center",
     },
     button: {
       width: "50%",
-      alignSelf: 'center',
-      margin: 5
+      alignSelf: "center",
+      margin: 5,
     },
     text: {
       marginBottom: 8,
-      color: colors.textauth
-    }
+      color: colors.textauth,
+    },
   });
 }

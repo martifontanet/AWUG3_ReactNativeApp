@@ -1,4 +1,11 @@
-import { View, StyleSheet, Text, Image, Pressable, FlatList } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Pressable,
+  FlatList,
+} from "react-native";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CharacterDetailsEpisodeList from "./CharacterDetailsEpisodeList";
@@ -15,9 +22,11 @@ export default function CharacterDetail({ route }) {
     setError(null);
     setLoading(true);
     try {
-      const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+      const response = await fetch(
+        `https://rickandmortyapi.com/api/character/${id}`
+      );
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const dataList = await response.json();
       setChar(dataList);
@@ -29,7 +38,7 @@ export default function CharacterDetail({ route }) {
   };
 
   const extractIdFromUrl = (url) => {
-    const parts = url.split('/');
+    const parts = url.split("/");
     return parts[parts.length - 1];
   };
 
@@ -51,17 +60,18 @@ export default function CharacterDetail({ route }) {
           <Pressable
             onPress={() => {
               const locationId = extractIdFromUrl(char.location.url);
-              navigation.navigate('LocationDetail', { id: locationId });
+              navigation.navigate("LocationDetail", { id: locationId });
             }}
           >
-            <Text style={styles.link}>Current Location: {char.location.name}</Text>
+            <Text style={styles.link}>
+              Current Location: {char.location.name}
+            </Text>
           </Pressable>
           <Text style={styles.text}>Appearing Episodes:</Text>
         </View>
       )}
     </>
   );
-
 
   return (
     <FlatList
@@ -117,11 +127,11 @@ const styles = StyleSheet.create({
     color: "#97CE4C",
   },
   charList: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    alignContent: 'flex-start',
+    display: "flex",
+    alignItems: "flex-start",
+    alignContent: "flex-start",
     gap: 10,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     margin: 5,
   },
 });

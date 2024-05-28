@@ -6,13 +6,12 @@ export default function CheckBox() {
   const [pressed, setPressed] = useState(false);
 
   const handlePress = () => {
-
     if (pressed) {
-        setPressed(false);
-        alert("Conditions not accepted !");
-    }else{
-        setPressed(true)
-        alert("Conditions accepted!");
+      setPressed(false);
+      alert("Conditions not accepted !");
+    } else {
+      setPressed(true);
+      alert("Conditions accepted!");
     }
   };
 
@@ -29,7 +28,7 @@ export default function CheckBox() {
       <Icon size={20} name="square" focused={pressed} />
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   whenPressing: {

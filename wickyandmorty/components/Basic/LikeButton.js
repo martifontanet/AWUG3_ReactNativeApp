@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Icon from "./Icons";
-import { supabase } from '../../utils/clientSupabase';
-import { useUserInfo } from '../../utils/userContext';
+import { supabase } from "../../utils/clientSupabase";
+import { useUserInfo } from "../../utils/userContext";
 import { fetchLikes } from "../../utils/SupabaseApi";
 
 export default function LikeButton({ route }) {
@@ -16,7 +16,10 @@ export default function LikeButton({ route }) {
     [likes, user]
   );
 
-  const getLikes = useCallback(() => fetchLikes(post.id).then(setLikes), [post]);
+  const getLikes = useCallback(
+    () => fetchLikes(post.id).then(setLikes),
+    [post]
+  );
 
   useEffect(() => {
     getLikes();
@@ -26,17 +29,17 @@ export default function LikeButton({ route }) {
     if (!user.profile) return;
     if (userLikesPost) {
       const { error } = await supabase
-        .from('post_likes')
+        .from("post_likes")
         .delete()
         .eq("id", userLikesPost.id);
       setPressed(false);
       if (error) Alert.alert("Server Error", error.message);
     } else {
-      const { error } = await supabase.from('post_likes').insert({
-          post_id: post.id,
-          user_id: user?.profile?.id
+      const { error } = await supabase.from("post_likes").insert({
+        post_id: post.id,
+        user_id: user?.profile?.id,
       });
-      setPressed(true)
+      setPressed(true);
       if (error) Alert.alert("Server Error", error.message);
     }
     getLikes();
@@ -55,25 +58,25 @@ export default function LikeButton({ route }) {
       >
         <Icon name="heart" size={40} focused={pressed} />
         <Text style={styles.text}>
-          {likes.length} {likes.length === 1 ? 'like' : 'likes'}
+          {likes.length} {likes.length === 1 ? "like" : "likes"}
         </Text>
       </Pressable>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   whenPressing: {
-    transform: [{ scale: 0.9 }]
+    transform: [{ scale: 0.9 }],
   },
   pressed: {
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   text: {
-    color: 'white',
+    color: "white",
     fontSize: 20,
-  }
+  },
 });

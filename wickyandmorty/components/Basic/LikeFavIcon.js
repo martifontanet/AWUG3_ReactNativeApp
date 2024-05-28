@@ -8,13 +8,12 @@ export default function FavoriteButton() {
   const [pressed, setPressed] = useState(false);
 
   const handlePress = () => {
-
     if (pressed) {
-        setPressed(false);
-        alert("Not favorite anymore !");
-    }else{
-        setPressed(true)
-        alert("Added to favorite !");
+      setPressed(false);
+      alert("Not favorite anymore !");
+    } else {
+      setPressed(true);
+      alert("Added to favorite !");
     }
     //setPressed(false);
     //favorites.toggle(gifId);
@@ -33,7 +32,7 @@ export default function FavoriteButton() {
       <Icon name="star" size={40} focused={pressed} />
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   whenPressing: {

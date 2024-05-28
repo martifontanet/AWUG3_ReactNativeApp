@@ -3,15 +3,14 @@ import Publish from "../screens/Publish";
 
 const Stack = createNativeStackNavigator();
 
-
 export default function HomeTab() {
   return (
-      <Stack.Navigator >
-        <Stack.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="Publish"
         component={Publish}
         options={{ title: "Publicar nuevo Post" }}
       />
-      </Stack.Navigator>
+    </Stack.Navigator>
   );
 }

@@ -1,6 +1,6 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
-import { supabase } from '../utils/clientSupabase';
-import { fetchPosts, Post } from '../utils/SupabaseApi';
+import React, { createContext, useState, useEffect, ReactNode } from "react";
+import { supabase } from "../utils/clientSupabase";
+import { fetchPosts, Post } from "../utils/SupabaseApi";
 
 interface PostsContextProps {
   posts: Post[];
@@ -8,7 +8,9 @@ interface PostsContextProps {
   refreshPosts: () => void;
 }
 
-export const PostsContext = createContext<PostsContextProps | undefined>(undefined);
+export const PostsContext = createContext<PostsContextProps | undefined>(
+  undefined
+);
 
 export const PostsProvider = ({ children }: { children: ReactNode }) => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -23,7 +25,7 @@ export const PostsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addPost = (post: Post) => {
-    setPosts(prevPosts => [post, ...prevPosts]);
+    setPosts((prevPosts) => [post, ...prevPosts]);
   };
 
   return (

@@ -32,14 +32,14 @@ export default function PostDefault({ post }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     padding: 10,
     borderRadius: 5,
     margin: 10,
     backgroundColor: "#4E4E4E",
     width: "90%",
     alignItems: "flex-start",
-    height: 'auto'
+    height: "auto",
   },
   title: {
     fontSize: 18,

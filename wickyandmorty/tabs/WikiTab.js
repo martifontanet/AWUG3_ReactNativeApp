@@ -6,12 +6,12 @@ const Stack = createNativeStackNavigator();
 export default function HomeTab() {
   return (
     <Stack.Navigator>
-        <Stack.Screen
+      <Stack.Screen
         name="Wiki"
         component={Wiki}
         options={{ title: "Wiki Explorer" }}
-        />
-        {/* <Stack.Screen
+      />
+      {/* <Stack.Screen
         name="Detail"
         component={CharacterDetail}
         options={{ title: "Details" }}
