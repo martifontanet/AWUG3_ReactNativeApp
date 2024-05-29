@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,13 +8,20 @@ import {
 } from "react-native";
 import PostCard from "../components/Posts/PostDefault";
 import { PostsContext } from "../utils/postContext";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import TabIcon from "../components/Basic/TabIcons";
 import MasonryList from "@react-native-seoul/masonry-list";
 
 export default function Home() {
-  const { posts } = useContext(PostsContext);
+  const { posts, refreshPosts } = useContext(PostsContext);
   const navigation = useNavigation();
+
+  // Use useFocusEffect to refresh posts when the screen is focused
+  useFocusEffect(
+    useCallback(() => {
+      refreshPosts();
+    }, [])
+  );
 
   return (
     <SafeAreaView style={styles.container}>

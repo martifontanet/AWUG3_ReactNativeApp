@@ -7,8 +7,10 @@ import {
   Button,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import Icon from "../Basic/Icons";
 
 interface Props {
   onSubmit: (content: string, image: string) => void;
@@ -38,7 +40,12 @@ export default function PostInput({ onSubmit }: Props) {
       <TouchableOpacity style={styles.buton} onPress={handlePickImage}>
         <Text>Sube una imagen</Text>
       </TouchableOpacity>
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      {image && <ImageBackground source={{ uri: image }} style={styles.image} >
+          <TouchableOpacity style={styles.cross}>
+            <Icon name="close" size={30} color="black" focused={false} />
+          </TouchableOpacity>
+        </ImageBackground>
+        }
       <Button
         title="Publicar"
         onPress={() => {
@@ -68,6 +75,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     backgroundColor: "#DDDDDD",
+    padding: 10,
+  },
+  cross: {
+    color: "black",
     padding: 10,
   },
   image: {

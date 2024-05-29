@@ -50,7 +50,7 @@ export default function ProfileForm({
       const updatedAvatarUrl = avatarUpdated ? avatarUrl : profile.avatar_url;
       onSave({ ...profile, username, avatar_url: updatedAvatarUrl });
       setIsEditing(false);
-      console.log(avatarUrl);
+      //console.log(avatarUrl);
     }
   };
 
@@ -85,7 +85,7 @@ export default function ProfileForm({
                 <View style={styles.inline}>
                   <Text style={styles.text}>{profile.username}</Text>
                   <Pressable onPress={() => setIsEditing(true)}>
-                    <Icon focused={false} size={27} name={"create"} />
+                    <Icon focused={false} size={27} color="#97CE4C" name={"create"} />
                   </Pressable>
                 </View>
               ) : (

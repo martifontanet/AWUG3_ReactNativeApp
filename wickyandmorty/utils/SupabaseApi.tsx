@@ -57,3 +57,20 @@ export const fetchLikes = async (postId: string) => {
 
 export type Likes = Awaited<ReturnType<typeof fetchLikes>>;
 export type Like = Likes[number];
+
+export const fetchFavs = async (postId: string) => {
+  const { data, error } = await supabase
+    .from("post_fav")
+    .select("user_id, id")
+    .eq("post_id", postId);
+
+  if (error) {
+    console.log("error", error);
+    return [];
+  } else {
+    return data;
+  }
+};
+
+export type Favs = Awaited<ReturnType<typeof fetchFavs>>;
+export type Fav = Favs[number];

@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   TextInput,
+  Pressable,
 } from "react-native";
 import { supabase } from "../utils/clientSupabase";
 import LikeButton from "../components/Basic/LikeButton";
@@ -15,14 +16,18 @@ import LikeFavIcon from "../components/Basic/LikeFavIcon";
 import { useUserInfo } from "../utils/userContext";
 import Avatar from "../components/Basic/Avatar";
 import { downloadAvatar } from "../utils/SupabaseApi";
+import Icon from "../components/Basic/Icons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function PostDetailScreen({ route }) {
   const { post } = route.params;
   const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
   const [avatar, setAvatar] = useState("");
   const [likes, setLikes] = useState(0);
   const [favs, setFavs] = useState(0);
   const user = useUserInfo();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -38,6 +43,7 @@ export default function PostDetailScreen({ route }) {
 
       if (data && data.length > 0) {
         setUsername(data[0].username);
+        setUserId(data[0].id);
         if (data[0].avatar_url) {
           downloadAvatar(data[0].avatar_url).then(setAvatar);
         }
@@ -46,6 +52,8 @@ export default function PostDetailScreen({ route }) {
 
     fetchUsername();
   }, [post.user_id]);
+
+  
 
   const toggleLike = async () => {
     if (!user.profile) return;
@@ -59,6 +67,7 @@ export default function PostDetailScreen({ route }) {
       setLikes(likes + 1);
     }
   };
+
   const toggleFav = async () => {
     if (!user.profile) return;
     const { error } = await supabase.from("post_fav").insert({
@@ -72,15 +81,45 @@ export default function PostDetailScreen({ route }) {
     }
   };
 
+  const handleProfile = async () => {
+    navigation.navigate("UserProfile");
+  };
+
+  const handleDelete = async (id: string) => {
+    Alert.alert(
+      "Eliminar",
+      "Estás seguro que quieres eliminar este post?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            const { error } = await supabase.from("posts").delete().eq("id", id);
+            if (error) {
+              console.log(error);
+              Alert.alert("Server Error", error.message);
+            } else {
+              navigation.navigate("MainPage");
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.post}>
-        <View style={[styles.row, styles.head]}>
+        <Pressable onPress={handleProfile} style={[styles.row, styles.head]}>
           <Avatar uri={avatar} size={50} />
           <Text style={[styles.text, styles.margin, styles.username]}>
             {username}
           </Text>
-        </View>
+        </Pressable>
         {post.image && (
           <Image
             source={{ uri: post.image }}
@@ -96,10 +135,20 @@ export default function PostDetailScreen({ route }) {
         </View>
 
         <View style={styles.row}>
-          <LikeButton route={route} onPress={toggleLike} style={styles.icon} />
-          <LikeFavIcon onPress={toggleFav} style={styles.icon} />
-          {user.profile.username === username && (
+          <Pressable onPress={toggleLike} style={styles.icon}>
+            <LikeButton route={route}  />
+          </Pressable>
+          <Pressable onPress={toggleFav} style={styles.icon}>
+            <LikeFavIcon route={route}  />
+          </Pressable>
+
+          {user.profile.id === userId && (
             <Text style={styles.text}>Times Saved: {favs}</Text>
+          )}
+          {user.profile.id === userId && (
+            <Pressable onPress={() => handleDelete(post.id)} style={styles.text}>
+              <Icon name="trash" size={40} color="#97CE4C" focused={false} />
+            </Pressable>
           )}
         </View>
         <View>
@@ -120,7 +169,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: "#333333", // Cambia esto al color de fondo deseado
+    backgroundColor: "#333333",
   },
   row: {
     flexDirection: "row",
@@ -146,9 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
   },
-  icon: {
-    marginRight: 100,
-  },
+  icon: {},
   post: {
     flex: 1,
     marginTop: 20,
