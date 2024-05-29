@@ -21,7 +21,7 @@ import {
 import CharacterPhoto from "../components/Card/CharacterPhoto";
 import CheckBox from "../components/Basic/Checkbox";
 import EpiLocCard from "../components/Card/EpiLocCard";
-import Publicacion from "../components/Posts/Publicación";
+import Publicacion from "../components/Posts/Publicacion";
 
 function ShowComponent({ name, children }) {
   return (

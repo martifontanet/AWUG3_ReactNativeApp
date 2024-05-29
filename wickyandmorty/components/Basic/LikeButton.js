@@ -64,13 +64,14 @@ export default function LikeButton({ route }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>{likes.length} likes</Text>
       <Pressable
         onPress={handlePress}
         //onPressIn={handlePressIn}
         style={pressed && styles.whenPressing}
       >
         <Icon name="heart" focused={pressed} />
-        <Text style={styles.text}>{likes.length}</Text>
+        
       </Pressable>
     </View>
   );
@@ -78,7 +79,8 @@ export default function LikeButton({ route }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'column',
+    gap:5,
   },
   whenPressing: {
     transform: [{ scale: 0.9 }],
@@ -88,6 +90,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 16,
   }
 });

@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import { useUserInfo } from '../utils/userContext';
 import { supabase } from '../utils/clientSupabase';
+import PP from '../assets/FotoPerfil.jpg';
+import ProfilePicture from '../components/Basic/FotoPerfil';
 
 export default function UserProfile() {
   const { profile } = useUserInfo();
@@ -9,13 +11,14 @@ export default function UserProfile() {
   return (
     <View style={styles.container}>
       {profile ? (
-        <View>
-            <Text style={styles.text}>Hi {profile?.username}!</Text>
+        <View style={styles.container} >
+          <ProfilePicture user={profile?.username} image={PP} />
+            {/* <Text style={styles.text}>Hi {profile?.username}!</Text> */}
         </View>
       ) : (
         <Text style={styles.text}>No user information available.</Text>
       )}
-      <Button title="Cerrar sesión" onPress={() => supabase.auth.signOut()} />
+      <Button title="LOGOUT" onPress={() => supabase.auth.signOut()} color='#97CE4C' />
     </View>
   );
 }
@@ -23,7 +26,7 @@ export default function UserProfile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 5,
     backgroundColor: '#333333',
   },
   title: {

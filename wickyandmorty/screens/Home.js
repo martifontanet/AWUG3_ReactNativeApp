@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { StyleSheet, FlatList, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
-import PostCard from '../components/Posts/PostDefault';
+import PostDefault from '../components/Posts/PostDefault';
 import { PostsContext } from '../utils/postContext';
 import { useNavigation } from '@react-navigation/native';
 import TabIcon from "../components/Basic/TabIcons";
+import { useState } from 'react';
 
 export default function Home() {
   const { posts } = useContext(PostsContext);
@@ -12,7 +13,7 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.upBar}>
-        <Text style={styles.text}>For you | Recent | Popular</Text>
+        {/* <Text style={styles.text}>For you | Recent | Popular</Text> */}
         <View style={styles.rightButtons}>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SearchScreen')}>
             <TabIcon name="search" focused={false} rounded={true} tab={false} />
@@ -25,7 +26,7 @@ export default function Home() {
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <PostCard style={styles.card} post={item} />}
+        renderItem={({ item }) => <PostDefault style={styles.card} post={item} />}
         numColumns={2} 
         contentContainerStyle={styles.flatListContent}
       />
@@ -45,10 +46,10 @@ const styles = StyleSheet.create({
   },
   upBar: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
-    marginHorizontal: 20,
+    // marginBottom: 10,
+    // marginHorizontal: 20,
   },
   rightButtons: {
     flexDirection: 'row',
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginLeft: 5,
+    borderRadius: 20,
   },
   card: {
     alignItems: "flex-start"

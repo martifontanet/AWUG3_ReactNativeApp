@@ -27,6 +27,7 @@ export default function AuthForm({
       onLogin({ email, password });
     } else {
       onSignUp({ email, password, options: { data: { username } } });
+      alert('Check your email to confirm the account!');
     }
   };
 

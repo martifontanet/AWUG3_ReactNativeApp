@@ -49,7 +49,7 @@ export default function Publish() {
 
   return (
     <View style={styles.container}>
-      <Text>Hey {profile?.username}, publish a new Post now!</Text>
+      <Text style={styles.text} >Hey {profile?.username}, publish a new Post now!</Text>
       <PostInput onSubmit={handleSubmit} />
     </View>
   );
@@ -57,8 +57,16 @@ export default function Publish() {
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
     paddingTop: 10,
     paddingHorizontal: 10,
     gap: 10,
+    backgroundColor: '#333333',
   },
+  text:{
+    color:'#97CE4C',
+    fontSize:20,
+    textAlign:'center'
+
+  }
 });

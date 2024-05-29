@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     marginBottom: 5, // Espacio opcional entre los íconos
   },
   iconRounded: {
-    backgroundColor: "rgba(151, 206, 76, 0.3)",
+    //backgroundColor: "rgba(151, 206, 76, 0.3)",
+    backgroundColor:'#97CE4C',
     borderRadius: 20, // Redondea el fondo del icono si la propiedad rounded es verdadera
   },
 });

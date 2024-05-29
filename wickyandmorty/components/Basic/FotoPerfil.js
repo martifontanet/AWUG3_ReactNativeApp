@@ -10,14 +10,13 @@ export default function ProfilePicture({image, user}) {
     );
   };
 
-  const size= 100;
+  const size= 90;
 const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        padding: 15,
-        gap:15,
+        gap:5,
     },
     icon: {
         width: size,
@@ -26,9 +25,10 @@ const styles = StyleSheet.create({
         borderRadius:100,
     },
     text: {
-        fontSize: 25,
+        fontSize: 20,
         fontWeight:"bold",
         marginLeft: 10,
         marginRight: 10,
+        color:'white',
     }
   });

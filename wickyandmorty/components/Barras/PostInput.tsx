@@ -23,17 +23,20 @@ export default function PostInput({ onSubmit }: Props)  {
   };
 
   return (
-    <View>
-      <TextInput style={styles.input} value={content} onChangeText={setContent} placeholder="Descripcion" />
+    <View style={styles.container} >
+      <TextInput style={styles.input} value={content} onChangeText={setContent} placeholder="Description" multiline numberOfLines={4} />
       <TouchableOpacity style={styles.buton} onPress={handlePickImage}>
-        <Text>Sube una imagen</Text>
+        <Text style={styles.text} >UPLOAD IMAGE</Text>
       </TouchableOpacity>
       {image && <Image source={{ uri: image }} style={styles.image} />}
-      <Button title="Publicar" onPress={() => {
+      <Button title="Publish" onPress={() => {
         onSubmit(content, image);
         setContent("");
         setImage("");
-      }} />
+        alert('Post uploaded!');
+      }}
+      color='#97CE4C'
+       />
 
     </View>
   ); 
@@ -42,27 +45,33 @@ export default function PostInput({ onSubmit }: Props)  {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      paddingTop: 10,
-      paddingHorizontal: 10,
-      gap: 10,
+      gap: 15,
+      alignContent:'center',
     },
     input: {
-      borderColor: 'green',
-      borderWidth: 1,
+      backgroundColor:'#D4EAD0',
+      borderWidth: 3,
+      borderColor:'#97CE4C',
+      borderRadius:2,
       padding: 8,
       marginVertical: 8,
     },
     buton: {
       alignItems: "center",
       marginBottom: 20,
-      backgroundColor: '#DDDDDD',
+      backgroundColor: '#97CE4C',
       padding: 10,
+      borderRadius:2,
     },
     image: {
       height: 100,
       width: 100,
-      borderColor: "green",
-      borderWidth: 5,
+      borderColor: "#97CE4C",
+      borderWidth: 3,
+    },
+    text:{
+      fontWeight:'bold',
+      color:'white',
     }
+    
   });

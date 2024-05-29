@@ -4,6 +4,8 @@ import { supabase } from '../utils/clientSupabase';
 import LikeButton from '../components/Basic/LikeButton';
 import LikeFavIcon from '../components/Basic/LikeFavIcon';
 import { useUserInfo } from '../utils/userContext';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function PostDetailScreen({ route }) {
   const { post } = route.params;
@@ -47,15 +49,19 @@ export default function PostDetailScreen({ route }) {
   return (
     <ScrollView style={styles.container}>
         <View style={styles.post}>
-            <Text style={styles.text}>Posted by: {username}</Text>
-            {post.image && (
-                <Image source={{ uri: post.image }} style={styles.image} resizeMode="cover" />
-            )}
-            <Text style={styles.text}>{post.content}</Text>
-            <View style={styles.icons}>
-                <LikeButton route={route} onPress={toggleLike} style={styles.icon} />
-                <LikeFavIcon style={styles.icon} />
-            </View>
+          <Text style={styles.author}>{username}</Text>
+
+          {post.image && (
+            
+              <Image source={{ uri: post.image }} style={styles.image} />
+          )}
+
+          <Text style={styles.text}>{post.content}</Text>
+          
+          <View style={styles.icons}>
+              <LikeButton route={route} onPress={toggleLike} style={styles.icon} />
+              {/* <LikeFavIcon style={styles.icon} /> */}
+          </View>
         </View>
     </ScrollView>
   );
@@ -64,28 +70,28 @@ export default function PostDetailScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     backgroundColor: '#333333', // Cambia esto al color de fondo deseado
   },
   text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontSize: 18,
     color: 'white'
   },
   image: {
-    width: '100%',
-    height: 200, // Ajusta la altura de la imagen según sea necesario
+    height: 300, // Ajusta la altura de la imagen según sea necesario
     borderRadius: 10,
-    marginBottom: 20,
   },
   icons: {
-    flexDirection: 'row',
-  },
-  icon: {
-    marginRight: 100,
+    flexDirection:"row",
+    gap:20,
   },
   post: {
-    marginTop: 20,
+    gap:10,
+    marginTop:10,
+  },
+  author:{
+    fontSize: 20,
+    color: 'white',
+    fontWeight:'bold',
   }
 });

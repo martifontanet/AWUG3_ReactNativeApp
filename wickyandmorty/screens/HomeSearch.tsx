@@ -34,13 +34,15 @@ export default function SearchScreen() {
         placeholder="Search posts"
         value={query}
         onChangeText={setQuery}
+        multiline numberOfLines={4}
       />
-      <Button title="Go to Wiki" onPress={goToWikiTab} />
-      <Button title="Search" onPress={handleSearch} />
+      <Button title="Go to Wiki" onPress={goToWikiTab} color='#97CE4C'  />
+      <Button title="Search" onPress={handleSearch} color='#97CE4C' />
       <FlatList
         data={results}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <PostDefault post={item} />}
+        numColumns={2}
       />
     </View>
   );
@@ -51,12 +53,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#333333',
+    gap:15,
   },
   input: {
-    borderColor: '#ccc',
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 10,
-    color: "white"
+    backgroundColor:'#D4EAD0',
+    borderWidth: 3,
+    borderColor:'#97CE4C',
+    borderRadius:2,
+    padding: 8,
+    marginVertical: 8,
   },
+  flatListContent: {
+    alignItems: 'center',
+    paddingHorizontal: 5,
+  },
+  
 });
