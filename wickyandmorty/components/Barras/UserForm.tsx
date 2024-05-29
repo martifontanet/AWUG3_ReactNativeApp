@@ -83,7 +83,7 @@ export default function ProfileForm({
               </TouchableOpacity>
               {!isEditing ? (
                 <View style={styles.inline}>
-                  <Text style={styles.text}>{profile.username}</Text>
+                  <Text style={styles.text}>{profile?.username}</Text>
                   <Pressable onPress={() => setIsEditing(true)}>
                     <Icon focused={false} size={27} color="#97CE4C" name={"create"} />
                   </Pressable>

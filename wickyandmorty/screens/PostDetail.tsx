@@ -1,14 +1,15 @@
+// PostDetailScreen.js
+
 import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   Image,
-  Button,
   StyleSheet,
   ScrollView,
   Alert,
-  TextInput,
   Pressable,
+  LogBox 
 } from "react-native";
 import { supabase } from "../utils/clientSupabase";
 import LikeButton from "../components/Basic/LikeButton";
@@ -18,6 +19,7 @@ import Avatar from "../components/Basic/Avatar";
 import { downloadAvatar } from "../utils/SupabaseApi";
 import Icon from "../components/Basic/Icons";
 import { useNavigation } from "@react-navigation/native";
+import Comments from "../components/Posts/Comentario";
 
 export default function PostDetailScreen({ route }) {
   const { post } = route.params;
@@ -31,6 +33,7 @@ export default function PostDetailScreen({ route }) {
 
   useEffect(() => {
     const fetchUsername = async () => {
+      LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
@@ -52,8 +55,6 @@ export default function PostDetailScreen({ route }) {
 
     fetchUsername();
   }, [post.user_id]);
-
-  
 
   const toggleLike = async () => {
     if (!user.profile) return;
@@ -85,7 +86,7 @@ export default function PostDetailScreen({ route }) {
     navigation.navigate("UsersProfiles", { userId: post.user_id });
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id) => {
     Alert.alert(
       "Eliminar",
       "Estás seguro que quieres eliminar este post?",
@@ -136,10 +137,10 @@ export default function PostDetailScreen({ route }) {
 
         <View style={styles.row}>
           <Pressable onPress={toggleLike} style={styles.icon}>
-            <LikeButton route={route}  />
+            <LikeButton route={route} />
           </Pressable>
           <Pressable onPress={toggleFav} style={styles.icon}>
-            <LikeFavIcon route={route}  />
+            <LikeFavIcon route={route} />
           </Pressable>
 
           {user.profile.id === userId && (
@@ -151,15 +152,7 @@ export default function PostDetailScreen({ route }) {
             </Pressable>
           )}
         </View>
-        <View>
-          <TextInput
-            style={styles.inputBox}
-            placeholder="Añade un comentario"
-            placeholderTextColor="#323941"
-            autoCapitalize="none"
-          />
-          <Button title="Submit" />
-        </View>
+        <Comments postId={post.id} />
       </View>
     </ScrollView>
   );
@@ -199,10 +192,5 @@ const styles = StyleSheet.create({
   post: {
     flex: 1,
     marginTop: 20,
-  },
-  inputBox: {
-    backgroundColor: "white",
-    padding: 10,
-    marginTop: 30,
   },
 });

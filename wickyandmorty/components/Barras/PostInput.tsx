@@ -10,7 +10,7 @@ import {
   ImageBackground,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import Icon from "../Basic/Icons";
+import TabIcon from "../Basic/TabIcons";
 
 interface Props {
   onSubmit: (content: string, image: string) => void;
@@ -41,8 +41,8 @@ export default function PostInput({ onSubmit }: Props) {
         <Text>Sube una imagen</Text>
       </TouchableOpacity>
       {image && <ImageBackground source={{ uri: image }} style={styles.image} >
-          <TouchableOpacity style={styles.cross}>
-            <Icon name="close" size={30} color="black" focused={false} />
+          <TouchableOpacity style={styles.cross} onPress={() => setImage("")}>
+            <TabIcon name="close" tab={false} rounded={true} focused={false} />
           </TouchableOpacity>
         </ImageBackground>
         }
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   cross: {
-    color: "black",
     padding: 10,
   },
   image: {
