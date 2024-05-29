@@ -1,86 +1,177 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+// components/Basic/Comments.js
 
-export default function Comentario({ nombreUsuario, texto, numLikes }) {
-  const [heartActive, setHeartActive] = useState(false);
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+  Pressable,
+  Alert,
+} from "react-native";
+import { supabase } from "../../utils/clientSupabase";
+import Avatar from "../Basic/Avatar";
+import { useUserInfo } from "../../utils/userContext";
+import Icon from "../Basic/Icons";
+import { downloadAvatar } from "../../utils/SupabaseApi";
 
-  const toggleHeart = () => {
-    setHeartActive(!heartActive);
+export default function Comments({ postId }) {
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const [loadingComments, setLoadingComments] = useState(true);
+  const user = useUserInfo();
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("comments")
+          .select("*, profiles(username, avatar_url)")
+          .eq("post_id", postId)
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.error("Error fetching comments:", error.message);
+          return;
+        }
+
+        const commentsWithAvatars = await Promise.all(
+          data.map(async (comment) => {
+            const avatarUrl = await downloadAvatar(comment.profiles.avatar_url);
+            return { ...comment, avatarUrl };
+          })
+        );
+
+        setComments(commentsWithAvatars);
+      } catch (error) {
+        console.error("Error fetching comments:", error.message);
+      } finally {
+        setLoadingComments(false);
+      }
+    };
+
+    fetchComments();
+  }, [postId]);
+
+  const handleAddComment = async () => {
+    if (!newComment.trim()) return;
+
+    const { data, error } = await supabase
+      .from("comments")
+      .insert({
+        post_id: postId,
+        user_id: user.profile.id,
+        content: newComment.trim(),
+      })
+      .select("*, profiles(username, avatar_url)");
+
+    if (error) {
+      Alert.alert("Server Error", error.message);
+    } else {
+      const newCommentWithAvatar = await downloadAvatar(data[0].profiles.avatar_url);
+      setComments([{ ...data[0], avatarUrl: newCommentWithAvatar }, ...comments]);
+      setNewComment("");
+    }
   };
 
+  const handleDeleteComment = async (commentId) => {
+    Alert.alert(
+      "Eliminar comentario",
+      "Estás seguro que quieres eliminar este comentario?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            const { error } = await supabase.from("comments").delete().eq("id", commentId);
+            if (error) {
+              console.error("Error deleting comment:", error.message);
+            } else {
+              setComments(comments.filter((comment) => comment.id !== commentId));
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const renderComment = ({ item }) => (
+    <View style={styles.comment}>
+      <Avatar uri={item.avatarUrl} size={40} />
+      <View style={styles.commentContent}>
+        <Text style={styles.commentUsername}>{item.profiles.username}</Text>
+        <Text style={styles.commentText}>{item.content}</Text>
+      </View>
+      {item.user_id === user.profile.id && (
+        <Pressable onPress={() => handleDeleteComment(item.id)} style={styles.icon}>
+          <Icon name="trash" size={20} color="#97CE4C" focused={false} />
+        </Pressable>
+      )}
+    </View>
+  );
+
   return (
-    <View style={styles.container}>
-      <View style={styles.userContainer}>
-        <Image
-          source={require("../../assets/foto.jpg")}
-          style={styles.fotoPerfil}
+    <View>
+      <TextInput
+        style={styles.inputBox}
+        placeholder="Añade un comentario"
+        placeholderTextColor="#323941"
+        autoCapitalize="none"
+        value={newComment}
+        onChangeText={setNewComment}
+      />
+      <Button title="Submit" onPress={handleAddComment} />
+
+      <Text style={styles.commentsTitle}>Comentarios:</Text>
+      {loadingComments ? (
+        <ActivityIndicator size="large" color="#97CE4C" />
+      ) : (
+        <FlatList
+          data={comments}
+          renderItem={renderComment}
+          keyExtractor={(item) => item.id.toString()}
         />
-        <View style={styles.userInfo}>
-          <Text style={styles.nombreUsuario}>{nombreUsuario}</Text>
-          <Text style={styles.texto}>{texto}</Text>
-        </View>
-      </View>
-      <View style={styles.likesContainer}>
-        <TouchableOpacity
-          style={styles.likeButton}
-          onPress={toggleHeart}
-          activeOpacity={0.8}
-        >
-          <Ionicons
-            name={heartActive ? "heart" : "heart-outline"}
-            size={24}
-            color={heartActive ? "#97CE4C" : "#97CE4C"}
-          />
-        </TouchableOpacity>
-        <Text style={styles.likes}>{numLikes} Likes</Text>
-      </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    backgroundColor: "#4E4E4E",
+  inputBox: {
+    backgroundColor: "white",
     padding: 10,
-    borderRadius: 5,
+    marginTop: 30,
+  },
+  commentsTitle: {
+    fontSize: 20,
+    color: "#97CE4C",
+    marginTop: 20,
     marginBottom: 10,
   },
-  userContainer: {
+  comment: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 10,
   },
-  fotoPerfil: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
+  commentContent: {
+    flex: 1,
+    marginLeft: 10,
   },
-  userInfo: {
-    flexDirection: "column",
-  },
-  nombreUsuario: {
-    fontSize: 16,
+  commentUsername: {
+    color: "#97CE4C",
     fontWeight: "bold",
-    color: "#fff",
   },
-  texto: {
-    fontSize: 14,
-    color: "#fff",
-    marginBottom: 5,
+  commentText: {
+    color: "white",
   },
-  likesContainer: {
-    flexDirection: "column",
-    alignItems: "center",
-    marginLeft: "auto",
-  },
-  likeButton: {
-    marginRight: 5,
-  },
-  likes: {
-    fontSize: 16,
-    color: "#fff",
-    marginLeft: 5,
+  icon: {
+    marginLeft: 10,
   },
 });

@@ -6,7 +6,9 @@ export default function BarraLista({ palabras, maxPalabrasSeleccionadas }) {
 
   const toggleWord = (word) => {
     if (selectedWords.includes(word)) {
-      setSelectedWords(selectedWords.filter((selectedWord) => selectedWord !== word));
+      setSelectedWords(
+        selectedWords.filter((selectedWord) => selectedWord !== word)
+      );
       console.log(selectedWords);
     } else {
       if (selectedWords.length < maxPalabrasSeleccionadas) {

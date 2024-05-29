@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import PostInput from '../components/Barras/PostInput';
 import { supabase } from '../utils/clientSupabase';
 import { useUserInfo } from '../utils/userContext';
@@ -8,6 +9,7 @@ import { PostsContext } from '../utils/postContext';
 export default function Publish() {
   const { addPost } = useContext(PostsContext);
   const { profile } = useUserInfo();
+  const navigation = useNavigation(); 
 
   const handleSubmit = async (content: string, image: string) => {
     try {
@@ -35,12 +37,14 @@ export default function Publish() {
       }
       const { data, error } = await supabase
         .from('posts')
-        .insert({ content, image: publicUrl })
+        .insert({ content, image: publicUrl, user_id: profile?.id })
         .select();
       if (error) {
         throw error;
       } else {
-        addPost(data[0]);
+        const newPost = { ...data[0], profile: { username: profile?.username } };
+        addPost(newPost);
+        navigation.navigate('PostDetailScreen', { post: newPost }); 
       }
     } catch (error: any) {
       Alert.alert('Server error', error.message);

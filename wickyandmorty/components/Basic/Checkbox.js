@@ -1,4 +1,3 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import Icon from "./Icons";
@@ -7,13 +6,12 @@ export default function CheckBox() {
   const [pressed, setPressed] = useState(false);
 
   const handlePress = () => {
-
     if (pressed) {
-        setPressed(false);
-        alert("Conditions not accepted !");
-    }else{
-        setPressed(true)
-        alert("Conditions accepted!");
+      setPressed(false);
+      alert("Conditions not accepted !");
+    } else {
+      setPressed(true);
+      alert("Conditions accepted!");
     }
   };
 
@@ -27,10 +25,10 @@ export default function CheckBox() {
       //onPressIn={handlePressIn}
       style={pressed && styles.whenPressing}
     >
-      <Icon name="square" focused={pressed} />
+      <Icon size={20} name="square" focused={pressed} />
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   whenPressing: {

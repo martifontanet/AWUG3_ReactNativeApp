@@ -10,9 +10,8 @@ import { StyleSheet } from "react-native";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  
-const themeColors = useThemeColors();
-const styles = getThemedStylesheet(themeColors)
+  const themeColors = useThemeColors();
+  const styles = getThemedStylesheet(themeColors);
 
   return (
     <AuthProvider>
@@ -35,8 +34,7 @@ function Main() {
 function getThemedStylesheet(colors) {
   return StyleSheet.create({
     tabBar: {
-      backgroundColor: colors.surface
-    }
+      backgroundColor: colors.surface,
+    },
   });
 }
-
