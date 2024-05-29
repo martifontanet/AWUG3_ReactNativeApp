@@ -4,6 +4,7 @@ import UserAuth from "../screens/UserAuth";
 import UserProfile from "../screens/UserProfile";
 import HomeSearch from "../screens/HomeSearch";
 import PostDetailScreen from "../screens/PostDetail";
+import UsersProfiles from "../screens/UsersProfiles";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,11 @@ export default function HomeTab() {
       <Stack.Screen
         name="UserProfile"
         component={UserProfile}
+        options={{ title: "User Profile" }}
+      />
+      <Stack.Screen
+        name="UsersProfiles"
+        component={UsersProfiles}
         options={{ title: "User Profile" }}
       />
       <Stack.Screen

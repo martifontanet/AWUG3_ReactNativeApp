@@ -82,7 +82,7 @@ export default function PostDetailScreen({ route }) {
   };
 
   const handleProfile = async () => {
-    navigation.navigate("UserProfile");
+    navigation.navigate("UsersProfiles", { userId: post.user_id });
   };
 
   const handleDelete = async (id: string) => {

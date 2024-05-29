@@ -11,10 +11,12 @@ import { PostsContext } from "../utils/postContext";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import TabIcon from "../components/Basic/TabIcons";
 import MasonryList from "@react-native-seoul/masonry-list";
+import { useUserInfo } from "../utils/userContext"; // Importa el contexto
 
 export default function Home() {
   const { posts, refreshPosts } = useContext(PostsContext);
   const navigation = useNavigation();
+  const { profile } = useUserInfo(); // Obtiene la información del usuario del contexto
 
   // Use useFocusEffect to refresh posts when the screen is focused
   useFocusEffect(
@@ -36,7 +38,14 @@ export default function Home() {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("UserProfile")}
+            onPress={() => {
+              if (profile?.id) { // Verifica que la ID del usuario esté definida
+                navigation.navigate("UserProfile", { userId: profile.id });
+              } else {
+                // Si la ID del usuario no está definida, puedes mostrar un mensaje de error o realizar alguna otra acción
+                console.error("ID de usuario no definida");
+              }
+            }}
           >
             <TabIcon name="person" focused={false} rounded={true} tab={false} />
           </TouchableOpacity>

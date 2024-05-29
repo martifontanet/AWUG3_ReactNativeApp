@@ -1,18 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { useUserInfo } from "../utils/userContext";
 import { supabase } from "../utils/clientSupabase";
 import UserForm from "../components/Barras/UserForm";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { useWindowDimensions } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const MyPosts = () => {
   const { profile } = useUserInfo();
@@ -41,12 +34,10 @@ const MyPosts = () => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.postItem}
-      onPress={() => navigation.navigate("PostDetailScreen", { post: item })}
+      onPress={() => navigation.navigate('PostDetailScreen', { post: item })}
     >
       <Text style={styles.text}>{item.content}</Text>
-      {item.image && (
-        <Image source={{ uri: item.image }} style={styles.image} />
-      )}
+      {item.image && <Image source={{ uri: item.image }} style={styles.image} />}
     </TouchableOpacity>
   );
 
@@ -81,7 +72,7 @@ const SavedPosts = () => {
       return;
     }
 
-    const postIds = data.map((fav) => fav.post_id);
+    const postIds = data.map(fav => fav.post_id);
 
     if (postIds.length > 0) {
       const { data: postsData, error: postsError } = await supabase
@@ -107,12 +98,10 @@ const SavedPosts = () => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.postItem}
-      onPress={() => navigation.navigate("PostDetailScreen", { post: item })}
+      onPress={() => navigation.navigate('PostDetailScreen', { post: item })}
     >
       <Text style={styles.text}>{item.content}</Text>
-      {item.image && (
-        <Image source={{ uri: item.image }} style={styles.image} />
-      )}
+      {item.image && <Image source={{ uri: item.image }} style={styles.image} />}
     </TouchableOpacity>
   );
 
@@ -137,8 +126,8 @@ export default function UserProfile() {
   const [index, setIndex] = useState(0);
 
   const routes = [
-    { key: "myPosts", title: "Mis Publicaciones" },
-    { key: "savedPosts", title: "Posts Guardados" },
+    { key: 'myPosts', title: 'Mis Publicaciones' },
+    { key: 'savedPosts', title: 'Posts Guardados' }
   ];
 
   const renderScene = SceneMap({
@@ -159,7 +148,7 @@ export default function UserProfile() {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        renderTabBar={(props) => <TabBar {...props} style={styles.tabBar} />}
+        renderTabBar={props => <TabBar {...props} style={styles.tabBar} />}
       />
     </View>
   );
@@ -173,15 +162,15 @@ const styles = StyleSheet.create({
   },
   scene: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
-    color: "white",
+    color: 'white',
     fontSize: 20,
   },
   tabBar: {
-    backgroundColor: "#333333",
+    backgroundColor: '#333333',
   },
   postItem: {
     marginBottom: 20,
