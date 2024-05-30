@@ -115,9 +115,9 @@ export default function PostDetailScreen({ route }) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.post}>
-        <Pressable onPress={handleProfile} style={[styles.row, styles.head]}>
+        <Pressable onPress={handleProfile} style={[styles.userRow, styles.head]}>
           <Avatar uri={avatar} size={50} />
-          <Text style={[styles.text, styles.margin, styles.username]}>
+          <Text style={[styles.userText, styles.margin, styles.username]}>
             {username}
           </Text>
         </Pressable>
@@ -128,12 +128,15 @@ export default function PostDetailScreen({ route }) {
             resizeMode="contain"
           />
         )}
-        <View style={styles.row}>
+        <Pressable onPress={handleProfile} style={styles.row}>
           <Text style={styles.text}>
-            <Text style={[styles.text, styles.username]}>{username}</Text>{" "}
-            {post.content}
+            <Text style={[styles.text, styles.username]}>
+              {username}
+            </Text>
+              {" "}
+              {post.content}
           </Text>
-        </View>
+        </Pressable>
 
         <View style={styles.row}>
           <Pressable onPress={toggleLike} style={styles.icon}>
@@ -142,16 +145,18 @@ export default function PostDetailScreen({ route }) {
           <Pressable onPress={toggleFav} style={styles.icon}>
             <LikeFavIcon route={route} />
           </Pressable>
-
+        </View>
+        <View style={styles.savedContainer}>
           {user.profile.id === userId && (
             <Text style={styles.text}>Times Saved: {favs}</Text>
           )}
-          {user.profile.id === userId && (
+        {user.profile.id === userId && (
             <Pressable onPress={() => handleDelete(post.id)} style={styles.text}>
-              <Icon name="trash" size={40} color="#97CE4C" focused={false} />
+              <Icon name="trash" size={25} color="#97CE4C" focused={false} />
             </Pressable>
           )}
         </View>
+        
         <Comments postId={post.id} />
       </View>
     </ScrollView>
@@ -167,30 +172,39 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
   },
+  userRow: {
+    flexDirection: "row",
+    gap:15,
+  },
+  savedContainer:{
+    flexDirection: "row",
+    gap:5,
+  },
   head: {
-    marginBottom: 20,
   },
   username: {
     color: "#97CE4C",
     fontWeight: "bold",
   },
   text: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 18,
     color: "white",
   },
+  userText:{
+    fontSize:24,
+  },
   margin: {
-    marginLeft: 20,
+
   },
   image: {
     aspectRatio: 1,
     width: "100%",
     borderRadius: 10,
-    marginBottom: 20,
   },
   icon: {},
   post: {
     flex: 1,
     marginTop: 20,
+    gap:10,
   },
 });

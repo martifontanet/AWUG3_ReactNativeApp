@@ -5,12 +5,20 @@ import UserProfile from "../screens/UserProfile";
 import HomeSearch from "../screens/HomeSearch";
 import PostDetailScreen from "../screens/PostDetail";
 import UsersProfiles from "../screens/UsersProfiles";
+import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export default function HomeTab() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+    screenOptions={{
+      headerStyle: styles.headerStyle,
+      headerTitleStyle: styles.headerTitleStyle,
+      headerTintColor: "#97CE4C",
+      headerTitleAlign: "center",
+    }}
+    >
       <Stack.Screen
         name="MainPage"
         component={Home}
@@ -39,3 +47,13 @@ export default function HomeTab() {
     </Stack.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: "#333333",
+  },
+  headerTitleStyle: {
+    fontWeight: "bold",
+    color: "#97CE4C",
+  },
+});

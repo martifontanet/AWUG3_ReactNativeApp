@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity, Dimensions } from "react-native";
 import { useUserInfo } from "../utils/userContext";
 import { supabase } from "../utils/clientSupabase";
 import UserForm from "../components/Barras/UserForm";
@@ -126,8 +126,8 @@ export default function UserProfile() {
   const [index, setIndex] = useState(0);
 
   const routes = [
-    { key: 'myPosts', title: 'Mis Publicaciones' },
-    { key: 'savedPosts', title: 'Posts Guardados' }
+    { key: 'myPosts', title: 'My Posts' },
+    { key: 'savedPosts', title: 'Saved' }
   ];
 
   const renderScene = SceneMap({
@@ -148,7 +148,8 @@ export default function UserProfile() {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        renderTabBar={props => <TabBar {...props} style={styles.tabBar} />}
+        renderTabBar={props => <TabBar {...props} indicatorStyle={{backgroundColor:'#97CE4C', height:5}}  style={styles.tabBar} />}
+        
       />
     </View>
   );
@@ -177,10 +178,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#444444",
     padding: 10,
     borderRadius: 10,
+    gap:10,
   },
   image: {
     width: "100%",
     height: 200,
     borderRadius: 10,
   },
+  list:{
+    width:'100%',
+  }
 });

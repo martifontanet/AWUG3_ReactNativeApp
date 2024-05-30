@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingHorizontal: 10,
     borderRadius: 8,
+    height:'auto'
   },
   desplegable: {
     flex: 1,

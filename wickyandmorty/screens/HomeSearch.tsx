@@ -35,8 +35,8 @@ export default function SearchScreen() {
         value={query}
         onChangeText={setQuery}
       />
-      <Button title="Go to Wiki" onPress={goToWikiTab} />
-      <Button title="Search" onPress={handleSearch} />
+      <Button title="Go to Wiki" onPress={goToWikiTab} color="#97CE4C" />
+      <Button title="Search" onPress={handleSearch} color="#97CE4C" />
       <FlatList
         data={results}
         keyExtractor={(item) => item.id}
@@ -50,13 +50,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    gap:15,
     backgroundColor: '#333333',
   },
   input: {
-    borderColor: '#ccc',
-    borderWidth: 1,
+    borderColor: '#97CE4C',
+    borderWidth: 3,
     padding: 10,
     marginBottom: 10,
-    color: "white"
+    color: "white",
+    backgroundColor:'#D4EAD0'
   },
 });
