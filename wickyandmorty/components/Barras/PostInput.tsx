@@ -30,7 +30,7 @@ export default function PostInput({ onSubmit }: Props) {
   };
 
   return (
-    <View style={styles.container} >
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         value={content}
@@ -38,14 +38,15 @@ export default function PostInput({ onSubmit }: Props) {
         placeholder="Description"
       />
       <TouchableOpacity style={styles.buton} onPress={handlePickImage}>
-        <Text style={styles.text} >UPLOAD IMAGE</Text>
+        <Text style={styles.text}>UPLOAD IMAGE</Text>
       </TouchableOpacity>
-      {image && <ImageBackground source={{ uri: image }} style={styles.image} >
+      {image && (
+        <ImageBackground source={{ uri: image }} style={styles.image}>
           <TouchableOpacity style={styles.cross} onPress={() => setImage("")}>
             <TabIcon name="close" tab={false} rounded={true} focused={false} />
           </TouchableOpacity>
         </ImageBackground>
-        }
+      )}
       <Button
         title="PUBLISH"
         onPress={() => {
@@ -55,6 +56,7 @@ export default function PostInput({ onSubmit }: Props) {
           alert('Post uploaded!');
         }}
         color='#97CE4C'
+        disabled={!content && !image} // Deshabilitar el botón si no hay contenido ni imagen
       />
     </View>
   );
@@ -68,28 +70,27 @@ const styles = StyleSheet.create({
     borderColor: "#97CE4C",
     borderWidth: 3,
     padding: 8,
-    backgroundColor:'#D4EAD0',
+    backgroundColor: '#D4EAD0',
   },
   buton: {
     alignItems: "center",
     backgroundColor: "#97CE4C",
     padding: 10,
-    
   },
-  text:{
-    color:'white',
-    fontWeight:'bold',
+  text: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   cross: {
-    position:'absolute',
-    top:0,
-    right:0,
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   image: {
-    height: 100,
-    width: 100,
+    height: 200,
+    width: 200,
     borderColor: "#97CE4C",
     borderWidth: 5,
-    overflow:'hidden'
+    overflow: 'hidden'
   },
 });

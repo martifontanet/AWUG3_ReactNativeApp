@@ -16,11 +16,10 @@ import * as ImagePicker from "expo-image-picker";
 import Avatar from "../Basic/Avatar";
 import Icon from "../Basic/Icons";
 import { Profile, downloadAvatar } from "../../utils/SupabaseApi";
-import { useUserInfo } from "../../utils/userContext";
 
 interface ProfileFormProps {
   profile: Profile | null;
-  onSave: (updatedProfile: Profile) => void;
+  onSave: (updatedProfile: Profile, avatarUpdated: boolean) => void;
   onLogout: () => void;
   loading: boolean;
 }
@@ -33,7 +32,7 @@ export default function ProfileForm({
 }: ProfileFormProps) {
   const [username, setUsername] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-  const { avatarUpdated, setAvatarUpdated } = useUserInfo();
+  const [  avatarUpdated, setAvatarUpdated ] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -47,8 +46,7 @@ export default function ProfileForm({
 
   const handleSubmit = () => {
     if (profile) {
-      const updatedAvatarUrl = avatarUpdated ? avatarUrl : profile.avatar_url;
-      onSave({ ...profile, username, avatar_url: updatedAvatarUrl });
+      onSave({ ...profile, username, avatar_url: avatarUrl }, avatarUpdated);
       setIsEditing(false);
       //console.log(avatarUrl);
     }
