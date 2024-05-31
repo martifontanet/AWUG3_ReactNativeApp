@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../screens/Home";
-import UserAuth from "../screens/UserAuth";
 import UserProfile from "../screens/UserProfile";
 import HomeSearch from "../screens/HomeSearch";
 import PostDetailScreen from "../screens/PostDetail";

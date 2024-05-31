@@ -13,7 +13,7 @@ import UserForm from "../components/Barras/UserForm";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useWindowDimensions } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../utils/navTypes";
+import { RootStackParamList } from "../utils/types";
 
 const MyPosts = () => {
   const { profile } = useUserInfo();

@@ -101,7 +101,7 @@ export default function ProfileForm({
             </View>
             <View style={styles.button}>
               <TouchableOpacity style={styles.logOut} onPress={onLogout}>
-                <Text style={styles.white}>Logout</Text>
+                <Text style={styles.white}>Cerrar sesión</Text>
               </TouchableOpacity>
             </View>
           </View>

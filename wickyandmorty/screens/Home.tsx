@@ -11,7 +11,7 @@ import { PostsContext } from "../utils/postContext";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import TabIcon from "../components/Basic/TabIcons";
 import MasonryList from "@react-native-seoul/masonry-list";
-import { useUserInfo } from "../utils/userContext"; // Importa el contexto
+import { useUserInfo } from "../utils/userContext";
 
 export default function Home() {
   const { posts, refreshPosts } = useContext(PostsContext);
@@ -19,61 +19,24 @@ export default function Home() {
   const { profile } = useUserInfo(); // Obtiene la información del usuario del contexto
   const [activeTab, setActiveTab] = useState("2 columnas");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-
-  const getOrderBy = (tab: string) => {
-    switch (tab) {
-      case "1 columna":
-        return "created_at";
-      case "2 columnas":
-        return "created_at"; // Ya que el ordenamiento ascendente es predeterminado
-      case "3 columnas":
-        return "likes";
-      default:
-        return undefined;
-    }
-  };
   
   useFocusEffect(
     useCallback(() => {
-      refreshPosts(getOrderBy(activeTab)); // Llama a refreshPosts con el orderBy adecuado según la pestaña activa
+      refreshPosts();
     }, [activeTab])
   );
-  
 
-  // Función para renderizar el contenido según la pestaña activa
   const renderContent = () => {
-    switch (activeTab) {
-      case "1 columna":
-        return (
-          <MasonryList
-            data={posts}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <PostCard style={styles.card} post={item} />}
-            numColumns={1}
-            contentContainerStyle={styles.flatListContent}
-          />
-        );
-      case "2 columnas":
-        // Implementa la lógica para mostrar publicaciones recientes
-        return <MasonryList
-            data={posts}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <PostCard style={styles.card} post={item} />}
-            numColumns={2}
-            contentContainerStyle={styles.flatListContent}
-          />
-      case "3 columnas":
-        // Implementa la lógica para mostrar publicaciones populares
-        return <MasonryList
+    const numColumns = activeTab === "1 columna" ? 1 : activeTab === "2 columnas" ? 2 : 3;
+    return (
+      <MasonryList
         data={posts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <PostCard style={styles.card} post={item} />}
-        numColumns={3}
+        numColumns={numColumns}
         contentContainerStyle={styles.flatListContent}
       />
-      default:
-        return null;
-    }
+    );
   };
 
   return (
@@ -178,7 +141,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   card: {
-    alignItems: "flex-start",
+    flex: 1,
   },
   tabText: {
     color: "white",

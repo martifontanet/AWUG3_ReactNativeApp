@@ -1,5 +1,4 @@
-// PostDetailScreen.js
-
+// Importa los componentes necesarios
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -9,7 +8,8 @@ import {
   ScrollView,
   Alert,
   Pressable,
-  LogBox 
+  LogBox,
+  Share,
 } from "react-native";
 import { supabase } from "../utils/clientSupabase";
 import LikeButton from "../components/Basic/LikeButton";
@@ -28,12 +28,13 @@ export default function PostDetailScreen({ route }) {
   const [avatar, setAvatar] = useState("");
   const [likes, setLikes] = useState(0);
   const [favs, setFavs] = useState(0);
+  const [showOptions, setShowOptions] = useState(false);
   const user = useUserInfo();
   const navigation = useNavigation();
 
   useEffect(() => {
     const fetchUsername = async () => {
-      LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+      LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
@@ -98,7 +99,10 @@ export default function PostDetailScreen({ route }) {
         {
           text: "OK",
           onPress: async () => {
-            const { error } = await supabase.from("posts").delete().eq("id", id);
+            const { error } = await supabase
+              .from("posts")
+              .delete()
+              .eq("id", id);
             if (error) {
               console.log(error);
               Alert.alert("Server Error", error.message);
@@ -112,15 +116,51 @@ export default function PostDetailScreen({ route }) {
     );
   };
 
+  const handleShare = () => {
+    Share.share({
+      message: `¡Mira esta publicación de ${username}: ${post.content}!`,
+    })
+      .then((result) => console.log(result))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.post}>
-        <Pressable onPress={handleProfile} style={[styles.userRow, styles.head]}>
-          <Avatar uri={avatar} size={50} />
-          <Text style={[styles.userText, styles.margin, styles.username]}>
-            {username}
-          </Text>
-        </Pressable>
+        <View style={[styles.userRow, styles.head]}>
+          <Pressable onPress={handleProfile} style={styles.row}>
+            <Avatar uri={avatar} size={50} />
+            <Text style={[styles.userText, styles.margin, styles.username]}>
+              {username}
+            </Text>
+          </Pressable>
+          <Pressable onPress={() => setShowOptions(!showOptions)}>
+            <Icon
+              name="ellipsis-vertical"
+              size={25}
+              color="#97CE4C"
+              focused={false}
+            />
+          </Pressable>
+        </View>
+        {showOptions && (
+          <View style={styles.menuOptions}>
+            <Pressable style={[styles.but,styles.but2]} onPress={handleShare}>
+              <View style={styles.row}>
+                <Text style={styles.optionText}>Compartir</Text>
+                <Icon name="share-social" size={25} color="white" focused={false} />
+              </View>
+            </Pressable>
+            {user.profile.id === userId && (
+              <Pressable style={styles.but} onPress={() => handleDelete(post.id)}>
+                <View style={styles.row}>
+                  <Text style={styles.optionText}>Borrar publicación</Text>
+                  <Icon name="trash" size={25} color="white" focused={false} />
+                </View>
+              </Pressable>
+            )}
+          </View>
+        )}
         {post.image && (
           <Image
             source={{ uri: post.image }}
@@ -130,11 +170,8 @@ export default function PostDetailScreen({ route }) {
         )}
         <Pressable onPress={handleProfile} style={styles.row}>
           <Text style={styles.text}>
-            <Text style={[styles.text, styles.username]}>
-              {username}
-            </Text>
-              {" "}
-              {post.content}
+            <Text style={[styles.text, styles.username]}>{username}</Text>{" "}
+            {post.content}
           </Text>
         </Pressable>
 
@@ -150,13 +187,8 @@ export default function PostDetailScreen({ route }) {
           {user.profile.id === userId && (
             <Text style={styles.text}>Times Saved: {favs}</Text>
           )}
-        {user.profile.id === userId && (
-            <Pressable onPress={() => handleDelete(post.id)} style={styles.text}>
-              <Icon name="trash" size={25} color="#97CE4C" focused={false} />
-            </Pressable>
-          )}
         </View>
-        
+
         <Comments postId={post.id} />
       </View>
     </ScrollView>
@@ -171,17 +203,18 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+    alignItems: "center",
   },
   userRow: {
     flexDirection: "row",
-    gap:15,
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  savedContainer:{
+  savedContainer: {
     flexDirection: "row",
-    gap:5,
+    gap: 5,
   },
-  head: {
-  },
+  head: {},
   username: {
     color: "#97CE4C",
     fontWeight: "bold",
@@ -190,11 +223,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
   },
-  userText:{
-    fontSize:24,
+  userText: {
+    fontSize: 24,
   },
   margin: {
-
+    marginLeft: 10,
   },
   image: {
     aspectRatio: 1,
@@ -205,6 +238,29 @@ const styles = StyleSheet.create({
   post: {
     flex: 1,
     marginTop: 20,
-    gap:10,
+    gap: 10,
   },
+  menuOptions: {
+    backgroundColor: "#444",
+    borderRadius: 5,
+    padding: 10,
+    position: "absolute",
+    top: 60,
+    right: 10,
+    zIndex: 1,
+    minWidth: 150,
+  },
+  optionText: {
+    color: "white",
+    marginBottom: 5,
+    marginRight: 5,
+  },
+  but: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "white",
+  },
+  but2 : {
+    marginBottom: 10,
+  }
 });

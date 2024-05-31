@@ -1,34 +1,19 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import {
-  CompositeScreenProps,
-  NavigatorScreenParams,
-} from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Post } from "./SupabaseApi";
 
+// navigationTypes.ts
+export type RootStackParamList = {
+  Home: undefined;
+  PostDetailScreen: { post: Post };
+  SearchScreen: undefined;
+  UserProfile: { userId: string };
+  UsersProfiles: { userId: string };
+  MainPage: undefined;
+  
+};
+
+// Somewhere in your project, possibly in the RootNavigator file
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
   }
 }
-
-export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
-  Modal: undefined;
-  NotFound: undefined;
-  Chat: { contactId: string; username: string };
-};
-
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, Screen>;
-
-export type RootTabParamList = {
-  Home: undefined;
-  Contacts: undefined;
-  Profile: undefined;
-};
-
-export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
-  CompositeScreenProps<
-    BottomTabScreenProps<RootTabParamList, Screen>,
-    NativeStackScreenProps<RootStackParamList>
-  >;
