@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 15,
-    gap: 15,
+    gap: 10,
   },
   icon: {
     width: size,

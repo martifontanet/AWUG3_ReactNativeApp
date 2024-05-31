@@ -30,29 +30,33 @@ export default function PostInput({ onSubmit }: Props) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         value={content}
         onChangeText={setContent}
-        placeholder="Descripcion"
+        placeholder="Description"
       />
       <TouchableOpacity style={styles.buton} onPress={handlePickImage}>
-        <Text>Sube una imagen</Text>
+        <Text style={styles.text}>UPLOAD IMAGE</Text>
       </TouchableOpacity>
-      {image && <ImageBackground source={{ uri: image }} style={styles.image} >
+      {image && (
+        <ImageBackground source={{ uri: image }} style={styles.image}>
           <TouchableOpacity style={styles.cross} onPress={() => setImage("")}>
             <TabIcon name="close" tab={false} rounded={true} focused={false} />
           </TouchableOpacity>
         </ImageBackground>
-        }
+      )}
       <Button
-        title="Publicar"
+        title="PUBLISH"
         onPress={() => {
           onSubmit(content, image);
           setContent("");
           setImage("");
+          alert('Post uploaded!');
         }}
+        color='#97CE4C'
+        disabled={!content && !image} // Deshabilitar el botón si no hay contenido ni imagen
       />
     </View>
   );
@@ -60,30 +64,33 @@ export default function PostInput({ onSubmit }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 10,
-    paddingHorizontal: 10,
-    gap: 10,
+    gap: 20,
   },
   input: {
-    borderColor: "green",
-    borderWidth: 1,
+    borderColor: "#97CE4C",
+    borderWidth: 3,
     padding: 8,
-    marginVertical: 8,
+    backgroundColor: '#D4EAD0',
   },
   buton: {
     alignItems: "center",
-    marginBottom: 20,
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "#97CE4C",
     padding: 10,
+  },
+  text: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   cross: {
-    padding: 10,
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   image: {
-    height: 100,
-    width: 100,
-    borderColor: "green",
+    height: 200,
+    width: 200,
+    borderColor: "#97CE4C",
     borderWidth: 5,
+    overflow: 'hidden'
   },
 });

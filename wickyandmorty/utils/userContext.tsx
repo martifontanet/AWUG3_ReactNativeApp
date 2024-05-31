@@ -1,45 +1,43 @@
 import { Session } from "@supabase/supabase-js";
 import {
-  ReactNode,
   createContext,
+  ReactNode,
   useContext,
-  useState,
   useEffect,
+  useState,
 } from "react";
-import { supabase } from "./clientSupabase";
-import { Profile } from "./SupabaseApi";
 import { Alert } from "react-native";
+import { Profile } from "./SupabaseApi";
+import { supabase } from "./clientSupabase";
+
+// definir context para guardar el session y el profile
 
 export interface UserInfo {
   session: Session | null;
   profile: Profile | null;
   loading?: boolean;
-  avatarUpdated: boolean;
-  saveProfile?: (updatedProfile: Profile) => void;
-  setAvatarUpdated?: (updated: boolean) => void;
-  signOut?: () => void;
+  saveProfile?: (updatedProfile: Profile, avatarUpdated: boolean) => void;
 }
 
 const UserContext = createContext<UserInfo>({
   session: null,
   profile: null,
-  avatarUpdated: false,
 });
 
+// crear un provider donde vamos a tener la logica para escuchar cambios de la session
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [userInfo, setUserInfo] = useState<UserInfo>({
     session: null,
     profile: null,
-    avatarUpdated: false,
   });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUserInfo((prevState) => ({ ...prevState, session }));
+      setUserInfo({ ...userInfo, session });
     });
     supabase.auth.onAuthStateChange((_event, session) => {
-      setUserInfo((prevState) => ({ ...prevState, session, profile: null }));
+      setUserInfo({ session, profile: null });
     });
   }, []);
 
@@ -52,7 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) {
       console.log(error);
     } else {
-      setUserInfo((prevState) => ({ ...prevState, profile: data[0] }));
+      setUserInfo({ ...userInfo, profile: data[0] });
     }
   };
 
@@ -60,11 +58,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     getProfile();
   }, [userInfo.session]);
 
-  const saveProfile = async (updatedProfile: Profile) => {
+  const saveProfile = async (
+    updatedProfile: Profile,
+    avatarUpdated: boolean
+  ) => {
     setLoading(true);
 
     try {
-      if (updatedProfile.avatar_url && userInfo.avatarUpdated) {
+      if (updatedProfile.avatar_url && avatarUpdated) {
         const { avatar_url } = updatedProfile;
 
         const fileExt = avatar_url.split(".").pop();
@@ -79,64 +80,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } as unknown as Blob;
         formData.append("file", photo);
 
-        const { error: uploadError } = await supabase.storage
+        const { error } = await supabase.storage
           .from("avatars")
           .upload(filePath, formData);
-
-        if (uploadError) throw uploadError;
-
+        if (error) throw error;
         updatedProfile.avatar_url = filePath;
       }
-
-      const { error: updateError } = await supabase
+      const { error } = await supabase
         .from("profiles")
-        .update({
-          username: updatedProfile.username,
-          avatar_url: updatedProfile.avatar_url,
-        })
+        .update(updatedProfile)
         .eq("id", userInfo?.profile?.id);
-
-      if (updateError) throw updateError;
-
-      await getProfile();
-
-      // Reset avatarUpdated to false
-      setUserInfo((prevState) => ({ ...prevState, avatarUpdated: false }));
+      if (error) {
+        throw error;
+      } else {
+        getProfile();
+      }
     } catch (error: any) {
       Alert.alert("Server Error", error.message);
-    } finally {
-      setLoading(false);
     }
-  };
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    setUserInfo({
-      session: null,
-      profile: null,
-      avatarUpdated: false,
-    });
+    setLoading(false);
   };
 
   return (
-    <UserContext.Provider
-      value={{
-        ...userInfo,
-        loading,
-        saveProfile,
-        setAvatarUpdated: (updated: boolean) =>
-          setUserInfo((prevState) => ({
-            ...prevState,
-            avatarUpdated: updated,
-          })),
-        signOut,
-      }}
-    >
+    <UserContext.Provider value={{ ...userInfo, loading, saveProfile }}>
       {children}
     </UserContext.Provider>
   );
 }
 
+// crear un hook reutilizable que utilice el context
 export function useUserInfo() {
   return useContext(UserContext);
 }

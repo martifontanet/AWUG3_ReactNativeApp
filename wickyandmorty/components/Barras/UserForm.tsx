@@ -16,11 +16,10 @@ import * as ImagePicker from "expo-image-picker";
 import Avatar from "../Basic/Avatar";
 import Icon from "../Basic/Icons";
 import { Profile, downloadAvatar } from "../../utils/SupabaseApi";
-import { useUserInfo } from "../../utils/userContext";
 
 interface ProfileFormProps {
   profile: Profile | null;
-  onSave: (updatedProfile: Profile) => void;
+  onSave: (updatedProfile: Profile, avatarUpdated: boolean) => void;
   onLogout: () => void;
   loading: boolean;
 }
@@ -33,7 +32,7 @@ export default function ProfileForm({
 }: ProfileFormProps) {
   const [username, setUsername] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-  const { avatarUpdated, setAvatarUpdated } = useUserInfo();
+  const [  avatarUpdated, setAvatarUpdated ] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -47,8 +46,7 @@ export default function ProfileForm({
 
   const handleSubmit = () => {
     if (profile) {
-      const updatedAvatarUrl = avatarUpdated ? avatarUrl : profile.avatar_url;
-      onSave({ ...profile, username, avatar_url: updatedAvatarUrl });
+      onSave({ ...profile, username, avatar_url: avatarUrl }, avatarUpdated);
       setIsEditing(false);
       //console.log(avatarUrl);
     }
@@ -67,13 +65,12 @@ export default function ProfileForm({
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View>
+          <View style={styles.container} >
             <View style={styles.inputDiv}>
               <TouchableOpacity
                 style={styles.avatarButton}
@@ -82,29 +79,29 @@ export default function ProfileForm({
                 <Avatar uri={avatarUrl} size={120} />
               </TouchableOpacity>
               {!isEditing ? (
-                <View style={styles.inline}>
-                  <Text style={styles.text}>{profile?.username}</Text>
-                  <Pressable onPress={() => setIsEditing(true)}>
-                    <Icon focused={false} size={27} color="#97CE4C" name={"create"} />
-                  </Pressable>
-                </View>
-              ) : (
-                <View style={styles.button}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Nombre de usuario"
-                    value={username}
-                    onChangeText={setUsername}
-                  />
-                  <TouchableOpacity style={styles.save} onPress={handleSubmit}>
-                    <Text style={styles.white}>Guardar cambios</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
+                  <View style={styles.inline}>
+                    <Text style={styles.text}>{profile?.username}</Text>
+                    <Pressable onPress={() => setIsEditing(true)}>
+                      <Icon focused={false} size={27} color="#97CE4C" name={"create"} />
+                    </Pressable>
+                  </View>
+                ) : (
+                      <View style={styles.button}>
+                        <TextInput
+                          style={styles.input}
+                          placeholder="Nombre de usuario"
+                          value={username}
+                          onChangeText={setUsername}
+                        />
+                        <TouchableOpacity style={styles.save} onPress={handleSubmit}>
+                          <Text style={styles.white}>Save changes</Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
             </View>
             <View style={styles.button}>
               <TouchableOpacity style={styles.logOut} onPress={onLogout}>
-                <Text style={styles.white}>Cerrar sesión</Text>
+                <Text style={styles.white}>Logout</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -115,17 +112,17 @@ export default function ProfileForm({
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    gap:10,
+  },
   inputDiv: {
-    paddingVertical: 8,
+    gap:5,
   },
   avatarButton: {
     alignItems: "center",
-    marginBottom: 16,
   },
   text: {
     fontSize: 22,
-    marginBottom: 10,
     color: "white",
     marginRight: 10,
   },
@@ -134,7 +131,6 @@ const styles = StyleSheet.create({
   },
   avatar: {
     alignItems: "center",
-    marginBottom: 16,
   },
   input: {
     backgroundColor: "white",
@@ -147,19 +143,19 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   button: {
-    margin: 30,
   },
   logOut: {
     backgroundColor: "red",
     padding: 10,
     paddingHorizontal: 50,
-    marginTop: 30,
     alignSelf: "center",
+    borderRadius:3,
   },
   save: {
-    backgroundColor: "green",
+    backgroundColor: "#97CE4C",
     padding: 10,
     paddingHorizontal: 50,
     alignSelf: "center",
+    borderRadius:3,
   },
 });

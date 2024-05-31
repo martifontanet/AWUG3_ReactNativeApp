@@ -17,12 +17,15 @@ import Avatar from "../Basic/Avatar";
 import { useUserInfo } from "../../utils/userContext";
 import Icon from "../Basic/Icons";
 import { downloadAvatar } from "../../utils/SupabaseApi";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function Comments({ postId }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [loadingComments, setLoadingComments] = useState(true);
   const user = useUserInfo();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -55,6 +58,10 @@ export default function Comments({ postId }) {
 
     fetchComments();
   }, [postId]);
+
+  const handleProfile = async (user) => {
+    navigation.navigate("UsersProfiles", { userId: user});
+  };
 
   const handleAddComment = async () => {
     if (!newComment.trim()) return;
@@ -104,9 +111,13 @@ export default function Comments({ postId }) {
 
   const renderComment = ({ item }) => (
     <View style={styles.comment}>
-      <Avatar uri={item.avatarUrl} size={40} />
+      <Pressable onPress={ () => handleProfile(item.user_id)} >
+        <Avatar uri={item.avatarUrl} size={40} />
+      </Pressable>
       <View style={styles.commentContent}>
-        <Text style={styles.commentUsername}>{item.profiles.username}</Text>
+        <Pressable onPress={ () => handleProfile(item.user_id)} >
+          <Text style={styles.commentUsername}>{item.profiles.username}</Text>
+        </Pressable>
         <Text style={styles.commentText}>{item.content}</Text>
       </View>
       {item.user_id === user.profile.id && (
@@ -121,15 +132,15 @@ export default function Comments({ postId }) {
     <View>
       <TextInput
         style={styles.inputBox}
-        placeholder="Añade un comentario"
+        placeholder="Add comment"
         placeholderTextColor="#323941"
         autoCapitalize="none"
         value={newComment}
         onChangeText={setNewComment}
       />
-      <Button title="Submit" onPress={handleAddComment} />
+      <Button title="Submit" onPress={handleAddComment} color='#97CE4C' />
 
-      <Text style={styles.commentsTitle}>Comentarios:</Text>
+      <Text style={styles.commentsTitle}>Comments:</Text>
       {loadingComments ? (
         <ActivityIndicator size="large" color="#97CE4C" />
       ) : (
@@ -145,9 +156,9 @@ export default function Comments({ postId }) {
 
 const styles = StyleSheet.create({
   inputBox: {
-    backgroundColor: "white",
+    backgroundColor: "#D4EAD0",
     padding: 10,
-    marginTop: 30,
+    marginTop: 15,
   },
   commentsTitle: {
     fontSize: 20,
