@@ -5,6 +5,7 @@ import {
   Image,
   FlatList,
   ScrollView,
+  LogBox,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -50,6 +51,7 @@ export default function CharacterDetail({ route }) {
   };
 
   useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     charDetail();
   }, [id]);
 
@@ -63,8 +65,8 @@ export default function CharacterDetail({ route }) {
           <Text style={styles.title}>{char.name}</Text>
           <View style={styles.boxContainer}>
             <DetailBox icon="pets" iconColor="#97CE4C" label="Species" value={char.species} />
-            <DetailBox icon="favorite" iconColor="#97CE4C" label="Status" value={char.status} />
-            <DetailBox icon="person" iconColor="#97CE4C" label="Gender" value={char.gender} />
+            <DetailBox icon="favorite" iconColor="#97CE4C" label="Status" value={char.status}  />
+            <DetailBox icon="person" iconColor="#97CE4C" label="Gender" value={char.gender}  />
             <DetailBox
               icon="location-on"
               label="Location"
@@ -76,6 +78,7 @@ export default function CharacterDetail({ route }) {
               }}
               customStyles={styles.clickableBox}
               customStyles2={styles.clickableText}
+              size={30}
             />
           </View>
           <Text style={styles.text}>Appearing Episodes:</Text>

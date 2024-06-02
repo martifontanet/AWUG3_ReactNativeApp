@@ -12,6 +12,7 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import TabIcon from "../components/Basic/TabIcons";
 import MasonryList from "@react-native-seoul/masonry-list";
 import { useUserInfo } from "../utils/userContext";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Home() {
   const { posts, refreshPosts } = useContext(PostsContext);
@@ -32,7 +33,7 @@ export default function Home() {
       <MasonryList
         data={posts}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <PostCard style={styles.card} post={item} />}
+        renderItem={({ item }) => <PostCard style={styles.card} post={item} numColums={activeTab} />}
         numColumns={numColumns}
         contentContainerStyle={styles.flatListContent}
       />
@@ -51,25 +52,31 @@ export default function Home() {
               style={styles.button}
               onPress={() => setActiveTab("1 columna")}
             >
-              <Text style={[styles.tabText, activeTab === "1 columna" && styles.activeTabText]}>
+              <Icon name={"adjust"} size={15} color={"#97CE4C"} />
+              {/* <Text style={[styles.tabText, activeTab === "1 columna" && styles.activeTabText]}>
                ▇
-              </Text>
+              </Text> */}
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
               onPress={() => setActiveTab("2 columnas")}
             >
-              <Text style={[styles.tabText, activeTab === "2 columnas" && styles.activeTabText]}>
+              {/* <Text style={[styles.tabText, activeTab === "2 columnas" && styles.activeTabText]}>
                ▇ ▇
-              </Text>
+              </Text> */}
+              <Icon name={"adjust"} size={15} color={"#97CE4C"} />
+              <Icon name={"adjust"} size={15} color={"#97CE4C"} />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
               onPress={() => setActiveTab("3 columnas")}
             >
-              <Text style={[styles.tabText, activeTab === "3 columnas" && styles.activeTabText]}>
+              {/* <Text style={[styles.tabText, activeTab === "3 columnas" && styles.activeTabText]}>
                ▇ ▇ ▇
-              </Text>
+              </Text> */}
+              <Icon name={"adjust"} size={15} color={"#97CE4C"} />
+              <Icon name={"adjust"} size={15} color={"#97CE4C"} />
+              <Icon name={"adjust"} size={15} color={"#97CE4C"} />
             </TouchableOpacity>
           </View>
         )}
@@ -139,6 +146,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginLeft: 5,
+    flexDirection:'row'
   },
   card: {
     flex: 1,

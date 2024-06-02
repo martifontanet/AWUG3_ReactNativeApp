@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native';
+import { StyleSheet, View, TextInput, Button, FlatList, Text, Pressable } from 'react-native';
 import { supabase } from '../utils/clientSupabase';
 import { Post } from '../utils/SupabaseApi';
 import PostDefault from '../components/Posts/PostDefault';
@@ -29,14 +29,21 @@ export default function SearchScreen() {
 
   return (
     <View style={styles.container}>
-      <TextInput
+      <View style={styles.searchContainer} >
+        <TextInput
         style={styles.input}
         placeholder="Search posts"
         value={query}
         onChangeText={setQuery}
-      />
+        />
+        <Pressable onPress={handleSearch} style={styles.button} >
+          <Text style={styles.buttonText} >SEARCH</Text>
+        </Pressable>
+        {/* <Button title="Search" onPress={handleSearch} color="#97CE4C" /> */}
+      </View>
+      
       <Button title="Go to Wiki" onPress={goToWikiTab} color="#97CE4C" />
-      <Button title="Search" onPress={handleSearch} color="#97CE4C" />
+      
       <FlatList
         data={results}
         keyExtractor={(item) => item.id}
@@ -57,8 +64,26 @@ const styles = StyleSheet.create({
     borderColor: '#97CE4C',
     borderWidth: 3,
     padding: 10,
-    marginBottom: 10,
-    color: "white",
-    backgroundColor:'#D4EAD0'
+    color: "#333333",
+    backgroundColor:'#D4EAD0',
+    flex:1,
   },
+  searchContainer: {
+    flexDirection:'row',
+    // backgroundColor:'blue',
+    alignItems:'center',
+  },
+  button:{
+    backgroundColor:'#97CE4C',
+    height:'100%',
+    paddingHorizontal:10,
+    paddingVertical:15,
+    borderTopRightRadius:3,
+    borderBottomEndRadius:3,
+  },
+  buttonText:{
+    color:'white',
+    fontSize:14,
+    fontWeight:'bold',
+  }
 });
