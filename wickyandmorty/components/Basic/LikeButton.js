@@ -48,11 +48,13 @@ export default function LikeButton({ route }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Pressable
         onPress={handlePress}
         style={
-          pressed && styles.whenPressing
+          [pressed && styles.whenPressing,
+          styles.container,
+          ]
         }
       >
         <Icon name="heart" size={40} color="#97CE4C" focused={pressed} />
@@ -66,7 +68,8 @@ export default function LikeButton({ route }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: 'column',
+    alignItems:'center',
   },
   whenPressing: {
     transform: [{ scale: 1 }],
@@ -77,6 +80,5 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 20,
-    marginLeft: 5,
   },
 });
