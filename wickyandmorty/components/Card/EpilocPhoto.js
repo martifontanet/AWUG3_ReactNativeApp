@@ -27,7 +27,7 @@ export default function EpilocPhoto({ link }) {
   };
 
   const handlePress = () => {
-    console.log("Click!");
+    //console.log("Click!");
     navigation.navigate("CharacterDetail", { id: foto.id });
   };
 
@@ -52,10 +52,8 @@ export default function EpilocPhoto({ link }) {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    flexShrink: 0,
   },
   img: {
     borderRadius: 10,

@@ -1,15 +1,21 @@
 import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import EpilocPhoto from "./EpilocPhoto";
+import { useFonts, Inter_400Regular } from '@expo-google-fonts/inter';
+import DetailBox from './CharacterDetailBox';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function EpisodeDetail({ route }) {
+export default function LocationDetail({ route }) {
   const { id } = route.params;
   const [loc, setLoc] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  let [fontsLoaded] = useFonts({
+    Inter_400Regular,
+  });
 
   const locDetail = async () => {
-    console.log(id);
+    //console.log(id);
     setError(null);
     setLoading(true);
     try {
@@ -36,14 +42,17 @@ export default function EpisodeDetail({ route }) {
     <View style={[styles.container]}>
       {loading && <Text>Location loading....</Text>}
       {error && <Text>{error}</Text>}
-      {loc && (
+      {loc && fontsLoaded && (
         <>
           <Text style={styles.title}>{loc.name}</Text>
-          <Text style={styles.text}>Location type : {loc.type}</Text>
-          <Text style={styles.text}>Dimension : {loc.dimension}</Text>
-
+          <View style={styles.boxContainer}>
+            <DetailBox icon="location-on" label="Location Type" value={loc.type} />
+            <DetailBox icon="public" label="Dimension" value={loc.dimension} />
+          </View>
+          <View style={styles.center}>
+            <Icon  name="person" size={30} color="white" />
+          </View>
           <Text style={styles.text}>Residents: </Text>
-
           <ScrollView contentContainerStyle={styles.scroll}>
             {loc.residents.map((character, index) => (
               <EpilocPhoto key={index} link={character} />
@@ -66,14 +75,20 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   title: {
-    fontFamily: "Inter",
+    fontFamily: "Inter_400Regular",
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
     color: "white",
   },
+  boxContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginVertical: 10,
+  },
   text: {
-    fontFamily: "Inter",
+    fontFamily: "Inter_400Regular",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "normal",
@@ -86,4 +101,8 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
   },
+  center: {
+    alignItems: "center",
+    marginBottom: -20
+  }
 });

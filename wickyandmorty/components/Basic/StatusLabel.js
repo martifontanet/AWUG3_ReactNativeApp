@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   buttonText: {
+    fontFamily: "Inter_900Black",
     color: "#000000",
-    fontSize: 12,
-    fontWeight: "bold",
+    fontSize: 13,
   },
   alive: {
     borderRadius: 100,

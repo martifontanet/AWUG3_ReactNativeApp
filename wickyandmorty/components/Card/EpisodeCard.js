@@ -9,7 +9,7 @@ export default function EpisodeCard({ name, labelName, epID }) {
   const [pressed, setPressed] = useState(false);
 
   const handlePress = () => {
-    console.log("Click!");
+    //console.log("Click!");
     navigation.navigate("EpisodeDetail", { id: epID });
   };
 

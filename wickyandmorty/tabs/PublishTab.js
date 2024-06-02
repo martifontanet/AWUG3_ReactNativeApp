@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
-export default function HomeTab() {
+export default function PublishTab() {
   return (
     <Stack.Navigator
     screenOptions={{

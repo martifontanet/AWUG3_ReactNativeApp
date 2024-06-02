@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Image, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import StatusLabel from "../Basic/StatusLabel";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
@@ -12,7 +12,7 @@ export default function CharacterDetailsEpisodeList({ link }) {
   const [pressed, setPressed] = useState(false);
 
   const handlePress = () => {
-    console.log("Click!");
+    //console.log("Click!");
     navigation.navigate("EpisodeDetail", { id: eplink.id });
   };
 
@@ -43,14 +43,14 @@ export default function CharacterDetailsEpisodeList({ link }) {
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
     >
-      {loading && <Text>Detail loading....</Text>}
-      {error && <Text>{error}</Text>}
+      {loading && <Text style={styles.character}>Detail loading....</Text>}
+      {error && <Text style={styles.character}>{error}</Text>}
 
       {eplink && (
         <>
           <View style={[styles.epilocContainer]}>
+            <StatusLabel  status={eplink.episode} showCircle={false} />
             <Text style={styles.character}>{eplink.name}</Text>
-            <StatusLabel status={eplink.episode} showCircle={false} />
           </View>
         </>
       )}
@@ -58,18 +58,18 @@ export default function CharacterDetailsEpisodeList({ link }) {
   );
 }
 
-const size = 70;
 const styles = StyleSheet.create({
   epilocContainer: {
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    flexDirection: "row",
+    justifyContent: "flex-start",
     alignItems: "center",
     padding: 10,
     backgroundColor: "#4E4E4E",
-    width: 150,
+    width: "90%",
     borderRadius: 10,
     gap: 10,
+    margin: 10,
   },
   character: {
     fontSize: 12,

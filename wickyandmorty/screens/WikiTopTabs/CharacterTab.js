@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CharacterScreen from "./WikiTopScreen/CharacterScreen";
 import CharacterDetail from "../../components/Card/CharacterDetails";
-import BackButton from "../../components/Basic/BackButton";
 import { StyleSheet } from "react-native";
 const Stack = createNativeStackNavigator();
 export default function CharacterTab() {

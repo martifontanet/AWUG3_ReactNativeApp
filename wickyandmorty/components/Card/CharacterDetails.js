@@ -5,10 +5,13 @@ import {
   Image,
   Pressable,
   FlatList,
+  ScrollView,
 } from "react-native";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CharacterDetailsEpisodeList from "./CharacterDetailsEpisodeList";
+import { useFonts, Inter_400Regular, Inter_900Black } from '@expo-google-fonts/inter';
+import DetailBox from './CharacterDetailBox';
 
 export default function CharacterDetail({ route }) {
   const navigation = useNavigation();
@@ -16,6 +19,10 @@ export default function CharacterDetail({ route }) {
   const [char, setChar] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  let [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_900Black
+  });
 
   const charDetail = async () => {
     console.log(id);
@@ -50,23 +57,25 @@ export default function CharacterDetail({ route }) {
     <>
       {loading && <Text>Detail loading....</Text>}
       {error && <Text>{error}</Text>}
-      {char && (
+      {char && fontsLoaded && (
         <View style={styles.headerContainer}>
           <Image source={{ uri: char.image }} style={styles.img} />
           <Text style={styles.title}>{char.name}</Text>
-          <Text style={styles.text}>Species: {char.species}</Text>
-          <Text style={styles.text}>Status: {char.status}</Text>
-          <Text style={styles.text}>Gender: {char.gender}</Text>
-          <Pressable
-            onPress={() => {
-              const locationId = extractIdFromUrl(char.location.url);
-              navigation.navigate("LocationDetail", { id: locationId });
-            }}
-          >
-            <Text style={styles.link}>
-              Current Location: {char.location.name}
-            </Text>
-          </Pressable>
+          <View style={styles.boxContainer}>
+            <DetailBox icon="pets" label="Species" value={char.species} />
+            <DetailBox icon="favorite" label="Status" value={char.status} />
+            <DetailBox icon="person" label="Gender" value={char.gender} />
+            <DetailBox
+              icon="location-on"
+              label="Location"
+              value={char.location.name}
+              onPress={() => {
+                const locationId = extractIdFromUrl(char.location.url);
+                navigation.navigate("LocationDetail", { id: locationId });
+              }}
+              customStyles={styles.clickableBox}
+            />
+          </View>
           <Text style={styles.text}>Appearing Episodes:</Text>
         </View>
       )}
@@ -74,30 +83,32 @@ export default function CharacterDetail({ route }) {
   );
 
   return (
-    <FlatList
-      contentContainerStyle={styles.container}
-      data={char ? char.episode : []}
-      ListHeaderComponent={renderHeader()}
-      renderItem={({ item }) => <CharacterDetailsEpisodeList link={item} />}
-      numColumns={2}
-      columnWrapperStyle={styles.charList}
-      keyExtractor={(item, index) => index.toString()}
-    />
+    <ScrollView contentContainerStyle={styles.container}>
+      <FlatList
+        data={char ? char.episode : []}
+        ListHeaderComponent={renderHeader()}
+        renderItem={({ item }) => <CharacterDetailsEpisodeList link={item} />}
+        numColumns={1}
+        style={styles.charList}
+        keyExtractor={(item, index) => index.toString()}
+        key={1}
+      />
+    </ScrollView>
   );
 }
 
 const size = 225;
 const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     padding: 10,
-    flexDirection: "column",
-    alignItems: "center",
     backgroundColor: "#333333",
+    justifyContent: "center",
+    alignItems: "center"
   },
   headerContainer: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
     padding: 10,
   },
   img: {
@@ -106,32 +117,37 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   title: {
-    fontFamily: "Inter",
+    fontFamily: "Inter_900Black",
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold",
     color: "white",
+    marginBottom: 10,
+  },
+  boxContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginVertical: 10,
+  },
+  clickableBox: {
+    backgroundColor: '#222222',
+    borderColor: '#97CE4C',
   },
   text: {
-    fontFamily: "Inter",
+    fontFamily: "Inter_400Regular",
     textAlign: "center",
     fontSize: 14,
     fontWeight: "normal",
     color: "white",
   },
   link: {
-    fontFamily: "Inter",
+    fontFamily: "Inter_400Regular",
     textAlign: "center",
     fontSize: 14,
-    fontWeight: "normal",
+    fontWeight: "bold",
     color: "#97CE4C",
   },
   charList: {
-    display: "flex",
-    alignItems: "flex-start",
-    alignContent: "flex-start",
-    gap: 10,
-    flexWrap: "wrap",
-    margin: 5,
+    marginVertical: 10,
   },
 });
