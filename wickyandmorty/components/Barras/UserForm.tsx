@@ -21,11 +21,13 @@ interface ProfileFormProps {
   profile: Profile | null;
   onSave: (updatedProfile: Profile, avatarUpdated: boolean) => void;
   onLogout: () => void;
+  loading: boolean;
 }
 
 export default function ProfileForm({
   profile,
   onSave,
+  loading,
   onLogout,
 }: ProfileFormProps) {
   const [username, setUsername] = useState("");
@@ -47,7 +49,6 @@ export default function ProfileForm({
     if (profile) {
       onSave({ ...profile, username, avatar_url: avatarUrl }, avatarUpdated);
       setIsEditing(false);
-      setAvatarUpdated(false);
       //console.log(avatarUrl);
     }
   };
@@ -65,64 +66,67 @@ export default function ProfileForm({
   };
 
   return (
-    <SafeAreaView >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container} >
-            <View style={styles.dots}>
-              <Pressable onPress={() => setShowOptions(!showOptions)}>
-                <Icon
-                  name="ellipsis-vertical"
-                  size={25}
-                  color="#97CE4C"
-                  focused={false}
-                />
-                {showOptions && (
-              <View style={styles.menuOptions}>
-                <Pressable  onPress={handleSubmit}>
-                  <View style={styles.inline}>
-                    <Text style={styles.white}>Cerrar sesión</Text>
-                    <Icon name="exit" size={25} color="white" focused={false} />
-                  </View>
-                </Pressable>
-              </View>
-            )}
+    <SafeAreaView>
+  <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={styles.dots}>
+          <Pressable onPress={() => setShowOptions(!showOptions)}>
+            <Icon
+              name="ellipsis-vertical"
+              size={25}
+              color="#97CE4C"
+              focused={false}
+            />
+          </Pressable>
+          {showOptions && (
+            <View style={styles.menuOptions}>
+              <Pressable onPress={onLogout}>
+                <View style={styles.inline}>
+                  <Text style={styles.white}>Cerrar sesión</Text>
+                  <Icon
+                    name="exit"
+                    size={25}
+                    color="white"
+                    focused={false}
+                  />
+                </View>
               </Pressable>
             </View>
-            <View style={styles.inputDiv}>
-              <TouchableOpacity
-                style={styles.avatarButton}
-                onPress={handlePickImage}
-              >
-                <Avatar uri={avatarUrl} size={120} />
-              </TouchableOpacity>
-              {!isEditing ? (
-                  <View style={styles.inline}>
-                    <Text style={styles.text}>{profile?.username}</Text>
-                    <Pressable onPress={() => setIsEditing(true)}>
-                      <Icon focused={false} size={27} color="#97CE4C" name={"create"} />
-                    </Pressable>
-                  </View>
-                ) : (
-                      <View>
-                        <TextInput
-                          style={styles.input}
-                          placeholder="Nombre de usuario"
-                          value={username}
-                          onChangeText={setUsername}
-                        />
-                        <TouchableOpacity style={styles.save} onPress={handleSubmit}>
-                          <Text style={styles.white}>Save changes</Text>
-                        </TouchableOpacity>
-                      </View>
-                    )}
+          )}
+        </View>
+        <View style={styles.inputDiv}>
+          <TouchableOpacity
+            style={styles.avatarButton}
+            onPress={handlePickImage}
+          >
+            <Avatar uri={avatarUrl} size={120} />
+          </TouchableOpacity>
+          {!isEditing ? (
+            <View style={styles.inline}>
+              <Text style={styles.text}>{profile?.username}</Text>
+              <Pressable onPress={() => setIsEditing(true)}>
+                <Icon focused={false} size={27} color="#97CE4C" name={"create"} />
+              </Pressable>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          ) : (
+            <View>
+              <TextInput
+                style={styles.input}
+                placeholder="Nombre de usuario"
+                value={username}
+                onChangeText={setUsername}
+              />
+              <TouchableOpacity style={styles.save} onPress={handleSubmit}>
+                <Text style={styles.white}>Guardar cambios</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  </KeyboardAvoidingView>
+</SafeAreaView>
   );
 }
 
