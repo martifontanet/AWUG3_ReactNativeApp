@@ -21,19 +21,18 @@ interface ProfileFormProps {
   profile: Profile | null;
   onSave: (updatedProfile: Profile, avatarUpdated: boolean) => void;
   onLogout: () => void;
-  loading: boolean;
 }
 
 export default function ProfileForm({
   profile,
   onSave,
-  loading,
   onLogout,
 }: ProfileFormProps) {
   const [username, setUsername] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-  const [  avatarUpdated, setAvatarUpdated ] = useState(false);
+  const [avatarUpdated, setAvatarUpdated ] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
     if (profile?.username) {
@@ -48,6 +47,7 @@ export default function ProfileForm({
     if (profile) {
       onSave({ ...profile, username, avatar_url: avatarUrl }, avatarUpdated);
       setIsEditing(false);
+      setAvatarUpdated(false);
       //console.log(avatarUrl);
     }
   };
@@ -71,6 +71,26 @@ export default function ProfileForm({
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.container} >
+            <View style={styles.dots}>
+              <Pressable onPress={() => setShowOptions(!showOptions)}>
+                <Icon
+                  name="ellipsis-vertical"
+                  size={25}
+                  color="#97CE4C"
+                  focused={false}
+                />
+                {showOptions && (
+              <View style={styles.menuOptions}>
+                <Pressable  onPress={handleSubmit}>
+                  <View style={styles.inline}>
+                    <Text style={styles.white}>Cerrar sesión</Text>
+                    <Icon name="exit" size={25} color="white" focused={false} />
+                  </View>
+                </Pressable>
+              </View>
+            )}
+              </Pressable>
+            </View>
             <View style={styles.inputDiv}>
               <TouchableOpacity
                 style={styles.avatarButton}
@@ -86,7 +106,7 @@ export default function ProfileForm({
                     </Pressable>
                   </View>
                 ) : (
-                      <View style={styles.button}>
+                      <View>
                         <TextInput
                           style={styles.input}
                           placeholder="Nombre de usuario"
@@ -98,11 +118,6 @@ export default function ProfileForm({
                         </TouchableOpacity>
                       </View>
                     )}
-            </View>
-            <View style={styles.button}>
-              <TouchableOpacity style={styles.logOut} onPress={onLogout}>
-                <Text style={styles.white}>Cerrar sesión</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -117,6 +132,10 @@ const styles = StyleSheet.create({
   },
   inputDiv: {
     gap:5,
+  },
+  dots: {
+    alignItems: "flex-end",
+    marginRight: 40
   },
   avatarButton: {
     alignItems: "center",
@@ -142,8 +161,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
   },
-  button: {
-  },
   logOut: {
     backgroundColor: "red",
     padding: 10,
@@ -157,5 +174,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     alignSelf: "center",
     borderRadius:3,
+  },
+  menuOptions: {
+    backgroundColor: "red",
+    borderRadius: 5,
+    padding: 10,
+    position: "absolute",
+    top: 35,
+    right: 10,
+    zIndex: 1,
+    minWidth: 150,
   },
 });

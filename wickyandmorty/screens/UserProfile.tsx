@@ -133,7 +133,7 @@ const SavedPosts = () => {
 };
 
 export default function UserProfile() {
-  const { profile, loading, saveProfile } = useUserInfo();
+  const { profile, saveProfile } = useUserInfo();
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 
@@ -151,7 +151,6 @@ export default function UserProfile() {
     <View style={styles.container}>
       <UserForm
         profile={profile}
-        loading={loading!}
         onSave={saveProfile!}
         onLogout={() => supabase.auth.signOut()}
       />
