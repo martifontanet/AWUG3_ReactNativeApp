@@ -1,11 +1,11 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
-import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
+import { useFonts, Inter_700Bold } from '@expo-google-fonts/inter';
 
 export default function StatusLabel({ showCircle, status }) {
   
   let [fontsLoaded] = useFonts({
-    Inter_900Black,
+    Inter_700Bold,
   });
   return (
     <>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   buttonText: {
-    fontFamily: "Inter_900Black",
+    fontFamily: "Inter_700Bold",
     color: "#000000",
     fontSize: 13,
   },
