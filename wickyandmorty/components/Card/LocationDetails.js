@@ -39,28 +39,28 @@ export default function LocationDetail({ route }) {
   }, [id]);
 
   return (
-    <View style={[styles.container]}>
+    <ScrollView style={[styles.container]}>
       {loading && <Text>Location loading....</Text>}
       {error && <Text>{error}</Text>}
       {loc && fontsLoaded && (
         <>
           <Text style={styles.title}>{loc.name}</Text>
           <View style={styles.boxContainer}>
-            <DetailBox icon="location-on" label="Location Type" value={loc.type} />
-            <DetailBox icon="public" label="Dimension" value={loc.dimension} />
+            <DetailBox icon="location-on" iconColor="#97CE4C" label="Location Type" value={loc.type} />
+            <DetailBox icon="public" iconColor="#97CE4C" label="Dimension" value={loc.dimension} />
           </View>
           <View style={styles.center}>
             <Icon  name="person" size={30} color="white" />
           </View>
           <Text style={styles.text}>Residents: </Text>
-          <ScrollView contentContainerStyle={styles.scroll}>
+          <View style={styles.scroll}>
             {loc.residents.map((character, index) => (
               <EpilocPhoto key={index} link={character} />
             ))}
-          </ScrollView>
+          </View>
         </>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "normal",
     color: "white",
+    marginBottom: 20,
   },
   scroll: {
     gap: 10,
@@ -103,6 +104,5 @@ const styles = StyleSheet.create({
   },
   center: {
     alignItems: "center",
-    marginBottom: -20
   }
 });

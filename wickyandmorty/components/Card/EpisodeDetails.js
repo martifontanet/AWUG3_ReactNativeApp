@@ -49,11 +49,11 @@ export default function EpisodeDetail({ route }) {
         <>
           <Text style={styles.title}>{ep.name}</Text>
           <View style={styles.boxContainer}>
-            <DetailBox icon="date-range" label="Release Date" value={ep.air_date} />
-            <DetailBox icon="visibility" label="Season" value={ep.episode} />
+            <DetailBox icon="date-range" iconColor="#97CE4C" label="Release Date" value={ep.air_date} />
+            <DetailBox icon="visibility" iconColor="#97CE4C" label="Season" value={ep.episode} />
           </View>
           <View style={styles.center}>
-            <Icon  name="person" size={30} color="white" />
+            <Icon  name="person"  size={30} color="white" />
           </View>
           <Text style={styles.text}>Featured characters: </Text>
           <View style={styles.scroll}>

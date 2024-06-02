@@ -3,14 +3,13 @@ import {
   StyleSheet,
   Text,
   Image,
-  Pressable,
   FlatList,
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CharacterDetailsEpisodeList from "./CharacterDetailsEpisodeList";
-import { useFonts, Inter_400Regular, Inter_900Black } from '@expo-google-fonts/inter';
+import { useFonts, Inter_400Regular, Inter_900Black, Inter_700Bold } from '@expo-google-fonts/inter';
 import DetailBox from './CharacterDetailBox';
 
 export default function CharacterDetail({ route }) {
@@ -21,7 +20,8 @@ export default function CharacterDetail({ route }) {
   const [error, setError] = useState(null);
   let [fontsLoaded] = useFonts({
     Inter_400Regular,
-    Inter_900Black
+    Inter_900Black,
+    Inter_700Bold
   });
 
   const charDetail = async () => {
@@ -62,18 +62,20 @@ export default function CharacterDetail({ route }) {
           <Image source={{ uri: char.image }} style={styles.img} />
           <Text style={styles.title}>{char.name}</Text>
           <View style={styles.boxContainer}>
-            <DetailBox icon="pets" label="Species" value={char.species} />
-            <DetailBox icon="favorite" label="Status" value={char.status} />
-            <DetailBox icon="person" label="Gender" value={char.gender} />
+            <DetailBox icon="pets" iconColor="#97CE4C" label="Species" value={char.species} />
+            <DetailBox icon="favorite" iconColor="#97CE4C" label="Status" value={char.status} />
+            <DetailBox icon="person" iconColor="#97CE4C" label="Gender" value={char.gender} />
             <DetailBox
               icon="location-on"
               label="Location"
+              iconColor="white"
               value={char.location.name}
               onPress={() => {
                 const locationId = extractIdFromUrl(char.location.url);
                 navigation.navigate("LocationDetail", { id: locationId });
               }}
               customStyles={styles.clickableBox}
+              customStyles2={styles.clickableText}
             />
           </View>
           <Text style={styles.text}>Appearing Episodes:</Text>
@@ -130,8 +132,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   clickableBox: {
-    backgroundColor: '#222222',
+    backgroundColor: '#97CE4C',
     borderColor: '#97CE4C',
+  },
+  clickableText: {
+    color: 'white'
   },
   text: {
     fontFamily: "Inter_400Regular",

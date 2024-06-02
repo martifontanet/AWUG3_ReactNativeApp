@@ -1,19 +1,28 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
+import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 
 export default function StatusLabel({ showCircle, status }) {
+  
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+  });
   return (
-    <View style={styles.button}>
-      {showCircle &&
-        (status === "Alive" ? (
-          <View style={styles.alive} />
-        ) : status === "Dead" ? (
-          <View style={styles.dead} />
-        ) : (
-          <View style={styles.unknown} />
-        ))}
-      <Text style={styles.buttonText}>{status}</Text>
-    </View>
+    <>
+      {fontsLoaded && (
+      <View style={styles.button}>
+        {showCircle &&
+          (status === "Alive" ? (
+            <View style={styles.alive} />
+          ) : status === "Dead" ? (
+            <View style={styles.dead} />
+          ) : (
+            <View style={styles.unknown} />
+          ))}
+        <Text style={styles.buttonText}>{status}</Text>
+      </View>
+        )}
+    </>
   );
 }
 

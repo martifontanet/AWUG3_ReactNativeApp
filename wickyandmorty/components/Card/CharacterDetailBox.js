@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const DetailBox = ({ icon, label, value, onPress, customStyles }) => {
+const DetailBox = ({ icon, label, value, onPress, customStyles, customStyles2, iconColor }) => {
   const Container = onPress ? Pressable : View;
 
   return (
     <Container onPress={onPress} style={[styles.box, customStyles]}>
-      <Icon name={icon} size={30} color="#97CE4C" />
-      <Text style={styles.label}>{label}</Text>
+      <Icon name={icon} size={30} color={iconColor} />
+      <Text style={[styles.label, customStyles2]}>{label}</Text>
       <Text style={styles.value}>{value}</Text>
     </Container>
   );
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#444444',
   },
   label: {
+    fontFamily: "Inter_700Bold",
     fontSize: 16,
     color: '#97CE4C',
     marginVertical: 5,
