@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import PostInput from '../components/Barras/PostInput';
 import { supabase } from '../utils/clientSupabase';
 import { useUserInfo } from '../utils/userContext';
 import { PostsContext } from '../utils/postContext';
+import { RootStackParamList } from '../utils/types';
+
 
 export default function Publish() {
   const { addPost } = useContext(PostsContext);
   const { profile } = useUserInfo();
-  const navigation = useNavigation(); 
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>(); 
 
   const handleSubmit = async (content: string, image: string) => {
     try {

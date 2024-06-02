@@ -10,7 +10,7 @@ export default function LocationCard({ name, labelName, locID }) {
   const [pressed, setPressed] = useState(false);
 
   const handlePress = () => {
-    console.log("Click!");
+    //console.log("Click!");
     navigation.navigate("LocationDetail", { id: locID });
   };
 

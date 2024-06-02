@@ -1,39 +1,22 @@
 import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-import CharacterPhoto from "./CharacterPhoto";
-import {
-  beth,
-  jerry,
-  morty,
-  rick,
-  summer,
-  random1,
-  random2,
-} from "../../assets/characterIMG/index";
+import { useFonts, Inter_400Regular, Inter_900Black } from '@expo-google-fonts/inter';
 import EpilocPhoto from "./EpilocPhoto";
+import DetailBox from './CharacterDetailBox';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function EpisodeDetail({ route }) {
   const { id } = route.params;
   const [ep, setEp] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const char = [
-    beth,
-    jerry,
-    morty,
-    rick,
-    summer,
-    random1,
-    random2,
-    beth,
-    jerry,
-    rick,
-    morty,
-    summer,
-  ];
+  let [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_900Black
+  });
 
   const epDetail = async () => {
-    console.log(id);
+    //console.log(id);
     setError(null);
     setLoading(true);
     try {
@@ -45,8 +28,8 @@ export default function EpisodeDetail({ route }) {
       }
       const dataList = await response.json();
       setEp(dataList);
-      console.log("data : ", dataList);
-      console.log("ep data fetched : ", ep);
+      //console.log("data : ", dataList);
+      //console.log("ep data fetched : ", ep);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -59,35 +42,28 @@ export default function EpisodeDetail({ route }) {
   }, [id]);
 
   return (
-    <View style={[styles.container]}>
+    <ScrollView style={[styles.container]}>
       {loading && <Text>Detail loading....</Text>}
       {error && <Text>{error}</Text>}
-      {ep && (
+      {ep && fontsLoaded && (
         <>
           <Text style={styles.title}>{ep.name}</Text>
-          <Text style={styles.text}>Release date : {ep.air_date}</Text>
-          <Text style={styles.text}>Season : {ep.episode}</Text>
-
-          <Text style={styles.text}>Appearing characters: </Text>
-
-          <ScrollView contentContainerStyle={styles.scroll}>
-            {/* <CharacterPhoto character={jerry} />
-                <CharacterPhoto character={rick} />
-                <CharacterPhoto character={morty} />
-                <CharacterPhoto character={summer} />
-                <CharacterPhoto character={beth} />
-                <CharacterPhoto character={random1} />
-                <CharacterPhoto character={random2} />
-                <CharacterPhoto character={morty} />
-                <CharacterPhoto character={rick} /> */}
-
+          <View style={styles.boxContainer}>
+            <DetailBox icon="date-range" iconColor="#97CE4C" label="Release Date" value={ep.air_date} />
+            <DetailBox icon="visibility" iconColor="#97CE4C" label="Season" value={ep.episode} />
+          </View>
+          <View style={styles.center}>
+            <Icon  name="person"  size={30} color="white" />
+          </View>
+          <Text style={styles.text}>Featured characters: </Text>
+          <View style={styles.scroll}>
             {ep.characters.map((character, index) => (
               <EpilocPhoto key={index} link={character} />
             ))}
-          </ScrollView>
+          </View>
         </>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -102,24 +78,33 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   title: {
-    fontFamily: "Inter",
+    fontFamily: "Inter_900Black",
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold",
     color: "white",
   },
+  boxContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginVertical: 10,
+  },
   text: {
-    fontFamily: "Inter",
+    fontFamily: "Inter_400Regular",
     textAlign: "center",
     fontSize: 16,
     fontWeight: "normal",
     color: "white",
+    marginBottom: 10,
   },
   scroll: {
     gap: 10,
     display: "flex",
-    flexDirection: "row",
     flexWrap: "wrap",
+    flexDirection: "row",
     justifyContent: "center",
   },
+  center: {
+    alignItems: "center"
+  }
 });

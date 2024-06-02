@@ -19,7 +19,7 @@ export const PostsProvider = ({ children }: { children: ReactNode }) => {
     refreshPosts();
   }, []);
 
-  const refreshPosts = async () => {
+  const refreshPosts  = async () => {
     const fetchedPosts = await fetchPosts();
     setPosts(fetchedPosts);
   };

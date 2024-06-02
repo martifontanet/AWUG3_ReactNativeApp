@@ -10,7 +10,7 @@ export default function CharacterCard({ image, character, status, charID }) {
   const [pressed, setPressed] = useState(false);
 
   const handlePress = () => {
-    console.log("Click!");
+    //console.log("Click!");
     navigation.navigate("CharacterDetail", { id: charID });
   };
 

@@ -3,7 +3,7 @@ import Wiki from "../screens/Wiki";
 
 const Stack = createNativeStackNavigator();
 
-export default function HomeTab() {
+export default function WikiTab() {
   return (
     <Stack.Navigator>
       <Stack.Screen

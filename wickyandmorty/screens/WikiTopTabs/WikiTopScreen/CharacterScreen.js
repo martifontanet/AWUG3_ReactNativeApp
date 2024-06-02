@@ -1,10 +1,8 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useState, useEffect } from "react";
 import CharacterCard from "../../../components/Card/CharacterCard";
-import EpiLocCard from "../../../components/Card/EpisodeCard";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Button from "../../../components/Basic/Button";
-import Busqueda from "../../../components/Barras/BarraBusqueda";
 import SearchBar from "../../../components/Barras/SearchBar";
 
 const Tab = createMaterialTopTabNavigator();
@@ -20,12 +18,6 @@ export default function CharacterScreen() {
   const [error, setError] = useState(null);
 
   const [searchTerm, setSearchTerm] = useState(``);
-  // const {data:list, loading, error, fechData} = useFetcher();
-
-  // const charList = async () => {
-  //   fechData(getAllCharacter)
-  // }
-
   const charList = async () => {
     setError(null);
     setLoading(true);
