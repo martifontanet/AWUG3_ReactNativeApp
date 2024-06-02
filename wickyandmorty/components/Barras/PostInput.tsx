@@ -74,11 +74,11 @@ const styles = StyleSheet.create({
   },
   buton: {
     alignItems: "center",
-    backgroundColor: "#97CE4C",
+    backgroundColor: "#D4EAD0",
     padding: 10,
   },
   text: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
   },
   cross: {

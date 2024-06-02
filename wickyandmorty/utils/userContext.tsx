@@ -63,29 +63,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     avatarUpdated: boolean
   ) => {
     setLoading(true);
-
+  
     try {
-      if (updatedProfile.avatar_url && avatarUpdated) {
-        const { avatar_url } = updatedProfile;
-
-        const fileExt = avatar_url.split(".").pop();
-        const fileName = avatar_url.replace(/^.*[\\\/]/, "");
+      if (avatarUpdated) {
+        const fileExt = updatedProfile.avatar_url.split(".").pop();
+        const fileName = updatedProfile.avatar_url.replace(/^.*[\\\/]/, "");
         const filePath = `${Date.now()}.${fileExt}`;
-
+  
         const formData = new FormData();
         const photo = {
-          uri: avatar_url,
+          uri: updatedProfile.avatar_url,
           name: fileName,
           type: `image/${fileExt}`,
         } as unknown as Blob;
         formData.append("file", photo);
-
+  
         const { error } = await supabase.storage
           .from("avatars")
           .upload(filePath, formData);
         if (error) throw error;
         updatedProfile.avatar_url = filePath;
       }
+  
       const { error } = await supabase
         .from("profiles")
         .update(updatedProfile)
@@ -98,9 +97,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error: any) {
       Alert.alert("Server Error", error.message);
     }
-
+  
     setLoading(false);
   };
+  
 
   return (
     <UserContext.Provider value={{ ...userInfo, loading, saveProfile }}>

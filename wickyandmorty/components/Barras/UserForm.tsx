@@ -32,8 +32,9 @@ export default function ProfileForm({
 }: ProfileFormProps) {
   const [username, setUsername] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-  const [  avatarUpdated, setAvatarUpdated ] = useState(false);
+  const [avatarUpdated, setAvatarUpdated ] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
     if (profile?.username) {
@@ -65,49 +66,67 @@ export default function ProfileForm({
   };
 
   return (
-    <SafeAreaView >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container} >
-            <View style={styles.inputDiv}>
-              <TouchableOpacity
-                style={styles.avatarButton}
-                onPress={handlePickImage}
-              >
-                <Avatar uri={avatarUrl} size={120} />
-              </TouchableOpacity>
-              {!isEditing ? (
-                  <View style={styles.inline}>
-                    <Text style={styles.text}>{profile?.username}</Text>
-                    <Pressable onPress={() => setIsEditing(true)}>
-                      <Icon focused={false} size={27} color="#97CE4C" name={"create"} />
-                    </Pressable>
-                  </View>
-                ) : (
-                      <View style={styles.button}>
-                        <TextInput
-                          style={styles.input}
-                          placeholder="Nombre de usuario"
-                          value={username}
-                          onChangeText={setUsername}
-                        />
-                        <TouchableOpacity style={styles.save} onPress={handleSubmit}>
-                          <Text style={styles.white}>Save changes</Text>
-                        </TouchableOpacity>
-                      </View>
-                    )}
+    <SafeAreaView>
+  <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={styles.dots}>
+          <Pressable onPress={() => setShowOptions(!showOptions)}>
+            <Icon
+              name="ellipsis-vertical"
+              size={25}
+              color="#97CE4C"
+              focused={false}
+            />
+          </Pressable>
+          {showOptions && (
+            <View style={styles.menuOptions}>
+              <Pressable onPress={onLogout}>
+                <View style={styles.inline}>
+                  <Text style={styles.white}>Cerrar sesión</Text>
+                  <Icon
+                    name="exit"
+                    size={25}
+                    color="white"
+                    focused={false}
+                  />
+                </View>
+              </Pressable>
             </View>
-            <View style={styles.button}>
-              <TouchableOpacity style={styles.logOut} onPress={onLogout}>
-                <Text style={styles.white}>Cerrar sesión</Text>
+          )}
+        </View>
+        <View style={styles.inputDiv}>
+          <TouchableOpacity
+            style={styles.avatarButton}
+            onPress={handlePickImage}
+          >
+            <Avatar uri={avatarUrl} size={120} />
+          </TouchableOpacity>
+          {!isEditing ? (
+            <View style={styles.inline}>
+              <Text style={styles.text}>{profile?.username}</Text>
+              <Pressable onPress={() => setIsEditing(true)}>
+                <Icon focused={false} size={27} color="#97CE4C" name={"create"} />
+              </Pressable>
+            </View>
+          ) : (
+            <View>
+              <TextInput
+                style={styles.input}
+                placeholder="Nombre de usuario"
+                value={username}
+                onChangeText={setUsername}
+              />
+              <TouchableOpacity style={styles.save} onPress={handleSubmit}>
+                <Text style={styles.white}>Guardar cambios</Text>
               </TouchableOpacity>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          )}
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  </KeyboardAvoidingView>
+</SafeAreaView>
   );
 }
 
@@ -117,6 +136,10 @@ const styles = StyleSheet.create({
   },
   inputDiv: {
     gap:5,
+  },
+  dots: {
+    alignItems: "flex-end",
+    marginRight: 40
   },
   avatarButton: {
     alignItems: "center",
@@ -142,8 +165,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
   },
-  button: {
-  },
   logOut: {
     backgroundColor: "red",
     padding: 10,
@@ -157,5 +178,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     alignSelf: "center",
     borderRadius:3,
+  },
+  menuOptions: {
+    backgroundColor: "red",
+    borderRadius: 5,
+    padding: 10,
+    position: "absolute",
+    top: 35,
+    right: 10,
+    zIndex: 1,
+    minWidth: 150,
   },
 });
